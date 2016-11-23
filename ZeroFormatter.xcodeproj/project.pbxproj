@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		0E2E63101DE5F90D005C9DDB /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0E2E630E1DE5F90D005C9DDB /* Info.plist */; };
 		0E2E63111DE5F90D005C9DDB /* ZeroFormatter.h in Headers */ = {isa = PBXBuildFile; fileRef = 0E2E630F1DE5F90D005C9DDB /* ZeroFormatter.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		0E2E63131DE5FBFF005C9DDB /* PrimitiveSerializable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E2E63121DE5FBFF005C9DDB /* PrimitiveSerializable.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -16,6 +17,7 @@
 		0E2E63051DE5F8AF005C9DDB /* ZeroFormatter.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ZeroFormatter.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		0E2E630E1DE5F90D005C9DDB /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0E2E630F1DE5F90D005C9DDB /* ZeroFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZeroFormatter.h; sourceTree = "<group>"; };
+		0E2E63121DE5FBFF005C9DDB /* PrimitiveSerializable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrimitiveSerializable.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -50,6 +52,7 @@
 			isa = PBXGroup;
 			children = (
 				0E2E62FE1DE5F83F005C9DDB /* ZeroFormatter.swift */,
+				0E2E63121DE5FBFF005C9DDB /* PrimitiveSerializable.swift */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -107,6 +110,7 @@
 				TargetAttributes = {
 					0E2E63041DE5F8AF005C9DDB = {
 						CreatedOnToolsVersion = 8.1;
+						LastSwiftMigration = 0810;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -144,6 +148,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0E2E63131DE5FBFF005C9DDB /* PrimitiveSerializable.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -241,6 +246,7 @@
 		0E2E630B1DE5F8AF005C9DDB /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
@@ -256,6 +262,7 @@
 				PRODUCT_NAME = ZeroFormatter;
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
@@ -265,6 +272,7 @@
 		0E2E630C1DE5F8AF005C9DDB /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
