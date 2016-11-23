@@ -71,10 +71,10 @@ Implementation of [ZeroFormatter](https://github.com/neuecc/ZeroFormatter) in Sw
 
 | Implemented | Swift | C# | Note |
 | ---- | ---- | ---- | ---- |
-| | `Serializable` | `Object` | |
-| | `Serializable?` | `Object` | length = -1 |
-| | TBD | `Struct` | |
-| | TBD | `Struct?` | |
+| o | `ObjectSerializable` | `Object` | |
+| o | `ObjectSerializable?` | `Object` | length = -1 |
+| | `StructSerializable` | `Struct` | |
+| | `StructSerializable?` | `Struct?` | |
 
 ### Union Format
 
