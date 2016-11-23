@@ -12,6 +12,8 @@ public class ZeroFormatterSerializer {
     
     private init() {}
 
+    // MARK: - PrimitiveSerializable
+    
     static func serialize<T: PrimitiveSerializable>(_ value: T) -> Data {
         var data = Data()
         T.serialize(&data, value)
@@ -23,6 +25,8 @@ public class ZeroFormatterSerializer {
         T.serialize(&data, value)
         return data
     }
+    
+    // MARK: - Array of PrimitiveSerializable
     
     static func serialize<T: PrimitiveSerializable>(_ values: Array<T>) -> Data {
         var data = Data()
@@ -45,5 +49,31 @@ public class ZeroFormatterSerializer {
         }
         return data
     }
+    
+    // MARK: - Array of ObjectSerializable
+    
+    static func serialize<T: ObjectSerializable>(_ value: T) -> Data {
+        var data = Data()
+        let builder = ObjectBuilder(&data)
+        T.serialize(obj: value, builder: builder)
+        builder.build()
+        return data
+    }
+    
+    static func serialize<T: ObjectSerializable>(_ value: T?) -> Data {
+        var data = Data()
+        if let value = value {
+            let builder = ObjectBuilder(&data)
+            T.serialize(obj: value, builder: builder)
+            builder.build()
+        } else {
+            _serialize(&data, Int32(-1))
+        }
+        return data
+    }
+    
+    // MARK: - Array of ObjectSerializable
+    
+    // TODO: ...
     
 }

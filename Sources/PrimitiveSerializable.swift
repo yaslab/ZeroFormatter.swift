@@ -23,7 +23,7 @@ internal func _serialize<T: PrimitiveSerializable>(_ data: inout Data, _ value: 
     }
 }
 
-private func _serialize<T: PrimitiveSerializable>(_ data: inout Data, _ value: T?) {
+internal func _serialize<T: PrimitiveSerializable>(_ data: inout Data, _ value: T?) {
     if let value = value {
         data.append(1) // hasValue:bool(1)
         _serialize(&data, value)

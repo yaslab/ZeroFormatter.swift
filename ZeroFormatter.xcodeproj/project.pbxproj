@@ -11,6 +11,7 @@
 		0E2E63111DE5F90D005C9DDB /* ZeroFormatter.h in Headers */ = {isa = PBXBuildFile; fileRef = 0E2E630F1DE5F90D005C9DDB /* ZeroFormatter.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0E2E63131DE5FBFF005C9DDB /* PrimitiveSerializable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E2E63121DE5FBFF005C9DDB /* PrimitiveSerializable.swift */; };
 		0E2E63151DE600A9005C9DDB /* ZeroFormatterSerializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E2E63141DE600A9005C9DDB /* ZeroFormatterSerializer.swift */; };
+		0E2E63171DE6024F005C9DDB /* ObjectSerializable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E2E63161DE6024F005C9DDB /* ObjectSerializable.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -20,6 +21,7 @@
 		0E2E630F1DE5F90D005C9DDB /* ZeroFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZeroFormatter.h; sourceTree = "<group>"; };
 		0E2E63121DE5FBFF005C9DDB /* PrimitiveSerializable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrimitiveSerializable.swift; sourceTree = "<group>"; };
 		0E2E63141DE600A9005C9DDB /* ZeroFormatterSerializer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZeroFormatterSerializer.swift; sourceTree = "<group>"; };
+		0E2E63161DE6024F005C9DDB /* ObjectSerializable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObjectSerializable.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -53,6 +55,7 @@
 		0E2E62FD1DE5F7FB005C9DDB /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				0E2E63161DE6024F005C9DDB /* ObjectSerializable.swift */,
 				0E2E63121DE5FBFF005C9DDB /* PrimitiveSerializable.swift */,
 				0E2E62FE1DE5F83F005C9DDB /* ZeroFormatter.swift */,
 				0E2E63141DE600A9005C9DDB /* ZeroFormatterSerializer.swift */,
@@ -153,6 +156,7 @@
 			files = (
 				0E2E63151DE600A9005C9DDB /* ZeroFormatterSerializer.swift in Sources */,
 				0E2E63131DE5FBFF005C9DDB /* PrimitiveSerializable.swift in Sources */,
+				0E2E63171DE6024F005C9DDB /* ObjectSerializable.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
