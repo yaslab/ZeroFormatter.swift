@@ -50,7 +50,7 @@ public class ZeroFormatterSerializer {
         return data
     }
     
-    // MARK: - Array of ObjectSerializable
+    // MARK: - ObjectSerializable
     
     static func serialize<T: ObjectSerializable>(_ value: T) -> Data {
         var data = Data()
