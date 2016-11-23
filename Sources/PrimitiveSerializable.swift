@@ -13,7 +13,7 @@ public protocol PrimitiveSerializable {
     static func serialize(_ data: inout Data, _ value: Self?)
 }
 
-private func _serialize<T: PrimitiveSerializable>(_ data: inout Data, _ value: T) {
+internal func _serialize<T: PrimitiveSerializable>(_ data: inout Data, _ value: T) {
     var value = value
     withUnsafeBytes(of: &value) { (bytes) -> Void in
         data.append(
