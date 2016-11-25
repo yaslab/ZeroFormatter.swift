@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "0E2E63041DE5F8AF005C9DDB"
-               BuildableName = "ZeroFormatter-macOS.framework"
+               BuildableName = "ZeroFormatter.framework"
                BlueprintName = "ZeroFormatter-macOS"
                ReferencedContainer = "container:ZeroFormatter.xcodeproj">
             </BuildableReference>
@@ -28,7 +28,26 @@
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "0E2F46051DE887E50088B4EA"
+               BuildableName = "ZeroFormatterTests.xctest"
+               BlueprintName = "ZeroFormatterTests-macOS"
+               ReferencedContainer = "container:ZeroFormatter.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "0E2E63041DE5F8AF005C9DDB"
+            BuildableName = "ZeroFormatter.framework"
+            BlueprintName = "ZeroFormatter-macOS"
+            ReferencedContainer = "container:ZeroFormatter.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
       <AdditionalOptions>
       </AdditionalOptions>
    </TestAction>
@@ -46,7 +65,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "0E2E63041DE5F8AF005C9DDB"
-            BuildableName = "ZeroFormatter-macOS.framework"
+            BuildableName = "ZeroFormatter.framework"
             BlueprintName = "ZeroFormatter-macOS"
             ReferencedContainer = "container:ZeroFormatter.xcodeproj">
          </BuildableReference>
@@ -64,7 +83,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "0E2E63041DE5F8AF005C9DDB"
-            BuildableName = "ZeroFormatter-macOS.framework"
+            BuildableName = "ZeroFormatter.framework"
             BlueprintName = "ZeroFormatter-macOS"
             ReferencedContainer = "container:ZeroFormatter.xcodeproj">
          </BuildableReference>

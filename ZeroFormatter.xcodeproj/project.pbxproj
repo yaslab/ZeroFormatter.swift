@@ -7,12 +7,26 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0E2E63101DE5F90D005C9DDB /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0E2E630E1DE5F90D005C9DDB /* Info.plist */; };
 		0E2E63111DE5F90D005C9DDB /* ZeroFormatter.h in Headers */ = {isa = PBXBuildFile; fileRef = 0E2E630F1DE5F90D005C9DDB /* ZeroFormatter.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0E2E63131DE5FBFF005C9DDB /* PrimitiveSerializable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E2E63121DE5FBFF005C9DDB /* PrimitiveSerializable.swift */; };
 		0E2E63151DE600A9005C9DDB /* ZeroFormatterSerializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E2E63141DE600A9005C9DDB /* ZeroFormatterSerializer.swift */; };
 		0E2E63171DE6024F005C9DDB /* ObjectSerializable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E2E63161DE6024F005C9DDB /* ObjectSerializable.swift */; };
+		0E2F45F01DE705440088B4EA /* PrimitiveDeserializable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E2F45EF1DE705440088B4EA /* PrimitiveDeserializable.swift */; };
+		0E2F45F21DE721900088B4EA /* ObjectDeserializable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E2F45F11DE721900088B4EA /* ObjectDeserializable.swift */; };
+		0E2F460B1DE887E60088B4EA /* ZeroFormatter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E2E63051DE5F8AF005C9DDB /* ZeroFormatter.framework */; };
+		0E2F46141DE88A050088B4EA /* ZeroFormatterTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E2F46131DE88A050088B4EA /* ZeroFormatterTestCase.swift */; };
+		0E2F46151DE88BDB0088B4EA /* ZeroFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E2E62FE1DE5F83F005C9DDB /* ZeroFormatter.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		0E2F460C1DE887E60088B4EA /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0E2E62EB1DE5F7BF005C9DDB /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 0E2E63041DE5F8AF005C9DDB;
+			remoteInfo = "ZeroFormatter-macOS";
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		0E2E62FE1DE5F83F005C9DDB /* ZeroFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZeroFormatter.swift; sourceTree = "<group>"; };
@@ -22,6 +36,11 @@
 		0E2E63121DE5FBFF005C9DDB /* PrimitiveSerializable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrimitiveSerializable.swift; sourceTree = "<group>"; };
 		0E2E63141DE600A9005C9DDB /* ZeroFormatterSerializer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZeroFormatterSerializer.swift; sourceTree = "<group>"; };
 		0E2E63161DE6024F005C9DDB /* ObjectSerializable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObjectSerializable.swift; sourceTree = "<group>"; };
+		0E2F45EF1DE705440088B4EA /* PrimitiveDeserializable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrimitiveDeserializable.swift; sourceTree = "<group>"; };
+		0E2F45F11DE721900088B4EA /* ObjectDeserializable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObjectDeserializable.swift; sourceTree = "<group>"; };
+		0E2F45FB1DE887B10088B4EA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		0E2F46061DE887E50088B4EA /* ZeroFormatterTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ZeroFormatterTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		0E2F46131DE88A050088B4EA /* ZeroFormatterTestCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZeroFormatterTestCase.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -32,6 +51,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		0E2F46031DE887E50088B4EA /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0E2F460B1DE887E60088B4EA /* ZeroFormatter.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -39,7 +66,9 @@
 			isa = PBXGroup;
 			children = (
 				0E2E62FD1DE5F7FB005C9DDB /* Sources */,
+				0E2F46111DE889770088B4EA /* Tests */,
 				0E2E630D1DE5F90D005C9DDB /* ZeroFormatter */,
+				0E2F45F81DE887B10088B4EA /* ZeroFormatterTests */,
 				0E2E62F41DE5F7BF005C9DDB /* Products */,
 			);
 			sourceTree = "<group>";
@@ -48,6 +77,7 @@
 			isa = PBXGroup;
 			children = (
 				0E2E63051DE5F8AF005C9DDB /* ZeroFormatter.framework */,
+				0E2F46061DE887E50088B4EA /* ZeroFormatterTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -55,7 +85,9 @@
 		0E2E62FD1DE5F7FB005C9DDB /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				0E2F45F11DE721900088B4EA /* ObjectDeserializable.swift */,
 				0E2E63161DE6024F005C9DDB /* ObjectSerializable.swift */,
+				0E2F45EF1DE705440088B4EA /* PrimitiveDeserializable.swift */,
 				0E2E63121DE5FBFF005C9DDB /* PrimitiveSerializable.swift */,
 				0E2E62FE1DE5F83F005C9DDB /* ZeroFormatter.swift */,
 				0E2E63141DE600A9005C9DDB /* ZeroFormatterSerializer.swift */,
@@ -70,6 +102,30 @@
 				0E2E630F1DE5F90D005C9DDB /* ZeroFormatter.h */,
 			);
 			path = ZeroFormatter;
+			sourceTree = "<group>";
+		};
+		0E2F45F81DE887B10088B4EA /* ZeroFormatterTests */ = {
+			isa = PBXGroup;
+			children = (
+				0E2F45FB1DE887B10088B4EA /* Info.plist */,
+			);
+			path = ZeroFormatterTests;
+			sourceTree = "<group>";
+		};
+		0E2F46111DE889770088B4EA /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+				0E2F46121DE889A60088B4EA /* ZeroFormatterTests */,
+			);
+			path = Tests;
+			sourceTree = "<group>";
+		};
+		0E2F46121DE889A60088B4EA /* ZeroFormatterTests */ = {
+			isa = PBXGroup;
+			children = (
+				0E2F46131DE88A050088B4EA /* ZeroFormatterTestCase.swift */,
+			);
+			path = ZeroFormatterTests;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -104,6 +160,24 @@
 			productReference = 0E2E63051DE5F8AF005C9DDB /* ZeroFormatter.framework */;
 			productType = "com.apple.product-type.framework";
 		};
+		0E2F46051DE887E50088B4EA /* ZeroFormatterTests-macOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 0E2F460E1DE887E60088B4EA /* Build configuration list for PBXNativeTarget "ZeroFormatterTests-macOS" */;
+			buildPhases = (
+				0E2F46021DE887E50088B4EA /* Sources */,
+				0E2F46031DE887E50088B4EA /* Frameworks */,
+				0E2F46041DE887E50088B4EA /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				0E2F460D1DE887E60088B4EA /* PBXTargetDependency */,
+			);
+			name = "ZeroFormatterTests-macOS";
+			productName = "ZeroFormatterTests-macOS";
+			productReference = 0E2F46061DE887E50088B4EA /* ZeroFormatterTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -115,6 +189,11 @@
 				ORGANIZATIONNAME = yaslab;
 				TargetAttributes = {
 					0E2E63041DE5F8AF005C9DDB = {
+						CreatedOnToolsVersion = 8.1;
+						LastSwiftMigration = 0810;
+						ProvisioningStyle = Automatic;
+					};
+					0E2F46051DE887E50088B4EA = {
 						CreatedOnToolsVersion = 8.1;
 						LastSwiftMigration = 0810;
 						ProvisioningStyle = Automatic;
@@ -134,6 +213,7 @@
 			projectRoot = "";
 			targets = (
 				0E2E63041DE5F8AF005C9DDB /* ZeroFormatter-macOS */,
+				0E2F46051DE887E50088B4EA /* ZeroFormatterTests-macOS */,
 			);
 		};
 /* End PBXProject section */
@@ -143,7 +223,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0E2E63101DE5F90D005C9DDB /* Info.plist in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0E2F46041DE887E50088B4EA /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -155,12 +241,31 @@
 			buildActionMask = 2147483647;
 			files = (
 				0E2E63151DE600A9005C9DDB /* ZeroFormatterSerializer.swift in Sources */,
+				0E2F45F01DE705440088B4EA /* PrimitiveDeserializable.swift in Sources */,
 				0E2E63131DE5FBFF005C9DDB /* PrimitiveSerializable.swift in Sources */,
 				0E2E63171DE6024F005C9DDB /* ObjectSerializable.swift in Sources */,
+				0E2F46151DE88BDB0088B4EA /* ZeroFormatter.swift in Sources */,
+				0E2F45F21DE721900088B4EA /* ObjectDeserializable.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0E2F46021DE887E50088B4EA /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0E2F46141DE88A050088B4EA /* ZeroFormatterTestCase.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		0E2F460D1DE887E60088B4EA /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 0E2E63041DE5F8AF005C9DDB /* ZeroFormatter-macOS */;
+			targetProxy = 0E2F460C1DE887E60088B4EA /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		0E2E62F81DE5F7BF005C9DDB /* Debug */ = {
@@ -302,6 +407,37 @@
 			};
 			name = Release;
 		};
+		0E2F460F1DE887E60088B4EA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = ZeroFormatterTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				PRODUCT_BUNDLE_IDENTIFIER = net.yaslab.ZeroFormatterTests;
+				PRODUCT_NAME = ZeroFormatterTests;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Debug;
+		};
+		0E2F46101DE887E60088B4EA /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = ZeroFormatterTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				PRODUCT_BUNDLE_IDENTIFIER = net.yaslab.ZeroFormatterTests;
+				PRODUCT_NAME = ZeroFormatterTests;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -321,6 +457,16 @@
 				0E2E630C1DE5F8AF005C9DDB /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		0E2F460E1DE887E60088B4EA /* Build configuration list for PBXNativeTarget "ZeroFormatterTests-macOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0E2F460F1DE887E60088B4EA /* Debug */,
+				0E2F46101DE887E60088B4EA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
