@@ -14,14 +14,14 @@ public protocol ObjectSerializable {
 
 public class ObjectBuilder {
     
-    private var data: Data
+    private var data: NSMutableData
     private let offset: Int
     
     private var appendFunctions = [(() -> Void)]()
     
-    internal init(_ data: inout Data) {
+    internal init(_ data: NSMutableData) {
         self.data = data
-        self.offset = data.count
+        self.offset = data.length
     }
     
     private func begin() {
@@ -29,33 +29,27 @@ public class ObjectBuilder {
         
         let zero = Int32(0)
         // byteSize
-        _serialize(&data, zero)
+        _serialize(data, zero)
         // lastIndex
-        _serialize(&data, Int32(lastIndex).littleEndian)
+        _serialize(data, Int32(lastIndex).littleEndian)
         // indexOffset
         for _ in 0 ... lastIndex {
-            _serialize(&data, zero)
+            _serialize(data, zero)
         }
     }
     
     private func updateIndexOffset(_ index: Int) {
-        let indexOffset = Int32(data.count)
+        let indexOffset = Int32(data.length)
         
-        data.withUnsafeMutableBytes { (bytes: UnsafeMutablePointer<UInt8>) -> Void in
-            (bytes + offset + 4 + 4 + (4 * index)).withMemoryRebound(to: Int32.self, capacity: 1) {
-                $0[0] = indexOffset.littleEndian
-            }
-        }
+        let p = data.mutableBytes + offset + 4 + 4 + (4 * index)
+        p.assumingMemoryBound(to: Int32.self)[0] = indexOffset.littleEndian
     }
     
     private func end() {
-        let byteSize = Int32(data.count - offset)
-        
-        data.withUnsafeMutableBytes { (bytes: UnsafeMutablePointer<UInt8>) -> Void in
-            (bytes + offset).withMemoryRebound(to: Int32.self, capacity: 1) {
-                $0[0] = byteSize.littleEndian
-            }
-        }
+        let byteSize = Int32(data.length - offset)
+
+        let p = data.mutableBytes + offset
+        p.assumingMemoryBound(to: Int32.self)[0] = byteSize.littleEndian
     }
     
     internal func build() {
@@ -70,18 +64,18 @@ public class ObjectBuilder {
     // -----
     
     public func append<T: PrimitiveSerializable>(_ value: T) {
-        appendFunctions.append({ [unowned self] in _serialize(&self.data, value) })
+        appendFunctions.append({ [unowned self] in _serialize(self.data, value) })
     }
     
     public func append<T: PrimitiveSerializable>(_ value: T?) {
-        appendFunctions.append({ [unowned self] in _serialize(&self.data, value) })
+        appendFunctions.append({ [unowned self] in _serialize(self.data, value) })
     }
     
     // -----
     
     public func append<T: ObjectSerializable>(_ value: T) {
         appendFunctions.append({ [unowned self] in
-            let builder = ObjectBuilder(&self.data)
+            let builder = ObjectBuilder(self.data)
             T.serialize(obj: value, builder: builder)
             builder.build()
         })
@@ -90,11 +84,11 @@ public class ObjectBuilder {
     public func append<T: ObjectSerializable>(_ value: T?) {
         appendFunctions.append({ [unowned self] in
             if let value = value {
-                let builder = ObjectBuilder(&self.data)
+                let builder = ObjectBuilder(self.data)
                 T.serialize(obj: value, builder: builder)
                 builder.build()
             } else {
-                _serialize(&self.data, Int32(-1))
+                _serialize(self.data, Int32(-1))
             }
         })
     }
