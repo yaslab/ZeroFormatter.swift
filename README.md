@@ -75,8 +75,8 @@ Implementation of [ZeroFormatter](https://github.com/neuecc/ZeroFormatter) in Sw
 | ---- | ---- | ---- | ---- |
 | o | `ObjectSerializable` | `Object` | |
 | o | `ObjectSerializable?` | `Object` | byteSize = -1 |
-| | `StructSerializable` | `Struct` | |
-| | `StructSerializable?` | `Struct?` | |
+| o | `StructSerializable` | `Struct` | |
+| o | `StructSerializable?` | `Struct?` | |
 
 ### Union Format
 
