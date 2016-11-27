@@ -14,7 +14,7 @@ public protocol ObjectSerializable {
 
 public class ObjectBuilder {
     
-    private var data: NSMutableData
+    private let data: NSMutableData
     private let offset: Int
     
     private var appendFunctions = [(() -> Void)]()
