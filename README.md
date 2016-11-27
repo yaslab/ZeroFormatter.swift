@@ -1,5 +1,7 @@
 # ZeroFormatter.swift
 
+[![Build Status](https://travis-ci.org/yaslab/ZeroFormatter.swift.svg?branch=master)](https://travis-ci.org/yaslab/ZeroFormatter.swift)
+
 Implementation of [ZeroFormatter](https://github.com/neuecc/ZeroFormatter) in Swift.
 
 ## How to use
