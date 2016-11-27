@@ -76,4 +76,33 @@ public class ZeroFormatterSerializer {
     
     // TODO: ...
     
+    // MARK: - PrimitiveDeserializable
+    
+    public static func deserialize<T: PrimitiveDeserializable>(_ data: Data) -> T {
+        return T.deserialize(data, 0)
+    }
+    
+    public static func deserialize<T: PrimitiveDeserializable>(_ data: Data) -> T? {
+        return T.deserialize(data, 0)
+    }
+    
+    // MARK: - ObjectDeserializable
+    
+    public static func deserialize<T: ObjectDeserializable>(_ data: Data) -> T {
+        let extractor = ObjectExtractor(data, 0)
+        if extractor.isNil {
+            // TODO: throw error
+        }
+        return T.deserialize(extractor: extractor)
+    }
+    
+    public static func deserialize<T: ObjectDeserializable>(_ data: Data) -> T? {
+        let extractor = ObjectExtractor(data, 0)
+        if extractor.isNil {
+            return nil
+        }
+        let obj: T = T.deserialize(extractor: extractor)
+        return obj
+    }
+    
 }
