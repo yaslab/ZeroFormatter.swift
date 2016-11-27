@@ -93,4 +93,25 @@ public class ObjectBuilder {
         })
     }
     
+    // -----
+    
+    public func append<T: StructSerializable>(_ value: T) {
+        appendFunctions.append({ [unowned self] in
+            let builder = StructBuilder(self.data)
+            T.serialize(obj: value, builder: builder)
+        })
+    }
+    
+    public func append<T: StructSerializable>(_ value: T?) {
+        appendFunctions.append({ [unowned self] in
+            if let value = value {
+                _serialize(self.data, UInt8(1)) // hasValue
+                let builder = StructBuilder(self.data)
+                T.serialize(obj: value, builder: builder)
+            } else {
+                _serialize(self.data, UInt8(0)) // hasValue
+            }
+        })
+    }
+    
 }

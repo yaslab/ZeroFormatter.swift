@@ -42,11 +42,11 @@ public class StructBuilder {
     
     public func append<T: ObjectSerializable>(_ value: T?) {
         if let value = value {
-            let builder = ObjectBuilder(self.data)
+            let builder = ObjectBuilder(data)
             T.serialize(obj: value, builder: builder)
             builder.build()
         } else {
-            _serialize(self.data, Int32(-1))
+            _serialize(data, Int32(-1))
         }
     }
     
@@ -59,10 +59,11 @@ public class StructBuilder {
     
     public func append<T: StructSerializable>(_ value: T?) {
         if let value = value {
-            let builder = StructBuilder(self.data)
+            _serialize(self.data, UInt8(1)) // hasValue
+            let builder = StructBuilder(data)
             T.serialize(obj: value, builder: builder)
         } else {
-            _serialize(self.data, Int32(-1))
+            _serialize(self.data, UInt8(0)) // hasValue
         }
     }
     

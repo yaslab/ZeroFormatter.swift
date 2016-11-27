@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		0E2B8ED41DEB005600B157D9 /* StructSerializable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E2B8ED31DEB005600B157D9 /* StructSerializable.swift */; };
+		0E2B8ED61DEB0BD000B157D9 /* StructDeserializable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E2B8ED51DEB0BD000B157D9 /* StructDeserializable.swift */; };
 		0E2E63111DE5F90D005C9DDB /* ZeroFormatter.h in Headers */ = {isa = PBXBuildFile; fileRef = 0E2E630F1DE5F90D005C9DDB /* ZeroFormatter.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0E2E63131DE5FBFF005C9DDB /* PrimitiveSerializable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E2E63121DE5FBFF005C9DDB /* PrimitiveSerializable.swift */; };
 		0E2E63151DE600A9005C9DDB /* ZeroFormatterSerializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E2E63141DE600A9005C9DDB /* ZeroFormatterSerializer.swift */; };
@@ -31,6 +32,7 @@
 
 /* Begin PBXFileReference section */
 		0E2B8ED31DEB005600B157D9 /* StructSerializable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StructSerializable.swift; sourceTree = "<group>"; };
+		0E2B8ED51DEB0BD000B157D9 /* StructDeserializable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StructDeserializable.swift; sourceTree = "<group>"; };
 		0E2E62FE1DE5F83F005C9DDB /* ZeroFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZeroFormatter.swift; sourceTree = "<group>"; };
 		0E2E63051DE5F8AF005C9DDB /* ZeroFormatter.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ZeroFormatter.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		0E2E630E1DE5F90D005C9DDB /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -91,6 +93,7 @@
 				0E2E63161DE6024F005C9DDB /* ObjectSerializable.swift */,
 				0E2F45EF1DE705440088B4EA /* PrimitiveDeserializable.swift */,
 				0E2E63121DE5FBFF005C9DDB /* PrimitiveSerializable.swift */,
+				0E2B8ED51DEB0BD000B157D9 /* StructDeserializable.swift */,
 				0E2B8ED31DEB005600B157D9 /* StructSerializable.swift */,
 				0E2E62FE1DE5F83F005C9DDB /* ZeroFormatter.swift */,
 				0E2E63141DE600A9005C9DDB /* ZeroFormatterSerializer.swift */,
@@ -245,6 +248,7 @@
 			files = (
 				0E2B8ED41DEB005600B157D9 /* StructSerializable.swift in Sources */,
 				0E2E63151DE600A9005C9DDB /* ZeroFormatterSerializer.swift in Sources */,
+				0E2B8ED61DEB0BD000B157D9 /* StructDeserializable.swift in Sources */,
 				0E2F45F01DE705440088B4EA /* PrimitiveDeserializable.swift in Sources */,
 				0E2E63131DE5FBFF005C9DDB /* PrimitiveSerializable.swift in Sources */,
 				0E2E63171DE6024F005C9DDB /* ObjectSerializable.swift in Sources */,

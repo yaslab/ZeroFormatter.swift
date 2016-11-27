@@ -34,7 +34,7 @@ struct MyObject: ObjectSerializable, ObjectDeserializable {
     
 }
 
-struct MyStruct: StructSerializable {
+struct MyStruct: StructSerializable, StructDeserializable {
     
     let a: UInt8
     let b: Int32
@@ -47,6 +47,39 @@ struct MyStruct: StructSerializable {
         builder.append(obj.b)
         // Index(2)
         builder.append(obj.c)
+    }
+    
+    static func deserialize(extractor: StructExtractor) -> MyStruct {
+        return MyStruct(
+            a: extractor.extract(index: 0),
+            b: extractor.extract(index: 1),
+            c: extractor.extract(index: 2)
+        )
+    }
+    
+}
+
+struct MyStruct2: StructSerializable, StructDeserializable {
+    
+    let x: UInt32
+    let y: MyObject
+    let z: UInt32
+    
+    static func serialize(obj: MyStruct2, builder: StructBuilder) {
+        // Index(0)
+        builder.append(obj.x)
+        // Index(1)
+        builder.append(obj.y)
+        // Index(2)
+        builder.append(obj.z)
+    }
+    
+    static func deserialize(extractor: StructExtractor) -> MyStruct2 {
+        return MyStruct2(
+            x: extractor.extract(index: 0),
+            y: extractor.extract(index: 1),
+            z: extractor.extract(index: 2)
+        )
     }
     
 }
@@ -86,9 +119,9 @@ class ZeroFormatterTestCase: XCTestCase {
             0x14, 0x00, 0x00, 0x00, // indexOffset[0]: 20
             0x18, 0x00, 0x00, 0x00, // indexOffset[1]: 24
             0x20, 0x00, 0x00, 0x00, // indexOffset[2]: 32
-            0xd2, 0x04, 0x00, 0x00, // 1234
-            0x2e, 0x16, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // 5678
-            0x34, 0x23 // 9012
+            0xd2, 0x04, 0x00, 0x00, // a: 1234
+            0x2e, 0x16, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // b: 5678
+            0x34, 0x23 // c: 9012
         ]
         let actual = ZeroFormatterSerializer.serialize(testData)
 
@@ -102,9 +135,9 @@ class ZeroFormatterTestCase: XCTestCase {
             0x14, 0x00, 0x00, 0x00, // indexOffset[0]: 20
             0x18, 0x00, 0x00, 0x00, // indexOffset[1]: 24
             0x20, 0x00, 0x00, 0x00, // indexOffset[2]: 32
-            0xd2, 0x04, 0x00, 0x00, // 1234
-            0x2e, 0x16, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // 5678
-            0x34, 0x23 // 9012
+            0xd2, 0x04, 0x00, 0x00, // a: 1234
+            0x2e, 0x16, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // b: 5678
+            0x34, 0x23 // c: 9012
         ]
         
         let expexted = MyObject(a: 1234, b: 5678, c: 9012)
@@ -126,6 +159,52 @@ class ZeroFormatterTestCase: XCTestCase {
         let actual = ZeroFormatterSerializer.serialize(testData)
         
         XCTAssertEqual(Array(actual), expexted)
+    }
+    
+    func testDeserializeMyStruct() {
+        let testData: [UInt8] = [
+            0xfa, // UInt8 = 250
+            0xf4, 0x01, 0x00, 0x00, // Int32 = 500
+            0xe8, 0x03 // UInt16 = 1000
+        ]
+        
+        let expexted = MyStruct(a: 250, b: 500, c: 1000)
+        let actual: MyStruct = ZeroFormatterSerializer.deserialize(Data(bytes: testData))
+        
+        XCTAssertEqual(actual.a, expexted.a)
+        XCTAssertEqual(actual.b, expexted.b)
+        XCTAssertEqual(actual.c, expexted.c)
+    }
+    
+    func testDeserializeClassInStruct() {
+        let testData: [UInt8] = [
+            0x57, 0x04, 0x00, 0x00, // x: 1111
+            
+            // y:
+            0x22, 0x00, 0x00, 0x00, // byteSize: 34
+            0x02, 0x00, 0x00, 0x00, // lastIndex: 2
+            0x18, 0x00, 0x00, 0x00, // indexOffset[0]: 24
+            0x1c, 0x00, 0x00, 0x00, // indexOffset[1]: 28
+            0x24, 0x00, 0x00, 0x00, // indexOffset[2]: 36
+            0xd2, 0x04, 0x00, 0x00, // a: 1234
+            0x2e, 0x16, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // b: 5678
+            0x34, 0x23, // c: 9012
+            
+            0x58, 0x04, 0x00, 0x00 // z: 1112
+        ]
+        
+        let expexted = MyStruct2(
+            x: 1111,
+            y: MyObject(a: 1234, b: 5678, c: 9012),
+            z: 1112
+        )
+        let actual: MyStruct2 = ZeroFormatterSerializer.deserialize(Data(bytes: testData))
+        
+        XCTAssertEqual(actual.x, expexted.x)
+        XCTAssertEqual(actual.y.a, expexted.y.a)
+        XCTAssertEqual(actual.y.b, expexted.y.b)
+        XCTAssertEqual(actual.y.c, expexted.y.c)
+        XCTAssertEqual(actual.z, expexted.z)
     }
     
 }

@@ -126,4 +126,17 @@ public class ZeroFormatterSerializer {
         return obj
     }
     
+    // MARK: - StructDeserializable
+    
+    public static func deserialize<T: StructDeserializable>(_ data: Data) -> T {
+        let extractor = StructExtractor(data, 0)
+        return T.deserialize(extractor: extractor)
+    }
+    
+    public static func deserialize<T: StructDeserializable>(_ data: Data) -> T? {
+        let extractor = StructExtractor(data, 0)
+        let obj: T = T.deserialize(extractor: extractor)
+        return obj
+    }
+    
 }
