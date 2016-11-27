@@ -76,6 +76,27 @@ public class ZeroFormatterSerializer {
     
     // TODO: ...
     
+    // MARK: - ObjectDeserializable
+    
+    public static func serialize<T: StructSerializable>(_ value: T) -> Data {
+        let data = NSMutableData()
+        let builder = StructBuilder(data)
+        T.serialize(obj: value, builder: builder)
+        return data as Data
+    }
+    
+    public static func serialize<T: StructSerializable>(_ value: T?) -> Data {
+        let data = NSMutableData()
+        if let value = value {
+            _serialize(data, UInt8(1)) // hasValue
+            let builder = StructBuilder(data)
+            T.serialize(obj: value, builder: builder)
+        } else {
+            _serialize(data, UInt8(0)) // hasValue
+        }
+        return data as Data
+    }
+    
     // MARK: - PrimitiveDeserializable
     
     public static func deserialize<T: PrimitiveDeserializable>(_ data: Data) -> T {

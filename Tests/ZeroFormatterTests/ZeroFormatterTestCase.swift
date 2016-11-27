@@ -3,7 +3,7 @@
 //  ZeroFormatter
 //
 //  Created by Yasuhiro Hatta on 2016/11/26.
-//  Copyright © 2016年 yaslab. All rights reserved.
+//  Copyright © 2016 yaslab. All rights reserved.
 //
 
 import XCTest
@@ -30,6 +30,23 @@ struct MyObject: ObjectSerializable, ObjectDeserializable {
             b: extractor.extract(index: 1),
             c: extractor.extract(index: 2)
         )
+    }
+    
+}
+
+struct MyStruct: StructSerializable {
+    
+    let a: UInt8
+    let b: Int32
+    let c: UInt16
+
+    static func serialize(obj: MyStruct, builder: StructBuilder) {
+        // Index(0)
+        builder.append(obj.a)
+        // Index(1)
+        builder.append(obj.b)
+        // Index(2)
+        builder.append(obj.c)
     }
     
 }
@@ -96,6 +113,19 @@ class ZeroFormatterTestCase: XCTestCase {
         XCTAssertEqual(actual.a, expexted.a)
         XCTAssertEqual(actual.b, expexted.b)
         XCTAssertEqual(actual.c, expexted.c)
+    }
+    
+    func testSerializeMyStruct() {
+        let testData = MyStruct(a: 250, b: 500, c: 1000)
+        
+        let expexted: [UInt8] = [
+            0xfa, // UInt8 = 250
+            0xf4, 0x01, 0x00, 0x00, // Int32 = 500
+            0xe8, 0x03 // UInt16 = 1000
+        ]
+        let actual = ZeroFormatterSerializer.serialize(testData)
+        
+        XCTAssertEqual(Array(actual), expexted)
     }
     
 }
