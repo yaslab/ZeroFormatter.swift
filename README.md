@@ -38,11 +38,11 @@ Implementation of [ZeroFormatter](https://github.com/neuecc/ZeroFormatter) in Sw
 | Implemented | Swift | C# |
 | ---- | ---- | ---- |
 | o | `Int8?` | `SByte?` |
-| o | `Int16?` | ← and `Char?` |
+| o | `Int16?` | ← |
 | o | `Int32?` | ← |
 | o | `Int64?` | ← |
 | o | `UInt8?` | `Byte?` |
-| o | `UInt16?` | ← |
+| o | `UInt16?` | ← and `Char?` |
 | o | `UInt32?` | ← |
 | o | `UInt64?` | ← |
 | o | `Float?` | `Single?` |
@@ -67,20 +67,20 @@ Implementation of [ZeroFormatter](https://github.com/neuecc/ZeroFormatter) in Sw
 | | `Array<T>` | `FixedSizeList` | |
 | | `Array<T>?` | `FixedSizeList` | length = -1 |
 | | `Array<Any>` | `VariableSizeList` | |
-| | `Array<Any>?` | `VariableSizeList` | length = -1 |
+| | `Array<Any>?` | `VariableSizeList` | byteSize = -1 |
 
 ### Object Format
 
 | Implemented | Swift | C# | Note |
 | ---- | ---- | ---- | ---- |
 | o | `ObjectSerializable` | `Object` | |
-| o | `ObjectSerializable?` | `Object` | length = -1 |
+| o | `ObjectSerializable?` | `Object` | byteSize = -1 |
 | | `StructSerializable` | `Struct` | |
 | | `StructSerializable?` | `Struct?` | |
 
 ### Union Format
 
-| Implemented | Swift | C# |
-| ---- | ---- | ---- |
-| | TBD | `Union` |
-| | TBD | `Union` |
+| Implemented | Swift | C# | Note |
+| ---- | ---- | ---- | ---- |
+| | TBD | `Union` | |
+| | TBD | `Union` | byteSize = -1 |
