@@ -199,26 +199,29 @@ extension Date: PrimitiveDeserializable {
 }
 extension String: PrimitiveDeserializable {
     public static func deserialize(_ data: Data, _ offset: Int, _ size: inout Int) -> String {
+        size = 4
         let length: Int32 = _deserialize(data, offset)
         if length <= 0 {
-            size = 4
             return ""
         }
-        size = 4 + Int(length)
-        let utf8Data = data.subdata(in: offset ..< (offset + Int(length)))
+        size += Int(length)
+        let start = offset + 4
+        let end = start + Int(length)
+        let utf8Data = data.subdata(in: start ..< end)
         return String(data: utf8Data, encoding: .utf8)!
     }
     public static func deserialize(_ data: Data, _ offset: Int, _ size: inout Int) -> String? {
+        size = 4
         let length: Int32 = _deserialize(data, offset)
         if length < 0 {
-            size = 4
             return nil
         } else if length == 0 {
-            size = 4
             return ""
         }
-        size = 4 + Int(length)
-        let utf8Data = data.subdata(in: offset ..< (offset + Int(length)))
+        size += Int(length)
+        let start = offset + 4
+        let end = start + Int(length)
+        let utf8Data = data.subdata(in: start ..< end)
         return String(data: utf8Data, encoding: .utf8)
     }
 }
