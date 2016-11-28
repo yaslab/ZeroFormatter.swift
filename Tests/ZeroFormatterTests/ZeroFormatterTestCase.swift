@@ -9,7 +9,7 @@
 import XCTest
 import ZeroFormatter
 
-struct MyObject: ObjectSerializable, ObjectDeserializable {
+private struct MyObject: ObjectSerializable, ObjectDeserializable {
 
     let a: Int32
     let b: Int64
@@ -34,7 +34,7 @@ struct MyObject: ObjectSerializable, ObjectDeserializable {
     
 }
 
-struct MyStruct: StructSerializable, StructDeserializable {
+private struct MyStruct: StructSerializable, StructDeserializable {
     
     let a: UInt8
     let b: Int32
@@ -59,7 +59,7 @@ struct MyStruct: StructSerializable, StructDeserializable {
     
 }
 
-struct MyStruct2: StructSerializable, StructDeserializable {
+private struct MyStruct2: StructSerializable, StructDeserializable {
     
     let x: UInt32
     let y: MyObject?

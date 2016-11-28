@@ -64,11 +64,11 @@ public class ObjectBuilder {
     // -----
     
     public func append<T: PrimitiveSerializable>(_ value: T) {
-        appendFunctions.append({ [unowned self] in _serialize(self.data, value) })
+        appendFunctions.append({ [unowned self] in _ = T.serialize(self.data, value) })
     }
     
     public func append<T: PrimitiveSerializable>(_ value: T?) {
-        appendFunctions.append({ [unowned self] in _serialize(self.data, value) })
+        appendFunctions.append({ [unowned self] in _ = T.serialize(self.data, value) })
     }
     
     public func append<T: PrimitiveSerializable>(_ values: Array<T>?) {

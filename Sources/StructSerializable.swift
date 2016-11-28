@@ -25,11 +25,11 @@ public class StructBuilder {
     // -----
     
     public func append<T: PrimitiveSerializable>(_ value: T) {
-        _serialize(data, value)
+        _ = T.serialize(data, value)
     }
     
     public func append<T: PrimitiveSerializable>(_ value: T?) {
-        _serialize(data, value)
+        _ = T.serialize(data, value)
     }
     
     public func append<T: PrimitiveSerializable>(_ values: Array<T>?) {
