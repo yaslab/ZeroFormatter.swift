@@ -7,7 +7,7 @@
 //
 
 import XCTest
-@testable import ZeroFormatter
+import ZeroFormatter
 
 struct MyObject: ObjectSerializable, ObjectDeserializable {
 

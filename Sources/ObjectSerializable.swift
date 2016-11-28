@@ -71,15 +71,22 @@ public class ObjectBuilder {
         appendFunctions.append({ [unowned self] in _serialize(self.data, value) })
     }
     
-    // -----
-    
-    public func append<T: ObjectSerializable>(_ value: T) {
+    public func append<T: PrimitiveSerializable>(_ values: Array<T>?) {
         appendFunctions.append({ [unowned self] in
-            let builder = ObjectBuilder(self.data)
-            T.serialize(obj: value, builder: builder)
-            builder.build()
+            if let values = values {
+                let length = Int32(values.count)
+                _serialize(self.data, length.littleEndian)
+                for value in values {
+                    _serialize(self.data, value)
+                }
+            } else {
+                let length = Int32(-1)
+                _serialize(self.data, length.littleEndian)
+            }
         })
     }
+    
+    // -----
     
     public func append<T: ObjectSerializable>(_ value: T?) {
         appendFunctions.append({ [unowned self] in
@@ -88,7 +95,25 @@ public class ObjectBuilder {
                 T.serialize(obj: value, builder: builder)
                 builder.build()
             } else {
-                _serialize(self.data, Int32(-1))
+                let byteSize = Int32(-1).littleEndian
+                _serialize(self.data, byteSize)
+            }
+        })
+    }
+    
+    public func append<T: ObjectSerializable>(_ values: Array<T>?) {
+        appendFunctions.append({ [unowned self] in
+            if let values = values {
+                let length = Int32(values.count)
+                _serialize(self.data, length.littleEndian)
+                for value in values {
+                    let builder = ObjectBuilder(self.data)
+                    T.serialize(obj: value, builder: builder)
+                    builder.build()
+                }
+            } else {
+                let length = Int32(-1)
+                _serialize(self.data, length.littleEndian)
             }
         })
     }
@@ -110,6 +135,22 @@ public class ObjectBuilder {
                 T.serialize(obj: value, builder: builder)
             } else {
                 _serialize(self.data, UInt8(0)) // hasValue
+            }
+        })
+    }
+    
+    public func append<T: StructSerializable>(_ values: Array<T>?) {
+        appendFunctions.append({ [unowned self] in
+            if let values = values {
+                let length = Int32(values.count)
+                _serialize(self.data, length.littleEndian)
+                for value in values {
+                    let builder = StructBuilder(self.data)
+                    T.serialize(obj: value, builder: builder)
+                }
+            } else {
+                let length = Int32(-1)
+                _serialize(self.data, length.littleEndian)
             }
         })
     }

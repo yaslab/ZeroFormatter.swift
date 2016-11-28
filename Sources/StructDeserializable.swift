@@ -30,23 +30,38 @@ public class StructExtractor {
     
     // -----
     
-    internal func extract<T: PrimitiveDeserializable>(index: Int) -> T {
-        defer {
-            currentOffset += MemoryLayout<T>.size
-        }
-        return T.deserialize(data, currentOffset)
+    public func extract<T: PrimitiveDeserializable>(index: Int) -> T {
+        var size = 0
+        let value: T = T.deserialize(data, currentOffset, &size)
+        currentOffset += size
+        return value
     }
     
-    internal func extract<T: PrimitiveDeserializable>(index: Int) -> T? {
-        defer {
-            currentOffset += MemoryLayout<T>.size + 1
+    public func extract<T: PrimitiveDeserializable>(index: Int) -> T? {
+        var size = 0
+        let value: T? = T.deserialize(data, currentOffset, &size)
+        currentOffset += size
+        return value
+    }
+    
+    public func extract<T: PrimitiveDeserializable>(index: Int) -> Array<T>? {
+        let length: Int32 = _deserialize(data, currentOffset)
+        currentOffset += 4
+        if length < 0 {
+            return nil
         }
-        return T.deserialize(data, currentOffset)
+        var array = Array<T>()
+        for _ in 0 ..< length {
+            var size = 0
+            array.append(T.deserialize(data, currentOffset, &size))
+            currentOffset += size
+        }
+        return array
     }
     
     // -----
     
-    internal func extract<T: ObjectDeserializable>(index: Int) -> T? {
+    public func extract<T: ObjectDeserializable>(index: Int) -> T? {
         let extractor = ObjectExtractor(data, currentOffset)
         if extractor.isNil {
             return nil
@@ -56,16 +71,32 @@ public class StructExtractor {
         return obj
     }
     
+    public func extract<T: ObjectDeserializable>(index: Int) -> Array<T>? {
+        let length: Int32 = _deserialize(data, currentOffset)
+        currentOffset += 4
+        if length < 0 {
+            return nil
+        }
+        var array = Array<T>()
+        for _ in 0 ..< length {
+            let extractor = ObjectExtractor(data, currentOffset)
+            let obj: T? = T.deserialize(extractor: extractor)
+            array.append(obj!)
+            currentOffset += extractor.size
+        }
+        return array
+    }
+    
     // -----
     
-    internal func extract<T: StructDeserializable>(index: Int) -> T {
+    public func extract<T: StructDeserializable>(index: Int) -> T {
         let extractor = StructExtractor(data, currentOffset)
         let obj: T = T.deserialize(extractor: extractor)
         currentOffset += extractor.size
         return obj
     }
     
-    internal func extract<T: StructDeserializable>(index: Int) -> T? {
+    public func extract<T: StructDeserializable>(index: Int) -> T? {
         let hasValue: UInt8 = _deserialize(data, currentOffset)
         currentOffset += 1
         if hasValue == 0 {
@@ -75,6 +106,21 @@ public class StructExtractor {
         let obj: T = T.deserialize(extractor: extractor)
         currentOffset += extractor.size
         return obj
+    }
+    
+    public func extract<T: StructDeserializable>(index: Int) -> Array<T>? {
+        let length: Int32 = _deserialize(data, currentOffset)
+        currentOffset += 4
+        if length < 0 {
+            return nil
+        }
+        var array = Array<T>()
+        for _ in 0 ..< length {
+            let extractor = StructExtractor(data, currentOffset)
+            array.append(T.deserialize(extractor: extractor))
+            currentOffset += extractor.size
+        }
+        return array
     }
     
 }

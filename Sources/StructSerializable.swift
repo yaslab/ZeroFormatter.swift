@@ -32,13 +32,20 @@ public class StructBuilder {
         _serialize(data, value)
     }
     
-    // -----
-    
-    public func append<T: ObjectSerializable>(_ value: T) {
-        let builder = ObjectBuilder(data)
-        T.serialize(obj: value, builder: builder)
-        builder.build()
+    public func append<T: PrimitiveSerializable>(_ values: Array<T>?) {
+        if let values = values {
+            let length = Int32(values.count)
+            _serialize(self.data, length.littleEndian)
+            for value in values {
+                _serialize(self.data, value)
+            }
+        } else {
+            let length = Int32(-1)
+            _serialize(self.data, length.littleEndian)
+        }
     }
+    
+    // -----
     
     public func append<T: ObjectSerializable>(_ value: T?) {
         if let value = value {
@@ -46,7 +53,23 @@ public class StructBuilder {
             T.serialize(obj: value, builder: builder)
             builder.build()
         } else {
-            _serialize(data, Int32(-1))
+            let byteSize = Int32(-1).littleEndian
+            _serialize(data, byteSize)
+        }
+    }
+    
+    public func append<T: ObjectSerializable>(_ values: Array<T>?) {
+        if let values = values {
+            let length = Int32(values.count)
+            _serialize(self.data, length.littleEndian)
+            for value in values {
+                let builder = ObjectBuilder(self.data)
+                T.serialize(obj: value, builder: builder)
+                builder.build()
+            }
+        } else {
+            let length = Int32(-1)
+            _serialize(self.data, length.littleEndian)
         }
     }
     
@@ -64,6 +87,20 @@ public class StructBuilder {
             T.serialize(obj: value, builder: builder)
         } else {
             _serialize(self.data, UInt8(0)) // hasValue
+        }
+    }
+    
+    public func append<T: StructSerializable>(_ values: Array<T>?) {
+        if let values = values {
+            let length = Int32(values.count)
+            _serialize(self.data, length.littleEndian)
+            for value in values {
+                let builder = StructBuilder(self.data)
+                T.serialize(obj: value, builder: builder)
+            }
+        } else {
+            let length = Int32(-1)
+            _serialize(self.data, length.littleEndian)
         }
     }
     

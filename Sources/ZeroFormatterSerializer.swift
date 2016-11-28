@@ -12,37 +12,32 @@ public class ZeroFormatterSerializer {
     
     private init() {}
 
+}
+
+extension ZeroFormatterSerializer {
+
     // MARK: - PrimitiveSerializable
     
     public static func serialize<T: PrimitiveSerializable>(_ value: T) -> Data {
         let data = NSMutableData()
-        T.serialize(data, value)
+        _ = T.serialize(data, value)
         return data as Data
     }
     
     public static func serialize<T: PrimitiveSerializable>(_ value: T?) -> Data {
         let data = NSMutableData()
-        T.serialize(data, value)
+        _ = T.serialize(data, value)
         return data as Data
     }
     
     // MARK: - Array of PrimitiveSerializable
-    
-    public static func serialize<T: PrimitiveSerializable>(_ values: Array<T>) -> Data {
-        let data = NSMutableData()
-        _serialize(data, Int32(values.count).littleEndian)
-        for value in values {
-            T.serialize(data, value)
-        }
-        return data as Data
-    }
     
     public static func serialize<T: PrimitiveSerializable>(_ values: Array<T>?) -> Data {
         let data = NSMutableData()
         if let values = values {
             _serialize(data, Int32(values.count).littleEndian)
             for value in values {
-                T.serialize(data, value)
+                _ = T.serialize(data, value)
             }
         } else {
             _serialize(data, Int32(-1).littleEndian)
@@ -51,14 +46,6 @@ public class ZeroFormatterSerializer {
     }
     
     // MARK: - ObjectSerializable
-    
-    public static func serialize<T: ObjectSerializable>(_ value: T) -> Data {
-        let data = NSMutableData()
-        let builder = ObjectBuilder(data)
-        T.serialize(obj: value, builder: builder)
-        builder.build()
-        return data as Data
-    }
     
     public static func serialize<T: ObjectSerializable>(_ value: T?) -> Data {
         let data = NSMutableData()
@@ -74,9 +61,22 @@ public class ZeroFormatterSerializer {
     
     // MARK: - Array of ObjectSerializable
     
-    // TODO: ...
+    public static func serialize<T: ObjectSerializable>(_ values: Array<T>?) -> Data {
+        let data = NSMutableData()
+        if let values = values {
+            _serialize(data, Int32(values.count).littleEndian)
+            for value in values {
+                let builder = ObjectBuilder(data)
+                T.serialize(obj: value, builder: builder)
+                builder.build()
+            }
+        } else {
+            _serialize(data, Int32(-1).littleEndian)
+        }
+        return data as Data
+    }
     
-    // MARK: - ObjectDeserializable
+    // MARK: - StructSerializable
     
     public static func serialize<T: StructSerializable>(_ value: T) -> Data {
         let data = NSMutableData()
@@ -97,14 +97,53 @@ public class ZeroFormatterSerializer {
         return data as Data
     }
     
+    // MARK: - Array of StructSerializable
+    
+    public static func serialize<T: StructSerializable>(_ values: Array<T>?) -> Data {
+        let data = NSMutableData()
+        if let values = values {
+            _serialize(data, Int32(values.count).littleEndian)
+            for value in values {
+                let builder = StructBuilder(data)
+                T.serialize(obj: value, builder: builder)
+            }
+        } else {
+            _serialize(data, Int32(-1).littleEndian)
+        }
+        return data as Data
+    }
+    
+}
+
+extension ZeroFormatterSerializer {
+    
     // MARK: - PrimitiveDeserializable
     
     public static func deserialize<T: PrimitiveDeserializable>(_ data: Data) -> T {
-        return T.deserialize(data, 0)
+        var size = 0
+        return T.deserialize(data, 0, &size)
     }
     
     public static func deserialize<T: PrimitiveDeserializable>(_ data: Data) -> T? {
-        return T.deserialize(data, 0)
+        var size = 0
+        return T.deserialize(data, 0, &size)
+    }
+    
+    // MARK: - Array of PrimitiveDeserializable
+    
+    public static func deserialize<T: PrimitiveDeserializable>(_ data: Data) -> Array<T>? {
+        let length: Int32 = _deserialize(data, 0)
+        if length < 0 {
+            return nil
+        }
+        var array = Array<T>()
+        var offset = 4
+        for _ in 0 ..< length {
+            var size = 0
+            array.append(T.deserialize(data, offset, &size))
+            offset += size
+        }
+        return array
     }
     
     // MARK: - ObjectDeserializable
@@ -118,6 +157,23 @@ public class ZeroFormatterSerializer {
         return obj
     }
     
+    // MARK: - Array of ObjectDeserializable
+    
+    public static func deserialize<T: ObjectDeserializable>(_ data: Data) -> Array<T>? {
+        let length: Int32 = _deserialize(data, 0)
+        if length < 0 {
+            return nil
+        }
+        var array = Array<T>()
+        var offset = 4
+        for _ in 0 ..< length {
+            let extractor = ObjectExtractor(data, offset)
+            array.append(T.deserialize(extractor: extractor))
+            offset += extractor.size
+        }
+        return array
+    }
+    
     // MARK: - StructDeserializable
     
     public static func deserialize<T: StructDeserializable>(_ data: Data) -> T {
@@ -129,6 +185,23 @@ public class ZeroFormatterSerializer {
         let extractor = StructExtractor(data, 0)
         let obj: T = T.deserialize(extractor: extractor)
         return obj
+    }
+
+    // MARK: - Array of StructDeserializable
+    
+    public static func deserialize<T: StructDeserializable>(_ data: Data) -> Array<T>? {
+        let length: Int32 = _deserialize(data, 0)
+        if length < 0 {
+            return nil
+        }
+        var array = Array<T>()
+        var offset = 4
+        for _ in 0 ..< length {
+            let extractor = StructExtractor(data, offset)
+            array.append(T.deserialize(extractor: extractor))
+            offset += extractor.size
+        }
+        return array
     }
     
 }

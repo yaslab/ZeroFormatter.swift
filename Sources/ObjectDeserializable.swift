@@ -41,25 +41,47 @@ public class ObjectExtractor {
     
     // -----
     
-    internal func extract<T: PrimitiveDeserializable>(index: Int) -> T {
+    public func extract<T: PrimitiveDeserializable>(index: Int) -> T {
         let indexOffset: Int32 = data.withUnsafeBytes { (bytes: UnsafePointer<UInt8>) in
             let head = bytes + offset + 4 + 4 + (4 * index)
             return head.withMemoryRebound(to: Int32.self, capacity: 1) { $0[0].littleEndian }
         }
-        return T.deserialize(data, Int(indexOffset))
+        var size = 0
+        return T.deserialize(data, Int(indexOffset), &size)
     }
 
-    internal func extract<T: PrimitiveDeserializable>(index: Int) -> T? {
+    public func extract<T: PrimitiveDeserializable>(index: Int) -> T? {
         let indexOffset: Int32 = data.withUnsafeBytes { (bytes: UnsafePointer<UInt8>) in
             let head = bytes + offset + 4 + 4 + (4 * index)
             return head.withMemoryRebound(to: Int32.self, capacity: 1) { $0[0].littleEndian }
         }
-        return T.deserialize(data, Int(indexOffset))
+        var size = 0
+        return T.deserialize(data, Int(indexOffset), &size)
+    }
+    
+    public func extract<T: PrimitiveDeserializable>(index: Int) -> Array<T>? {
+        let indexOffset: Int32 = data.withUnsafeBytes { (bytes: UnsafePointer<UInt8>) in
+            let head = bytes + offset + 4 + 4 + (4 * index)
+            return head.withMemoryRebound(to: Int32.self, capacity: 1) { $0[0].littleEndian }
+        }
+        
+        let length: Int32 = _deserialize(data, Int(indexOffset))
+        if length < 0 {
+            return nil
+        }
+        var array = Array<T>()
+        var _offset = 4
+        for _ in 0 ..< length {
+            var size = 0
+            array.append(T.deserialize(data, _offset, &size))
+            _offset += size
+        }
+        return array
     }
     
     // -----
     
-    internal func extract<T: ObjectDeserializable>(index: Int) -> T? {
+    public func extract<T: ObjectDeserializable>(index: Int) -> T? {
         let indexOffset: Int32 = data.withUnsafeBytes { (bytes: UnsafePointer<UInt8>) in
             let head = bytes + offset + 4 + 4 + (4 * index)
             return head.withMemoryRebound(to: Int32.self, capacity: 1) { $0[0].littleEndian }
@@ -72,9 +94,30 @@ public class ObjectExtractor {
         return obj
     }
 
+    public func extract<T: ObjectDeserializable>(index: Int) -> Array<T>? {
+        let indexOffset: Int32 = data.withUnsafeBytes { (bytes: UnsafePointer<UInt8>) in
+            let head = bytes + offset + 4 + 4 + (4 * index)
+            return head.withMemoryRebound(to: Int32.self, capacity: 1) { $0[0].littleEndian }
+        }
+        
+        let length: Int32 = _deserialize(data, Int(indexOffset))
+        if length < 0 {
+            return nil
+        }
+        var array = Array<T>()
+        var _offset = 4
+        for _ in 0 ..< length {
+            let extractor = ObjectExtractor(data, _offset)
+            let obj: T? = T.deserialize(extractor: extractor)
+            array.append(obj!)
+            _offset += extractor.size
+        }
+        return array
+    }
+    
     // -----
     
-    internal func extract<T: StructDeserializable>(index: Int) -> T {
+    public func extract<T: StructDeserializable>(index: Int) -> T {
         let indexOffset: Int32 = data.withUnsafeBytes { (bytes: UnsafePointer<UInt8>) in
             let head = bytes + offset + 4 + 4 + (4 * index)
             return head.withMemoryRebound(to: Int32.self, capacity: 1) { $0[0].littleEndian }
@@ -83,7 +126,7 @@ public class ObjectExtractor {
         return T.deserialize(extractor: extractor)
     }
     
-    internal func extract<T: StructDeserializable>(index: Int) -> T? {
+    public func extract<T: StructDeserializable>(index: Int) -> T? {
         let indexOffset: Int32 = data.withUnsafeBytes { (bytes: UnsafePointer<UInt8>) in
             let head = bytes + offset + 4 + 4 + (4 * index)
             return head.withMemoryRebound(to: Int32.self, capacity: 1) { $0[0].littleEndian }
@@ -95,6 +138,26 @@ public class ObjectExtractor {
         let extractor = StructExtractor(data, Int(indexOffset + 1))
         let obj: T = T.deserialize(extractor: extractor)
         return obj
+    }
+    
+    public func extract<T: StructDeserializable>(index: Int) -> Array<T>? {
+        let indexOffset: Int32 = data.withUnsafeBytes { (bytes: UnsafePointer<UInt8>) in
+            let head = bytes + offset + 4 + 4 + (4 * index)
+            return head.withMemoryRebound(to: Int32.self, capacity: 1) { $0[0].littleEndian }
+        }
+        
+        let length: Int32 = _deserialize(data, Int(indexOffset))
+        if length < 0 {
+            return nil
+        }
+        var array = Array<T>()
+        var _offset = 4
+        for _ in 0 ..< length {
+            let extractor = StructExtractor(data, _offset)
+            array.append(T.deserialize(extractor: extractor))
+            _offset += extractor.size
+        }
+        return array
     }
     
 }

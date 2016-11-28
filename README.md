@@ -57,7 +57,7 @@ Implementation of [ZeroFormatter](https://github.com/neuecc/ZeroFormatter) in Sw
 
 | Implemented | Swift type | C# type | Note |
 | ---- | ---- | ---- | ---- |
-| | `Array<T>?` | `Sequence<T>` | if length = -1, indicates null |
+| o | `Array<T>?` | `Sequence<T>` | if length = -1, indicates null |
 
 ### List Format
 
