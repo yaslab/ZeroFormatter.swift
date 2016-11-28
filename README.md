@@ -35,7 +35,7 @@ Implementation of [ZeroFormatter](https://github.com/neuecc/ZeroFormatter) in Sw
 
 ### Primitive Format (Optional)
 
-| Implemented | Swift | C# |
+| Implemented | Swift type | C# type |
 | ---- | ---- | ---- |
 | o | `Int8?` | `SByte?` |
 | o | `Int16?` | ← |
@@ -55,32 +55,27 @@ Implementation of [ZeroFormatter](https://github.com/neuecc/ZeroFormatter) in Sw
 
 ### Sequence Format
 
-| Implemented | Swift | C# | Note |
+| Implemented | Swift type | C# type | Note |
 | ---- | ---- | ---- | ---- |
-| | `Array<T>` | `Sequence<T>` | |
-| | `Array<T>?` | `Sequence<T>` | length = -1 |
+| | `Array<T>?` | `Sequence<T>` | if length = -1, indicates null |
 
 ### List Format
 
-| Implemented | Swift | C# | Note |
+| Implemented | Swift type | C# type | Note |
 | ---- | ---- | ---- | ---- |
-| | `Array<T>` | `FixedSizeList` | |
-| | `Array<T>?` | `FixedSizeList` | length = -1 |
-| | `Array<Any>` | `VariableSizeList` | |
-| | `Array<Any>?` | `VariableSizeList` | byteSize = -1 |
+| | `Array<T>?` | `FixedSizeList` | if length = -1, indicates null |
+| | `Array<Any>?` | `VariableSizeList` | if byteSize = -1, indicates null |
 
 ### Object Format
 
-| Implemented | Swift | C# | Note |
+| Implemented | Swift type | C# type | Note |
 | ---- | ---- | ---- | ---- |
-| o | `ObjectSerializable` | `Object` | |
-| o | `ObjectSerializable?` | `Object` | byteSize = -1 |
+| o | `ObjectSerializable?` | `Object` | if byteSize = -1, indicates null |
 | o | `StructSerializable` | `Struct` | |
 | o | `StructSerializable?` | `Struct?` | |
 
 ### Union Format
 
-| Implemented | Swift | C# | Note |
+| Implemented | Swift type | C# type | Note |
 | ---- | ---- | ---- | ---- |
-| | TBD | `Union` | |
-| | TBD | `Union` | byteSize = -1 |
+| | TBD | `Union` | if byteSize = -1, indicates null |

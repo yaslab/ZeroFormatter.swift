@@ -62,7 +62,7 @@ struct MyStruct: StructSerializable, StructDeserializable {
 struct MyStruct2: StructSerializable, StructDeserializable {
     
     let x: UInt32
-    let y: MyObject
+    let y: MyObject?
     let z: UInt32
     
     static func serialize(obj: MyStruct2, builder: StructBuilder) {
@@ -141,11 +141,12 @@ class ZeroFormatterTestCase: XCTestCase {
         ]
         
         let expexted = MyObject(a: 1234, b: 5678, c: 9012)
-        let actual: MyObject = ZeroFormatterSerializer.deserialize(Data(bytes: testData))
-
-        XCTAssertEqual(actual.a, expexted.a)
-        XCTAssertEqual(actual.b, expexted.b)
-        XCTAssertEqual(actual.c, expexted.c)
+        let actual: MyObject? = ZeroFormatterSerializer.deserialize(Data(bytes: testData))
+        
+        XCTAssertNotNil(actual)
+        XCTAssertEqual(actual!.a, expexted.a)
+        XCTAssertEqual(actual!.b, expexted.b)
+        XCTAssertEqual(actual!.c, expexted.c)
     }
     
     func testSerializeMyStruct() {
@@ -198,13 +199,15 @@ class ZeroFormatterTestCase: XCTestCase {
             y: MyObject(a: 1234, b: 5678, c: 9012),
             z: 1112
         )
-        let actual: MyStruct2 = ZeroFormatterSerializer.deserialize(Data(bytes: testData))
+        let actual: MyStruct2? = ZeroFormatterSerializer.deserialize(Data(bytes: testData))
         
-        XCTAssertEqual(actual.x, expexted.x)
-        XCTAssertEqual(actual.y.a, expexted.y.a)
-        XCTAssertEqual(actual.y.b, expexted.y.b)
-        XCTAssertEqual(actual.y.c, expexted.y.c)
-        XCTAssertEqual(actual.z, expexted.z)
+        XCTAssertNotNil(actual)
+        XCTAssertNotNil(actual!.y)
+        XCTAssertEqual(actual!.x, expexted.x)
+        XCTAssertEqual(actual!.y!.a, expexted.y!.a)
+        XCTAssertEqual(actual!.y!.b, expexted.y!.b)
+        XCTAssertEqual(actual!.y!.c, expexted.y!.c)
+        XCTAssertEqual(actual!.z, expexted.z)
     }
     
 }

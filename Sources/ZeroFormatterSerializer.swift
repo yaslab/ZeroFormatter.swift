@@ -108,15 +108,7 @@ public class ZeroFormatterSerializer {
     }
     
     // MARK: - ObjectDeserializable
-    
-    public static func deserialize<T: ObjectDeserializable>(_ data: Data) -> T {
-        let extractor = ObjectExtractor(data, 0)
-        if extractor.isNil {
-            // TODO: throw error
-        }
-        return T.deserialize(extractor: extractor)
-    }
-    
+
     public static func deserialize<T: ObjectDeserializable>(_ data: Data) -> T? {
         let extractor = ObjectExtractor(data, 0)
         if extractor.isNil {

@@ -59,18 +59,6 @@ public class ObjectExtractor {
     
     // -----
     
-    internal func extract<T: ObjectDeserializable>(index: Int) -> T {
-        let indexOffset: Int32 = data.withUnsafeBytes { (bytes: UnsafePointer<UInt8>) in
-            let head = bytes + offset + 4 + 4 + (4 * index)
-            return head.withMemoryRebound(to: Int32.self, capacity: 1) { $0[0].littleEndian }
-        }
-        let extractor = ObjectExtractor(data, Int(indexOffset))
-        if extractor.isNil {
-            // TODO: throw error
-        }
-        return T.deserialize(extractor: extractor)
-    }
-    
     internal func extract<T: ObjectDeserializable>(index: Int) -> T? {
         let indexOffset: Int32 = data.withUnsafeBytes { (bytes: UnsafePointer<UInt8>) in
             let head = bytes + offset + 4 + 4 + (4 * index)

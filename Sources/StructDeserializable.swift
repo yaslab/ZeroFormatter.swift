@@ -46,16 +46,6 @@ public class StructExtractor {
     
     // -----
     
-    internal func extract<T: ObjectDeserializable>(index: Int) -> T {
-        let extractor = ObjectExtractor(data, currentOffset)
-        if extractor.isNil {
-            // TODO: throw error
-        }
-        let obj: T = T.deserialize(extractor: extractor)
-        currentOffset += extractor.size
-        return obj
-    }
-    
     internal func extract<T: ObjectDeserializable>(index: Int) -> T? {
         let extractor = ObjectExtractor(data, currentOffset)
         if extractor.isNil {
