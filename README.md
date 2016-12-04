@@ -63,8 +63,8 @@ Implementation of [ZeroFormatter](https://github.com/neuecc/ZeroFormatter) in Sw
 
 | Implemented | Swift type | C# type | Note |
 | ---- | ---- | ---- | ---- |
-| | `Array<T>?` | `FixedSizeList` | if length = -1, indicates null |
-| | `Array<Any>?` | `VariableSizeList` | if byteSize = -1, indicates null |
+| | TBD | `FixedSizeList` | if length = -1, indicates null |
+| | TBD | `VariableSizeList` | if byteSize = -1, indicates null |
 
 ### Object Format
 
