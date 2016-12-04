@@ -8,7 +8,7 @@
 
 import Foundation
 
-public protocol ObjectDeserializable {
+public protocol ObjectDeserializable: ZeroFormattable {
     static func deserialize(extractor: ObjectExtractor) -> Self
 }
 

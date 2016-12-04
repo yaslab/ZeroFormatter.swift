@@ -8,7 +8,7 @@
 
 import Foundation
 
-public protocol PrimitiveDeserializable {
+public protocol PrimitiveDeserializable: ZeroFormattable {
     static func deserialize(_ data: Data, _ offset: Int, _ size: inout Int) -> Self
     static func deserialize(_ data: Data, _ offset: Int, _ size: inout Int) -> Self?
 }

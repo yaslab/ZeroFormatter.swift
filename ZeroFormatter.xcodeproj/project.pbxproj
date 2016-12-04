@@ -10,6 +10,7 @@
 		0E2B8ED41DEB005600B157D9 /* StructSerializable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E2B8ED31DEB005600B157D9 /* StructSerializable.swift */; };
 		0E2B8ED61DEB0BD000B157D9 /* StructDeserializable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E2B8ED51DEB0BD000B157D9 /* StructDeserializable.swift */; };
 		0E2B8ED81DEC85F500B157D9 /* ArrayTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E2B8ED71DEC85F500B157D9 /* ArrayTestCase.swift */; };
+		0E2B8EDA1DEDE35100B157D9 /* PrimitiveFormattable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E2B8ED91DEDE35100B157D9 /* PrimitiveFormattable.swift */; };
 		0E2E63111DE5F90D005C9DDB /* ZeroFormatter.h in Headers */ = {isa = PBXBuildFile; fileRef = 0E2E630F1DE5F90D005C9DDB /* ZeroFormatter.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0E2E63131DE5FBFF005C9DDB /* PrimitiveSerializable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E2E63121DE5FBFF005C9DDB /* PrimitiveSerializable.swift */; };
 		0E2E63151DE600A9005C9DDB /* ZeroFormatterSerializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E2E63141DE600A9005C9DDB /* ZeroFormatterSerializer.swift */; };
@@ -19,6 +20,7 @@
 		0E2F460B1DE887E60088B4EA /* ZeroFormatter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E2E63051DE5F8AF005C9DDB /* ZeroFormatter.framework */; };
 		0E2F46141DE88A050088B4EA /* ZeroFormatterTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E2F46131DE88A050088B4EA /* ZeroFormatterTestCase.swift */; };
 		0E2F46151DE88BDB0088B4EA /* ZeroFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E2E62FE1DE5F83F005C9DDB /* ZeroFormatter.swift */; };
+		0EF65A681DF4483700524C21 /* List.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EF65A671DF4483700524C21 /* List.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -35,6 +37,7 @@
 		0E2B8ED31DEB005600B157D9 /* StructSerializable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StructSerializable.swift; sourceTree = "<group>"; };
 		0E2B8ED51DEB0BD000B157D9 /* StructDeserializable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StructDeserializable.swift; sourceTree = "<group>"; };
 		0E2B8ED71DEC85F500B157D9 /* ArrayTestCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArrayTestCase.swift; sourceTree = "<group>"; };
+		0E2B8ED91DEDE35100B157D9 /* PrimitiveFormattable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrimitiveFormattable.swift; sourceTree = "<group>"; };
 		0E2E62FE1DE5F83F005C9DDB /* ZeroFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZeroFormatter.swift; sourceTree = "<group>"; };
 		0E2E63051DE5F8AF005C9DDB /* ZeroFormatter.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ZeroFormatter.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		0E2E630E1DE5F90D005C9DDB /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -47,6 +50,7 @@
 		0E2F45FB1DE887B10088B4EA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0E2F46061DE887E50088B4EA /* ZeroFormatterTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ZeroFormatterTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0E2F46131DE88A050088B4EA /* ZeroFormatterTestCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZeroFormatterTestCase.swift; sourceTree = "<group>"; };
+		0EF65A671DF4483700524C21 /* List.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = List.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -91,9 +95,11 @@
 		0E2E62FD1DE5F7FB005C9DDB /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				0EF65A671DF4483700524C21 /* List.swift */,
 				0E2F45F11DE721900088B4EA /* ObjectDeserializable.swift */,
 				0E2E63161DE6024F005C9DDB /* ObjectSerializable.swift */,
 				0E2F45EF1DE705440088B4EA /* PrimitiveDeserializable.swift */,
+				0E2B8ED91DEDE35100B157D9 /* PrimitiveFormattable.swift */,
 				0E2E63121DE5FBFF005C9DDB /* PrimitiveSerializable.swift */,
 				0E2B8ED51DEB0BD000B157D9 /* StructDeserializable.swift */,
 				0E2B8ED31DEB005600B157D9 /* StructSerializable.swift */,
@@ -252,7 +258,9 @@
 				0E2B8ED41DEB005600B157D9 /* StructSerializable.swift in Sources */,
 				0E2E63151DE600A9005C9DDB /* ZeroFormatterSerializer.swift in Sources */,
 				0E2B8ED61DEB0BD000B157D9 /* StructDeserializable.swift in Sources */,
+				0EF65A681DF4483700524C21 /* List.swift in Sources */,
 				0E2F45F01DE705440088B4EA /* PrimitiveDeserializable.swift in Sources */,
+				0E2B8EDA1DEDE35100B157D9 /* PrimitiveFormattable.swift in Sources */,
 				0E2E63131DE5FBFF005C9DDB /* PrimitiveSerializable.swift in Sources */,
 				0E2E63171DE6024F005C9DDB /* ObjectSerializable.swift in Sources */,
 				0E2F46151DE88BDB0088B4EA /* ZeroFormatter.swift in Sources */,

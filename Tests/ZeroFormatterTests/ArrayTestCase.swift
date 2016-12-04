@@ -14,6 +14,10 @@ private struct MyObject: ObjectSerializable, ObjectDeserializable {
     let a: Int32
     let b: String
     let c: Int16
+    
+    static var fixedSize: Int? {
+        return nil
+    }
 
     static func serialize(obj: MyObject, builder: ObjectBuilder) {
         builder.append(obj.a)
@@ -37,6 +41,10 @@ private struct MyStruct: StructSerializable, StructDeserializable {
     let b: String
     let c: Int16
 
+    static var fixedSize: Int? {
+        return nil
+    }
+    
     static func serialize(obj: MyStruct, builder: StructBuilder) {
         builder.append(obj.a)
         builder.append(obj.b)

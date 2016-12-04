@@ -8,7 +8,7 @@
 
 import Foundation
 
-public protocol PrimitiveSerializable {
+public protocol PrimitiveSerializable: ZeroFormattable {
     static func serialize(_ data: NSMutableData, _ value: Self) -> Int
     static func serialize(_ data: NSMutableData, _ value: Self?) -> Int
 }

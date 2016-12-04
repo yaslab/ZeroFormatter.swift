@@ -8,7 +8,7 @@
 
 import Foundation
 
-public protocol StructSerializable {
+public protocol StructSerializable: ZeroFormattable {
     static func serialize(obj: Self, builder: StructBuilder)
 }
 

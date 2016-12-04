@@ -8,7 +8,7 @@
 
 import Foundation
 
-public protocol StructDeserializable {
+public protocol StructDeserializable: ZeroFormattable {
     static func deserialize(extractor: StructExtractor) -> Self
 }
 
