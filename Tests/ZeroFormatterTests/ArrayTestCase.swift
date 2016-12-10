@@ -62,6 +62,15 @@ private struct MyStruct: StructSerializable, StructDeserializable {
 }
 
 class ArrayTestCase: XCTestCase {
+    
+    static let allTests = [
+        ("testSerializePrimitiveArray", testSerializePrimitiveArray),
+        ("testSerializeObjectArray", testSerializeObjectArray),
+        ("testSerializeStructArray", testSerializeStructArray),
+        ("testDeserializePrimitiveArray", testDeserializePrimitiveArray),
+        ("testDeserializeObjectArray", testDeserializeObjectArray),
+        ("testDeserializeStructArray", testDeserializeStructArray)
+    ]
 
     override func setUp() {
         super.setUp()
