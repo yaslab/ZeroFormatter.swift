@@ -22,7 +22,7 @@ class ListTestCase: XCTestCase {
     }
     
     // MARK: - Serialize
-
+    
     func testSerializeFixedSizeList() {
         XCTAssertNotNil(Int16.fixedSize)
         
@@ -93,7 +93,7 @@ class ListTestCase: XCTestCase {
         ]
         
         let expected: [Int16] = [1, 2, 3, 4, 5]
-        let actual: List<Int16>? = ZeroFormatterSerializer.deserializeAsList(Data(bytes: testData))
+        let actual: List<Int16>? = ZeroFormatterSerializer.deserialize(Data(bytes: testData))
         
         XCTAssertNotNil(actual)
         XCTAssertEqual(actual!.count, 5)
@@ -136,7 +136,7 @@ class ListTestCase: XCTestCase {
             MyObject(a: 2, b: "01234", c: 3),
             MyObject(a: 4, b: "567890", c: 5)
         ]
-        let actual: List<MyObject>? = ZeroFormatterSerializer.deserializeAsList(Data(bytes: testData))
+        let actual: List<MyObject>? = ZeroFormatterSerializer.deserialize(Data(bytes: testData))
 
         XCTAssertNotNil(actual)
         XCTAssertEqual(actual!.count, 2)

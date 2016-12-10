@@ -32,13 +32,17 @@ extension ZeroFormatterSerializer {
     
     // MARK: - Array of PrimitiveSerializable
     
-    public static func serialize<T: PrimitiveSerializable>(_ values: Array<T>?) -> Data {
+    public static func serialize<T: Sequence>(_ values: T?) -> Data where T.Iterator.Element: PrimitiveSerializable {
         let data = NSMutableData()
         if let values = values {
-            _serialize(data, Int32(values.count).littleEndian)
+            _serialize(data, Int32(0).littleEndian)
+            var length = 0
             for value in values {
-                _ = T.serialize(data, value)
+                length += 1
+                _ = T.Iterator.Element.serialize(data, value)
             }
+            
+            (data.mutableBytes + 0).assumingMemoryBound(to: Int32.self)[0] = Int32(length).littleEndian
         } else {
             _serialize(data, Int32(-1).littleEndian)
         }
@@ -61,18 +65,28 @@ extension ZeroFormatterSerializer {
     
     // MARK: - Array of ObjectSerializable
     
-    public static func serialize<T: ObjectSerializable>(_ values: Array<T>?) -> Data {
+    public static func serialize<T: Sequence>(_ values: T?) -> Data where T.Iterator.Element: ObjectSerializable {
         let data = NSMutableData()
         if let values = values {
-            _serialize(data, Int32(values.count).littleEndian)
+            _serialize(data, Int32(0).littleEndian)
+            var length = 0
             for value in values {
+                length += 1
                 let builder = ObjectBuilder(data)
-                T.serialize(obj: value, builder: builder)
+                T.Iterator.Element.serialize(obj: value, builder: builder)
                 builder.build()
             }
+            
+            (data.mutableBytes + 0).assumingMemoryBound(to: Int32.self)[0] = Int32(length).littleEndian
         } else {
             _serialize(data, Int32(-1).littleEndian)
         }
+        return data as Data
+    }
+    
+    public static func serialize<T: ObjectSerializable>(_ values: List<T>?) -> Data {
+        let data = NSMutableData()
+        _ = ListSerializer.serialize(data, values)
         return data as Data
     }
     
@@ -99,14 +113,18 @@ extension ZeroFormatterSerializer {
     
     // MARK: - Array of StructSerializable
     
-    public static func serialize<T: StructSerializable>(_ values: Array<T>?) -> Data {
+    public static func serialize<T: Sequence>(_ values: T?) -> Data where T.Iterator.Element: StructSerializable {
         let data = NSMutableData()
         if let values = values {
-            _serialize(data, Int32(values.count).littleEndian)
+            _serialize(data, Int32(0).littleEndian)
+            var length = 0
             for value in values {
+                length += 1
                 let builder = StructBuilder(data)
-                T.serialize(obj: value, builder: builder)
+                T.Iterator.Element.serialize(obj: value, builder: builder)
             }
+            
+            (data.mutableBytes + 0).assumingMemoryBound(to: Int32.self)[0] = Int32(length).littleEndian
         } else {
             _serialize(data, Int32(-1).littleEndian)
         }
@@ -226,15 +244,15 @@ extension ZeroFormatterSerializer {
     
     // MARK: - List
     
-    public static func deserializeAsList<T: PrimitiveDeserializable>(_ data: Data) -> List<T>? {
+    public static func deserialize<T: PrimitiveDeserializable>(_ data: Data) -> List<T>? {
         return ListSerializer.deserialize(data: data, offset: 0)
     }
     
-    public static func deserializeAsList<T: ObjectDeserializable>(_ data: Data) -> List<T>? {
+    public static func deserialize<T: ObjectDeserializable>(_ data: Data) -> List<T>? {
         return ListSerializer.deserialize(data: data, offset: 0)
     }
     
-    public static func deserializeAsList<T: StructDeserializable>(_ data: Data) -> List<T>? {
+    public static func deserialize<T: StructDeserializable>(_ data: Data) -> List<T>? {
         return ListSerializer.deserialize(data: data, offset: 0)
     }
     

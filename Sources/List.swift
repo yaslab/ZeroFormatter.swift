@@ -53,6 +53,54 @@ class ListSerializer {
     
     // ...
     
+    static func serialize<T: ObjectSerializable>(_ data: NSMutableData, _ values: List<T>?) -> Int {
+        if let values = values {
+            let offset = data.length
+            var byteSize = 0
+            
+            if T.fixedSize != nil {
+                let length = Int32(values.count)
+                _serialize(data, length.littleEndian)
+                
+                byteSize += 4
+            } else {
+                let zero = Int32(0)
+                _serialize(data, zero) // byteSize
+                let length = Int32(values.count)
+                _serialize(data, length.littleEndian)
+                for _ in 0 ..< values.count {
+                    _serialize(data, zero) // elementOffset
+                }
+                
+                byteSize += 4 + 4 + (4 * values.count)
+            }
+            
+            for i in 0 ..< values.count {
+                if T.fixedSize == nil {
+                    // elementOffset
+                    let p = data.mutableBytes + offset + 4 + 4 + (4 * i)
+                    p.assumingMemoryBound(to: Int32.self)[0] = Int32(data.length).littleEndian
+                }
+                let builder = ObjectBuilder(data)
+                T.serialize(obj: values[i], builder: builder)
+                byteSize += builder.build()
+            }
+            
+            if T.fixedSize == nil {
+                // byteSize
+                let p = data.mutableBytes + offset
+                p.assumingMemoryBound(to: Int32.self)[0] = Int32(byteSize).littleEndian
+            }
+            
+            return byteSize
+        } else {
+            _serialize(data, Int32(-1).littleEndian)
+            return 4
+        }
+    }
+    
+    // ...
+    
     static func serializeAsList<T: PrimitiveSerializable>(_ data: NSMutableData, _ values: Array<T>?) -> Int {
         if let values = values {
             return _serializeAsList(data, T.fixedSize, values.count) { T.serialize(data, values[$0]) }
@@ -241,7 +289,7 @@ public class ObjectVariableSizeList<T: ObjectDeserializable>: List<T> {
         let extractor = ObjectExtractor(_originalData, Int(itemOffset))
         return T.deserialize(extractor: extractor)
     }
-    
+
 }
 
 public class StructFixedSizeList<T: StructDeserializable>: List<T> {
