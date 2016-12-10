@@ -113,7 +113,7 @@ extension ZeroFormatterSerializer {
         return data as Data
     }
     
-    // ...
+    // MARK: - List
     
     public static func serializeAsList<T: PrimitiveSerializable>(_ values: Array<T>?) -> Data {
         let data = NSMutableData()
@@ -222,6 +222,20 @@ extension ZeroFormatterSerializer {
             offset += extractor.size
         }
         return array
+    }
+    
+    // MARK: - List
+    
+    public static func deserializeAsList<T: PrimitiveDeserializable>(_ data: Data) -> List<T>? {
+        return ListSerializer.deserialize(data: data, offset: 0)
+    }
+    
+    public static func deserializeAsList<T: ObjectDeserializable>(_ data: Data) -> List<T>? {
+        return ListSerializer.deserialize(data: data, offset: 0)
+    }
+    
+    public static func deserializeAsList<T: StructDeserializable>(_ data: Data) -> List<T>? {
+        return ListSerializer.deserialize(data: data, offset: 0)
     }
     
 }

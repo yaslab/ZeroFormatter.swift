@@ -12,7 +12,12 @@ class ListSerializer {
     
     // ...
     
-    static func deserialize<T: PrimitiveDeserializable>(data: Data, offset: Int) -> List<T> {
+    static func deserialize<T: PrimitiveDeserializable>(data: Data, offset: Int) -> List<T>? {
+        let length: Int32 = _deserialize(data, offset)
+        if length < 0 {
+            return nil
+        }
+        
         if let itemSize = T.fixedSize {
             return PrimitiveFixedSizeList<T>(data: data, offset: offset, itemSize: itemSize)
         } else {
@@ -20,7 +25,12 @@ class ListSerializer {
         }
     }
     
-    static func deserialize<T: ObjectDeserializable>(data: Data, offset: Int) -> List<T> {
+    static func deserialize<T: ObjectDeserializable>(data: Data, offset: Int) -> List<T>? {
+        let length: Int32 = _deserialize(data, offset)
+        if length < 0 {
+            return nil
+        }
+        
         if let itemSize = T.fixedSize {
             return ObjectFixedSizeList<T>(data: data, offset: offset, itemSize: itemSize)
         } else {
@@ -28,7 +38,12 @@ class ListSerializer {
         }
     }
     
-    static func deserialize<T: StructDeserializable>(data: Data, offset: Int) -> List<T> {
+    static func deserialize<T: StructDeserializable>(data: Data, offset: Int) -> List<T>? {
+        let length: Int32 = _deserialize(data, offset)
+        if length < 0 {
+            return nil
+        }
+        
         if let itemSize = T.fixedSize {
             return StructFixedSizeList<T>(data: data, offset: offset, itemSize: itemSize)
         } else {

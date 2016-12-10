@@ -20,8 +20,10 @@ class ListTestCase: XCTestCase {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
         super.tearDown()
     }
+    
+    // MARK: - Serialize
 
-    func testFixedSizeList() {
+    func testSerializeFixedSizeList() {
         XCTAssertNotNil(Int16.fixedSize)
         
         let testData: [Int16] = [1, 2, 3, 4, 5]
@@ -39,7 +41,7 @@ class ListTestCase: XCTestCase {
         XCTAssertEqual(Array(actual), expected)
     }
 
-    func testVariableSizeList() {
+    func testSerializeVariableSizeList() {
         XCTAssertNil(MyObject.fixedSize)
         
         let testData: [MyObject] = [
@@ -74,6 +76,76 @@ class ListTestCase: XCTestCase {
         let actual = ZeroFormatterSerializer.serializeAsList(testData)
         
         XCTAssertEqual(Array(actual), expected)
+    }
+    
+    // MARK: - Deserialize
+    
+    func testDeserializeFixedSizeList() {
+        XCTAssertNotNil(Int16.fixedSize)
+        
+        let testData: [UInt8] = [
+            0x05, 0x00, 0x00, 0x00,
+            0x01, 0x00,
+            0x02, 0x00,
+            0x03, 0x00,
+            0x04, 0x00,
+            0x05, 0x00
+        ]
+        
+        let expected: [Int16] = [1, 2, 3, 4, 5]
+        let actual: List<Int16>? = ZeroFormatterSerializer.deserializeAsList(Data(bytes: testData))
+        
+        XCTAssertNotNil(actual)
+        XCTAssertEqual(actual!.count, 5)
+        XCTAssertEqual(actual![0], expected[0])
+        XCTAssertEqual(actual![1], expected[1])
+        XCTAssertEqual(actual![2], expected[2])
+        XCTAssertEqual(actual![3], expected[3])
+        XCTAssertEqual(actual![4], expected[4])
+    }
+    
+    func testDeserializeVariableSizeList() {
+        XCTAssertNil(MyObject.fixedSize)
+
+        let testData: [UInt8] = [
+            0x57, 0x00, 0x00, 0x00, // byteSize: 87
+            0x02, 0x00, 0x00, 0x00, // length: 2
+            0x10, 0x00, 0x00, 0x00, // elementOffset[0]: 16
+            0x33, 0x00, 0x00, 0x00, // elementOffset[1]: 51
+            
+            0x23, 0x00, 0x00, 0x00, // byteSize: 35
+            0x02, 0x00, 0x00, 0x00, // lastIndex: 2
+            0x24, 0x00, 0x00, 0x00, // indexOffset[0]: 36
+            0x28, 0x00, 0x00, 0x00, // indexOffset[1]: 40
+            0x31, 0x00, 0x00, 0x00, // indexOffset[2]: 49
+            0x02, 0x00, 0x00, 0x00, // a: 2
+            0x05, 0x00, 0x00, 0x00, 0x30, 0x31, 0x32, 0x33, 0x34, // b: "01234"
+            0x03, 0x00, // c: 3
+            
+            0x24, 0x00, 0x00, 0x00, // byteSize: 36
+            0x02, 0x00, 0x00, 0x00, // lastIndex: 2
+            0x47, 0x00, 0x00, 0x00, // indexOffset[0]: 71
+            0x4b, 0x00, 0x00, 0x00, // indexOffset[1]: 75
+            0x55, 0x00, 0x00, 0x00, // indexOffset[2]: 85
+            0x04, 0x00, 0x00, 0x00, // a: 4
+            0x06, 0x00, 0x00, 0x00, 0x35, 0x36, 0x37, 0x38, 0x39, 0x30, // b: "567890"
+            0x05, 0x00 // c: 5
+        ]
+        
+        let expected: [MyObject] = [
+            MyObject(a: 2, b: "01234", c: 3),
+            MyObject(a: 4, b: "567890", c: 5)
+        ]
+        let actual: List<MyObject>? = ZeroFormatterSerializer.deserializeAsList(Data(bytes: testData))
+
+        XCTAssertNotNil(actual)
+        XCTAssertEqual(actual!.count, 2)
+        XCTAssertEqual(actual![0].a, expected[0].a)
+        XCTAssertEqual(actual![0].b, expected[0].b)
+        XCTAssertEqual(actual![0].c, expected[0].c)
+        XCTAssertEqual(actual![1].a, expected[1].a)
+        XCTAssertEqual(actual![1].b, expected[1].b)
+        XCTAssertEqual(actual![1].c, expected[1].c)
     }
     
 }
