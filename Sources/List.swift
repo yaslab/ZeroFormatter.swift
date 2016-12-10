@@ -8,64 +8,31 @@
 
 import Foundation
 
-public /* abstract */ class List<T>: RandomAccessCollection {
-    
-    let _originalData: Data
-    let _offset: Int
-    
-    let _count: Int
-    
-    init(data: Data, offset: Int, count: Int) {
-        _originalData = data
-        _offset = offset
-        _count = count
-    }
-    
-    // MARK: - RandomAccessCollection
-    
-    public var startIndex: Int {
-        return 0
-    }
-    
-    public var endIndex: Int {
-        return _count
-    }
-    
-    public func index(before i: Int) -> Int {
-        return i - 1
-    }
-    
-    public func index(after i: Int) -> Int {
-        return i + 1
-    }
-    
-    public subscript(index: Int) -> T {
-        preconditionFailure()
-    }
+class ListSerializer {
     
     // ...
     
-    static func deserialize<U: PrimitiveDeserializable>(data: Data, offset: Int) -> List<U> {
-        if let itemSize = U.fixedSize {
-            return PrimitiveFixedSizeList<U>(data: data, offset: offset, itemSize: itemSize)
+    static func deserialize<T: PrimitiveDeserializable>(data: Data, offset: Int) -> List<T> {
+        if let itemSize = T.fixedSize {
+            return PrimitiveFixedSizeList<T>(data: data, offset: offset, itemSize: itemSize)
         } else {
-            return PrimitiveVariableSizeList<U>(data: data, offset: offset)
+            return PrimitiveVariableSizeList<T>(data: data, offset: offset)
         }
     }
     
-    static func deserialize<U: ObjectDeserializable>(data: Data, offset: Int) -> List<U> {
-        if let itemSize = U.fixedSize {
-            return ObjectFixedSizeList<U>(data: data, offset: offset, itemSize: itemSize)
+    static func deserialize<T: ObjectDeserializable>(data: Data, offset: Int) -> List<T> {
+        if let itemSize = T.fixedSize {
+            return ObjectFixedSizeList<T>(data: data, offset: offset, itemSize: itemSize)
         } else {
-            return ObjectVariableSizeList<U>(data: data, offset: offset)
+            return ObjectVariableSizeList<T>(data: data, offset: offset)
         }
     }
     
-    static func deserialize<U: StructDeserializable>(data: Data, offset: Int) -> List<U> {
-        if let itemSize = U.fixedSize {
-            return StructFixedSizeList<U>(data: data, offset: offset, itemSize: itemSize)
+    static func deserialize<T: StructDeserializable>(data: Data, offset: Int) -> List<T> {
+        if let itemSize = T.fixedSize {
+            return StructFixedSizeList<T>(data: data, offset: offset, itemSize: itemSize)
         } else {
-            return StructVariableSizeList<U>(data: data, offset: offset)
+            return StructVariableSizeList<T>(data: data, offset: offset)
         }
     }
     
@@ -126,7 +93,7 @@ public /* abstract */ class List<T>: RandomAccessCollection {
             
             byteSize += 4 + 4 + (4 * count)
         }
-
+        
         for i in 0 ..< count {
             if fixedSize == nil {
                 // elementOffset
@@ -145,6 +112,43 @@ public /* abstract */ class List<T>: RandomAccessCollection {
         return byteSize
     }
     
+}
+
+public /* abstract */ class List<T>: RandomAccessCollection {
+    
+    let _originalData: Data
+    let _offset: Int
+    
+    let _count: Int
+    
+    init(data: Data, offset: Int, count: Int) {
+        _originalData = data
+        _offset = offset
+        _count = count
+    }
+    
+    // MARK: - RandomAccessCollection
+    
+    public var startIndex: Int {
+        return 0
+    }
+    
+    public var endIndex: Int {
+        return _count
+    }
+    
+    public func index(before i: Int) -> Int {
+        return i - 1
+    }
+    
+    public func index(after i: Int) -> Int {
+        return i + 1
+    }
+    
+    public subscript(index: Int) -> T {
+        preconditionFailure()
+    }
+
 }
 
 public class PrimitiveFixedSizeList<T: PrimitiveDeserializable>: List<T> {

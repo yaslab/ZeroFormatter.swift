@@ -9,58 +9,6 @@
 import XCTest
 import ZeroFormatter
 
-private struct MyObject: ObjectSerializable, ObjectDeserializable {
-    
-    let a: Int32
-    let b: String
-    let c: Int16
-    
-    static var fixedSize: Int? {
-        return nil
-    }
-
-    static func serialize(obj: MyObject, builder: ObjectBuilder) {
-        builder.append(obj.a)
-        builder.append(obj.b)
-        builder.append(obj.c)
-    }
-    
-    static func deserialize(extractor: ObjectExtractor) -> MyObject {
-        return MyObject(
-            a: extractor.extract(index: 0),
-            b: extractor.extract(index: 1),
-            c: extractor.extract(index: 2)
-        )
-    }
-    
-}
-
-private struct MyStruct: StructSerializable, StructDeserializable {
-    
-    let a: Int32
-    let b: String
-    let c: Int16
-
-    static var fixedSize: Int? {
-        return nil
-    }
-    
-    static func serialize(obj: MyStruct, builder: StructBuilder) {
-        builder.append(obj.a)
-        builder.append(obj.b)
-        builder.append(obj.c)
-    }
-    
-    static func deserialize(extractor: StructExtractor) -> MyStruct {
-        return MyStruct(
-            a: extractor.extract(index: 0),
-            b: extractor.extract(index: 1),
-            c: extractor.extract(index: 2)
-        )
-    }
-    
-}
-
 class ArrayTestCase: XCTestCase {
     
     static let allTests = [

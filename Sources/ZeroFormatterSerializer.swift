@@ -115,8 +115,22 @@ extension ZeroFormatterSerializer {
     
     // ...
     
-    public static func serialize<T>(_ values: List<T>?) -> Data {
-        return Data()
+    public static func serializeAsList<T: PrimitiveSerializable>(_ values: Array<T>?) -> Data {
+        let data = NSMutableData()
+        _ = ListSerializer.serializeAsList(data, values)
+        return data as Data
+    }
+
+    public static func serializeAsList<T: ObjectSerializable>(_ values: Array<T>?) -> Data {
+        let data = NSMutableData()
+        _ = ListSerializer.serializeAsList(data, values)
+        return data as Data
+    }
+    
+    public static func serializeAsList<T: StructSerializable>(_ values: Array<T>?) -> Data {
+        let data = NSMutableData()
+        _ = ListSerializer.serializeAsList(data, values)
+        return data as Data
     }
     
 }

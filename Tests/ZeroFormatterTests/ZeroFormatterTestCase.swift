@@ -9,7 +9,7 @@
 import XCTest
 import ZeroFormatter
 
-private struct MyObject: ObjectSerializable, ObjectDeserializable {
+private struct TestObject: ObjectSerializable, ObjectDeserializable {
 
     let a: Int32
     let b: Int64
@@ -19,7 +19,7 @@ private struct MyObject: ObjectSerializable, ObjectDeserializable {
         return _fixedSize([Int32.self, Int64.self, Int16.self])
     }
     
-    static func serialize(obj: MyObject, builder: ObjectBuilder) {
+    static func serialize(obj: TestObject, builder: ObjectBuilder) {
         // Index(0)
         builder.append(obj.a)
         // Index(1)
@@ -28,8 +28,8 @@ private struct MyObject: ObjectSerializable, ObjectDeserializable {
         builder.append(obj.c)
     }
 
-    static func deserialize(extractor: ObjectExtractor) -> MyObject {
-        return MyObject(
+    static func deserialize(extractor: ObjectExtractor) -> TestObject {
+        return TestObject(
             a: extractor.extract(index: 0),
             b: extractor.extract(index: 1),
             c: extractor.extract(index: 2)
@@ -38,7 +38,7 @@ private struct MyObject: ObjectSerializable, ObjectDeserializable {
     
 }
 
-private struct MyStruct: StructSerializable, StructDeserializable {
+private struct TestStruct: StructSerializable, StructDeserializable {
     
     let a: UInt8
     let b: Int32
@@ -48,7 +48,7 @@ private struct MyStruct: StructSerializable, StructDeserializable {
         return _fixedSize([UInt8.self, Int32.self, UInt16.self])
     }
     
-    static func serialize(obj: MyStruct, builder: StructBuilder) {
+    static func serialize(obj: TestStruct, builder: StructBuilder) {
         // Index(0)
         builder.append(obj.a)
         // Index(1)
@@ -57,8 +57,8 @@ private struct MyStruct: StructSerializable, StructDeserializable {
         builder.append(obj.c)
     }
     
-    static func deserialize(extractor: StructExtractor) -> MyStruct {
-        return MyStruct(
+    static func deserialize(extractor: StructExtractor) -> TestStruct {
+        return TestStruct(
             a: extractor.extract(index: 0),
             b: extractor.extract(index: 1),
             c: extractor.extract(index: 2)
@@ -70,11 +70,11 @@ private struct MyStruct: StructSerializable, StructDeserializable {
 private struct MyStruct2: StructSerializable, StructDeserializable {
     
     let x: UInt32
-    let y: MyObject?
+    let y: TestObject?
     let z: UInt32
     
     static var fixedSize: Int? {
-        return _fixedSize([UInt32.self, MyObject.self, UInt32.self])
+        return _fixedSize([UInt32.self, TestObject.self, UInt32.self])
     }
     
     static func serialize(obj: MyStruct2, builder: StructBuilder) {
@@ -123,7 +123,7 @@ class ZeroFormatterTestCase: XCTestCase {
     }
 
     func testSerializeMyObject() {
-        let testData = MyObject(a: 1234, b: 5678, c: 9012)
+        let testData = TestObject(a: 1234, b: 5678, c: 9012)
         
         let expexted: [UInt8] = [
             0x22, 0x00, 0x00, 0x00, // byteSize: 34
@@ -152,8 +152,8 @@ class ZeroFormatterTestCase: XCTestCase {
             0x34, 0x23 // c: 9012
         ]
         
-        let expexted = MyObject(a: 1234, b: 5678, c: 9012)
-        let actual: MyObject? = ZeroFormatterSerializer.deserialize(Data(bytes: testData))
+        let expexted = TestObject(a: 1234, b: 5678, c: 9012)
+        let actual: TestObject? = ZeroFormatterSerializer.deserialize(Data(bytes: testData))
         
         XCTAssertNotNil(actual)
         XCTAssertEqual(actual!.a, expexted.a)
@@ -162,7 +162,7 @@ class ZeroFormatterTestCase: XCTestCase {
     }
     
     func testSerializeMyStruct() {
-        let testData = MyStruct(a: 250, b: 500, c: 1000)
+        let testData = TestStruct(a: 250, b: 500, c: 1000)
         
         let expexted: [UInt8] = [
             0xfa, // UInt8 = 250
@@ -181,8 +181,8 @@ class ZeroFormatterTestCase: XCTestCase {
             0xe8, 0x03 // UInt16 = 1000
         ]
         
-        let expexted = MyStruct(a: 250, b: 500, c: 1000)
-        let actual: MyStruct = ZeroFormatterSerializer.deserialize(Data(bytes: testData))
+        let expexted = TestStruct(a: 250, b: 500, c: 1000)
+        let actual: TestStruct = ZeroFormatterSerializer.deserialize(Data(bytes: testData))
         
         XCTAssertEqual(actual.a, expexted.a)
         XCTAssertEqual(actual.b, expexted.b)
@@ -208,7 +208,7 @@ class ZeroFormatterTestCase: XCTestCase {
         
         let expexted = MyStruct2(
             x: 1111,
-            y: MyObject(a: 1234, b: 5678, c: 9012),
+            y: TestObject(a: 1234, b: 5678, c: 9012),
             z: 1112
         )
         let actual: MyStruct2? = ZeroFormatterSerializer.deserialize(Data(bytes: testData))
