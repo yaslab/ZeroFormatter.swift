@@ -113,6 +113,12 @@ extension ZeroFormatterSerializer {
         return data as Data
     }
     
+    // ...
+    
+    public static func serialize<T>(_ values: List<T>?) -> Data {
+        return Data()
+    }
+    
 }
 
 extension ZeroFormatterSerializer {

@@ -21,6 +21,10 @@ public class StructBuilder {
         self.data = data
         self.offset = data.length
     }
+    
+    var currentSize: Int {
+        return data.length - offset
+    }
 
     // -----
     

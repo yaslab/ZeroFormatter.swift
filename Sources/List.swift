@@ -8,7 +8,7 @@
 
 import Foundation
 
-/* abstract */ class List<T>: RandomAccessCollection {
+public /* abstract */ class List<T>: RandomAccessCollection {
     
     let _originalData: Data
     let _offset: Int
@@ -23,23 +23,23 @@ import Foundation
     
     // MARK: - RandomAccessCollection
     
-    var startIndex: Int {
+    public var startIndex: Int {
         return 0
     }
     
-    var endIndex: Int {
+    public var endIndex: Int {
         return _count
     }
     
-    func index(before i: Int) -> Int {
+    public func index(before i: Int) -> Int {
         return i - 1
     }
     
-    func index(after i: Int) -> Int {
+    public func index(after i: Int) -> Int {
         return i + 1
     }
     
-    subscript(index: Int) -> T {
+    public subscript(index: Int) -> T {
         preconditionFailure()
     }
     
@@ -69,9 +69,85 @@ import Foundation
         }
     }
     
+    // ...
+    
+    static func serializeAsList<T: PrimitiveSerializable>(_ data: NSMutableData, _ values: Array<T>?) -> Int {
+        if let values = values {
+            return _serializeAsList(data, T.fixedSize, values.count) { T.serialize(data, values[$0]) }
+        } else {
+            _serialize(data, Int32(-1).littleEndian)
+            return 4
+        }
+    }
+    
+    static func serializeAsList<T: ObjectSerializable>(_ data: NSMutableData, _ values: Array<T>?) -> Int {
+        if let values = values {
+            return _serializeAsList(data, T.fixedSize, values.count) {
+                let builder = ObjectBuilder(data)
+                T.serialize(obj: values[$0], builder: builder)
+                return builder.build()
+            }
+        } else {
+            _serialize(data, Int32(-1).littleEndian)
+            return 4
+        }
+    }
+    
+    static func serializeAsList<T: StructSerializable>(_ data: NSMutableData, _ values: Array<T>?) -> Int {
+        if let values = values {
+            return _serializeAsList(data, T.fixedSize, values.count) {
+                let builder = StructBuilder(data)
+                T.serialize(obj: values[$0], builder: builder)
+                return builder.currentSize
+            }
+        } else {
+            _serialize(data, Int32(-1).littleEndian)
+            return 4
+        }
+    }
+    
+    private static func _serializeAsList(_ data: NSMutableData, _ fixedSize: Int?, _ count: Int, _ f: ((Int) -> Int)) -> Int {
+        let offset = data.length
+        var byteSize = 0
+        
+        if fixedSize != nil {
+            let length = Int32(count)
+            _serialize(data, length.littleEndian)
+            
+            byteSize += 4
+        } else {
+            let zero = Int32(0)
+            _serialize(data, zero) // byteSize
+            let length = Int32(count)
+            _serialize(data, length.littleEndian)
+            for _ in 0 ..< count {
+                _serialize(data, zero) // elementOffset
+            }
+            
+            byteSize += 4 + 4 + (4 * count)
+        }
+
+        for i in 0 ..< count {
+            if fixedSize == nil {
+                // elementOffset
+                let p = data.mutableBytes + offset + 4 + 4 + (4 * i)
+                p.assumingMemoryBound(to: Int32.self)[0] = Int32(data.length).littleEndian
+            }
+            byteSize += f(i)
+        }
+        
+        if fixedSize == nil {
+            // byteSize
+            let p = data.mutableBytes + offset
+            p.assumingMemoryBound(to: Int32.self)[0] = Int32(byteSize).littleEndian
+        }
+        
+        return byteSize
+    }
+    
 }
 
-class PrimitiveFixedSizeList<T: PrimitiveDeserializable>: List<T> {
+public class PrimitiveFixedSizeList<T: PrimitiveDeserializable>: List<T> {
     
     let _itemSize: Int
     
@@ -82,7 +158,7 @@ class PrimitiveFixedSizeList<T: PrimitiveDeserializable>: List<T> {
     }
     
     // TODO: save to memory cache
-    override subscript(index: Int) -> T {
+    override public subscript(index: Int) -> T {
         let itemOffset = _offset + 4 + (_itemSize * index)
         var size = 0
         return T.deserialize(_originalData, itemOffset, &size)
@@ -90,7 +166,7 @@ class PrimitiveFixedSizeList<T: PrimitiveDeserializable>: List<T> {
     
 }
 
-class PrimitiveVariableSizeList<T: PrimitiveDeserializable>: List<T> {
+public class PrimitiveVariableSizeList<T: PrimitiveDeserializable>: List<T> {
     
     let _byteSize: Int
     
@@ -102,7 +178,7 @@ class PrimitiveVariableSizeList<T: PrimitiveDeserializable>: List<T> {
     }
     
     // TODO: save to memory cache
-    override subscript(index: Int) -> T {
+    override public subscript(index: Int) -> T {
         let itemOffset: Int32 = _deserialize(_originalData, _offset + 4 + 4 + (4 * index))
         var size = 0
         return T.deserialize(_originalData, Int(itemOffset), &size)
@@ -110,7 +186,7 @@ class PrimitiveVariableSizeList<T: PrimitiveDeserializable>: List<T> {
     
 }
 
-class ObjectFixedSizeList<T: ObjectDeserializable>: List<T> {
+public class ObjectFixedSizeList<T: ObjectDeserializable>: List<T> {
     
     let _itemSize: Int
     
@@ -121,7 +197,7 @@ class ObjectFixedSizeList<T: ObjectDeserializable>: List<T> {
     }
     
     // TODO: save to memory cache
-    override subscript(index: Int) -> T {
+    override public subscript(index: Int) -> T {
         let itemOffset = _offset + 4 + (_itemSize * index)
         let extractor = ObjectExtractor(_originalData, itemOffset)
         return T.deserialize(extractor: extractor)
@@ -129,7 +205,7 @@ class ObjectFixedSizeList<T: ObjectDeserializable>: List<T> {
     
 }
 
-class ObjectVariableSizeList<T: ObjectDeserializable>: List<T> {
+public class ObjectVariableSizeList<T: ObjectDeserializable>: List<T> {
     
     let _byteSize: Int
     
@@ -141,7 +217,7 @@ class ObjectVariableSizeList<T: ObjectDeserializable>: List<T> {
     }
     
     // TODO: save to memory cache
-    override subscript(index: Int) -> T {
+    override public subscript(index: Int) -> T {
         let itemOffset: Int32 = _deserialize(_originalData, _offset + 4 + 4 + (4 * index))
         let extractor = ObjectExtractor(_originalData, Int(itemOffset))
         return T.deserialize(extractor: extractor)
@@ -149,7 +225,7 @@ class ObjectVariableSizeList<T: ObjectDeserializable>: List<T> {
     
 }
 
-class StructFixedSizeList<T: StructDeserializable>: List<T> {
+public class StructFixedSizeList<T: StructDeserializable>: List<T> {
     
     let _itemSize: Int
     
@@ -160,7 +236,7 @@ class StructFixedSizeList<T: StructDeserializable>: List<T> {
     }
     
     // TODO: save to memory cache
-    override subscript(index: Int) -> T {
+    override public subscript(index: Int) -> T {
         let itemOffset = _offset + 4 + (_itemSize * index)
         let extractor = StructExtractor(_originalData, itemOffset)
         let obj: T = T.deserialize(extractor: extractor)
@@ -169,7 +245,7 @@ class StructFixedSizeList<T: StructDeserializable>: List<T> {
     
 }
 
-class StructVariableSizeList<T: StructDeserializable>: List<T> {
+public class StructVariableSizeList<T: StructDeserializable>: List<T> {
     
     let _byteSize: Int
     
@@ -181,7 +257,7 @@ class StructVariableSizeList<T: StructDeserializable>: List<T> {
     }
     
     // TODO: save to memory cache
-    override subscript(index: Int) -> T {
+    override public subscript(index: Int) -> T {
         let itemOffset: Int32 = _deserialize(_originalData, _offset + 4 + 4 + (4 * index))
         let extractor = StructExtractor(_originalData, Int(itemOffset))
         let obj: T = T.deserialize(extractor: extractor)

@@ -52,13 +52,15 @@ public class ObjectBuilder {
         p.assumingMemoryBound(to: Int32.self)[0] = byteSize.littleEndian
     }
     
-    internal func build() {
+    internal func build() -> Int {
         begin()
         for (i, appendFunction) in appendFunctions.enumerated() {
             updateIndexOffset(i)
             appendFunction()
         }
         end()
+        
+        return data.length - offset
     }
     
     // -----
