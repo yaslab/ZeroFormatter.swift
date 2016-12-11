@@ -93,9 +93,54 @@ extension Sequence {
         return byteSize
     }
 
-    static func serialize<T: Sequence>(_ data: NSMutableData, _ values: T?) -> Int where T.Iterator.Element: Sequence {
+    // Arran in Array
+    
+    static func serialize<T: Sequence>(_ data: NSMutableData, _ values: T?) -> Int
+        where T.Iterator.Element: Sequence,
+        T.Iterator.Element.Iterator.Element: PrimitiveSerializable {
         
-        return serialize(data, values)
+            if let values = values {
+                var byteSize = 0
+                for value in values {
+                    byteSize += serialize(data, value)
+                }
+                return byteSize
+            } else {
+                // TODO: nil
+                return -1
+            }
+    }
+
+    static func serialize<T: Sequence>(_ data: NSMutableData, _ values: T?) -> Int
+        where T.Iterator.Element: Sequence,
+        T.Iterator.Element.Iterator.Element: ObjectSerializable {
+        
+            if let values = values {
+                var byteSize = 0
+                for value in values {
+                    byteSize += serialize(data, value)
+                }
+                return byteSize
+            } else {
+                // TODO: nil
+                return -1
+            }
+    }
+    
+    static func serialize<T: Sequence>(_ data: NSMutableData, _ values: T?) -> Int
+        where T.Iterator.Element: Sequence,
+        T.Iterator.Element.Iterator.Element: StructSerializable {
+        
+            if let values = values {
+                var byteSize = 0
+                for value in values {
+                    byteSize += serialize(data, value)
+                }
+                return byteSize
+            } else {
+                // TODO: nil
+                return -1
+            }
     }
     
 }

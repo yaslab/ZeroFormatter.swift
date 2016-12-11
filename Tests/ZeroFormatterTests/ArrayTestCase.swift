@@ -43,15 +43,33 @@ class ArrayTestCase: XCTestCase {
             0x04, 0x00,
             0x05, 0x00
         ]
-        let actual = ZeroFormatterSerializer.serialize(testData)
+        let actual = ZeroFormatter.serialize(testData)
+        
+        XCTAssertEqual(Array(actual), expected)
+    }
+    
+    func testSerializePrimitiveArrayInArray() {
+        let testData: [[Int16]] = [[1, 2, 3, 4, 5]]
+        
+        let expected: [UInt8] = [
+            0x01, 0x00, 0x00, 0x00,
+            
+            0x05, 0x00, 0x00, 0x00,
+            0x01, 0x00,
+            0x02, 0x00,
+            0x03, 0x00,
+            0x04, 0x00,
+            0x05, 0x00
+        ]
+        let actual = ZeroFormatter.serialize(testData)
         
         XCTAssertEqual(Array(actual), expected)
     }
 
     func testSerializeObjectArray() {
-        let testData: [MyObject] = [
-            MyObject(a: 2, b: "01234", c: 3),
-            MyObject(a: 4, b: "567890", c: 5)
+        let testData: [VariableSizeObject] = [
+            VariableSizeObject(a: 2, b: "01234", c: 3),
+            VariableSizeObject(a: 4, b: "567890", c: 5)
         ]
         
         let expected: [UInt8] = [
@@ -75,15 +93,15 @@ class ArrayTestCase: XCTestCase {
             0x06, 0x00, 0x00, 0x00, 0x35, 0x36, 0x37, 0x38, 0x39, 0x30, // b: "567890"
             0x05, 0x00 // c: 5
         ]
-        let actual = ZeroFormatterSerializer.serialize(testData)
+        let actual = ZeroFormatter.serialize(testData)
         
         XCTAssertEqual(Array(actual), expected)
     }
     
     func testSerializeStructArray() {
-        let testData: [MyStruct] = [
-            MyStruct(a: 2, b: "01234", c: 3),
-            MyStruct(a: 4, b: "567890", c: 5)
+        let testData: [VariableSizeStruct] = [
+            VariableSizeStruct(a: 2, b: "01234", c: 3),
+            VariableSizeStruct(a: 4, b: "567890", c: 5)
         ]
         
         let expected: [UInt8] = [
@@ -97,7 +115,7 @@ class ArrayTestCase: XCTestCase {
             0x06, 0x00, 0x00, 0x00, 0x35, 0x36, 0x37, 0x38, 0x39, 0x30, // b: "567890"
             0x05, 0x00 // c: 5
         ]
-        let actual = ZeroFormatterSerializer.serialize(testData)
+        let actual = ZeroFormatter.serialize(testData)
         
         XCTAssertEqual(Array(actual), expected)
     }
@@ -115,7 +133,7 @@ class ArrayTestCase: XCTestCase {
         ]
         
         let expected: [Int16] = [1, 2, 3, 4, 5]
-        let actual: [Int16]? = ZeroFormatterSerializer.deserialize(Data(bytes: testData))
+        let actual: [Int16]? = ZeroFormatter.deserialize(Data(bytes: testData))
         
         XCTAssertNotNil(actual)
         XCTAssertEqual(actual!, expected)
@@ -144,11 +162,11 @@ class ArrayTestCase: XCTestCase {
             0x05, 0x00 // c: 5
         ]
         
-        let expected: [MyObject] = [
-            MyObject(a: 2, b: "01234", c: 3),
-            MyObject(a: 4, b: "567890", c: 5)
+        let expected: [VariableSizeObject] = [
+            VariableSizeObject(a: 2, b: "01234", c: 3),
+            VariableSizeObject(a: 4, b: "567890", c: 5)
         ]
-        let actual: [MyObject]? = ZeroFormatterSerializer.deserialize(Data(bytes: testData))
+        let actual: [VariableSizeObject]? = ZeroFormatter.deserialize(Data(bytes: testData))
         
         XCTAssertNotNil(actual)
         XCTAssertEqual(actual![0].a, expected[0].a)
@@ -172,11 +190,11 @@ class ArrayTestCase: XCTestCase {
             0x05, 0x00 // c: 5
         ]
         
-        let expected: [MyStruct] = [
-            MyStruct(a: 2, b: "01234", c: 3),
-            MyStruct(a: 4, b: "567890", c: 5)
+        let expected: [VariableSizeStruct] = [
+            VariableSizeStruct(a: 2, b: "01234", c: 3),
+            VariableSizeStruct(a: 4, b: "567890", c: 5)
         ]
-        let actual: [MyStruct]? = ZeroFormatterSerializer.deserialize(Data(bytes: testData))
+        let actual: [VariableSizeStruct]? = ZeroFormatter.deserialize(Data(bytes: testData))
         
         XCTAssertNotNil(actual)
         XCTAssertEqual(actual![0].a, expected[0].a)

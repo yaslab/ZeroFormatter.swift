@@ -9,7 +9,7 @@
 import Foundation
 import ZeroFormatter
 
-struct MyObject: ObjectSerializable, ObjectDeserializable {
+struct VariableSizeObject: ObjectSerializable, ObjectDeserializable {
     
     let a: Int32
     let b: String
@@ -19,14 +19,14 @@ struct MyObject: ObjectSerializable, ObjectDeserializable {
         return nil
     }
     
-    static func serialize(obj: MyObject, builder: ObjectBuilder) {
+    static func serialize(obj: VariableSizeObject, builder: ObjectBuilder) {
         builder.append(obj.a)
         builder.append(obj.b)
         builder.append(obj.c)
     }
     
-    static func deserialize(extractor: ObjectExtractor) -> MyObject {
-        return MyObject(
+    static func deserialize(extractor: ObjectExtractor) -> VariableSizeObject {
+        return VariableSizeObject(
             a: extractor.extract(index: 0),
             b: extractor.extract(index: 1),
             c: extractor.extract(index: 2)
@@ -35,7 +35,7 @@ struct MyObject: ObjectSerializable, ObjectDeserializable {
     
 }
 
-struct MyStruct: StructSerializable, StructDeserializable {
+struct VariableSizeStruct: StructSerializable, StructDeserializable {
     
     let a: Int32
     let b: String
@@ -45,14 +45,14 @@ struct MyStruct: StructSerializable, StructDeserializable {
         return nil
     }
     
-    static func serialize(obj: MyStruct, builder: StructBuilder) {
+    static func serialize(obj: VariableSizeStruct, builder: StructBuilder) {
         builder.append(obj.a)
         builder.append(obj.b)
         builder.append(obj.c)
     }
     
-    static func deserialize(extractor: StructExtractor) -> MyStruct {
-        return MyStruct(
+    static func deserialize(extractor: StructExtractor) -> VariableSizeStruct {
+        return VariableSizeStruct(
             a: extractor.extract(index: 0),
             b: extractor.extract(index: 1),
             c: extractor.extract(index: 2)
@@ -68,7 +68,7 @@ struct FixedSizeObject: ObjectSerializable, ObjectDeserializable {
     let c: Int16
     
     static var fixedSize: Int? {
-        return 4 + 1 + 2
+        return _fixedSize([Int32.self, UInt8.self, Int16.self])
     }
     
     static func serialize(obj: FixedSizeObject, builder: ObjectBuilder) {
@@ -82,6 +82,93 @@ struct FixedSizeObject: ObjectSerializable, ObjectDeserializable {
             a: extractor.extract(index: 0),
             b: extractor.extract(index: 1),
             c: extractor.extract(index: 2)
+        )
+    }
+    
+}
+
+struct FixedSizeObject_2: ObjectSerializable, ObjectDeserializable {
+    
+    let a: Int32
+    let b: Int64
+    let c: Int16
+    
+    static var fixedSize: Int? {
+        return _fixedSize([Int32.self, Int64.self, Int16.self])
+    }
+    
+    static func serialize(obj: FixedSizeObject_2, builder: ObjectBuilder) {
+        // Index(0)
+        builder.append(obj.a)
+        // Index(1)
+        builder.append(obj.b)
+        // Index(2)
+        builder.append(obj.c)
+    }
+    
+    static func deserialize(extractor: ObjectExtractor) -> FixedSizeObject_2 {
+        return FixedSizeObject_2(
+            a: extractor.extract(index: 0),
+            b: extractor.extract(index: 1),
+            c: extractor.extract(index: 2)
+        )
+    }
+    
+}
+
+struct FixedSizeStruct: StructSerializable, StructDeserializable {
+    
+    let a: UInt8
+    let b: Int32
+    let c: UInt16
+    
+    static var fixedSize: Int? {
+        return _fixedSize([UInt8.self, Int32.self, UInt16.self])
+    }
+    
+    static func serialize(obj: FixedSizeStruct, builder: StructBuilder) {
+        // Index(0)
+        builder.append(obj.a)
+        // Index(1)
+        builder.append(obj.b)
+        // Index(2)
+        builder.append(obj.c)
+    }
+    
+    static func deserialize(extractor: StructExtractor) -> FixedSizeStruct {
+        return FixedSizeStruct(
+            a: extractor.extract(index: 0),
+            b: extractor.extract(index: 1),
+            c: extractor.extract(index: 2)
+        )
+    }
+    
+}
+
+struct FixedSizeStruct_2: StructSerializable, StructDeserializable {
+    
+    let x: UInt32
+    let y: FixedSizeObject_2?
+    let z: UInt32
+    
+    static var fixedSize: Int? {
+        return _fixedSize([UInt32.self, FixedSizeObject_2.self, UInt32.self])
+    }
+    
+    static func serialize(obj: FixedSizeStruct_2, builder: StructBuilder) {
+        // Index(0)
+        builder.append(obj.x)
+        // Index(1)
+        builder.append(obj.y)
+        // Index(2)
+        builder.append(obj.z)
+    }
+    
+    static func deserialize(extractor: StructExtractor) -> FixedSizeStruct_2 {
+        return FixedSizeStruct_2(
+            x: extractor.extract(index: 0),
+            y: extractor.extract(index: 1),
+            z: extractor.extract(index: 2)
         )
     }
     

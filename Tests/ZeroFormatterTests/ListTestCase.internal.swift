@@ -47,12 +47,12 @@ class ListTestCase_internal: XCTestCase {
         XCTAssertEqual(actual[3], expected[3])
         XCTAssertEqual(actual[4], expected[4])
         
-        let serialized = ZeroFormatterSerializer.serialize(actual)
+        let serialized = ZeroFormatter.serialize(actual)
         XCTAssertEqual(Array(serialized), testData)
     }
     
     func testSerializeVariableSizeList() {
-        XCTAssertNil(MyObject.fixedSize)
+        XCTAssertNil(VariableSizeObject.fixedSize)
         
         let testData: [UInt8] = [
             0x57, 0x00, 0x00, 0x00, // byteSize: 87
@@ -79,11 +79,11 @@ class ListTestCase_internal: XCTestCase {
             0x05, 0x00 // c: 5
         ]
         
-        let expected: [MyObject] = [
-            MyObject(a: 2, b: "01234", c: 3),
-            MyObject(a: 4, b: "567890", c: 5)
+        let expected: [VariableSizeObject] = [
+            VariableSizeObject(a: 2, b: "01234", c: 3),
+            VariableSizeObject(a: 4, b: "567890", c: 5)
         ]
-        let actual = ObjectVariableSizeList<MyObject>(data: Data(bytes: testData), offset: 0)
+        let actual = ObjectVariableSizeList<VariableSizeObject>(data: Data(bytes: testData), offset: 0)
         
         XCTAssertEqual(actual.count, 2)
         XCTAssertEqual(actual[0].a, expected[0].a)
@@ -93,7 +93,7 @@ class ListTestCase_internal: XCTestCase {
         XCTAssertEqual(actual[1].b, expected[1].b)
         XCTAssertEqual(actual[1].c, expected[1].c)
         
-        let serialized = ZeroFormatterSerializer.serialize(actual)
+        let serialized = ZeroFormatter.serialize(actual)
         XCTAssertEqual(Array(serialized), testData)
     }
     

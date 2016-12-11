@@ -55,7 +55,7 @@ public class StructBuilder {
         if let value = value {
             let builder = ObjectBuilder(data)
             T.serialize(obj: value, builder: builder)
-            builder.build()
+            _ = builder.build()
         } else {
             let byteSize = Int32(-1).littleEndian
             _serialize(data, byteSize)
@@ -69,7 +69,7 @@ public class StructBuilder {
             for value in values {
                 let builder = ObjectBuilder(self.data)
                 T.serialize(obj: value, builder: builder)
-                builder.build()
+                _ = builder.build()
             }
         } else {
             let length = Int32(-1)
