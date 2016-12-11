@@ -6,6 +6,8 @@
 //  Copyright © 2016 yaslab. All rights reserved.
 //
 
+import Foundation
+
 public protocol ZeroFormattable {
     static var fixedSize: Int? { get }
 }
