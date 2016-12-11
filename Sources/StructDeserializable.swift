@@ -14,7 +14,7 @@ public protocol StructDeserializable: ZeroFormattable {
 
 public class StructExtractor {
     
-    private let data: NSData
+    private let data: Data
     private let offset: Int
     private var currentOffset: Int
     
@@ -22,7 +22,7 @@ public class StructExtractor {
         return currentOffset - offset
     }
     
-    internal init(_ data: NSData, _ offset: Int) {
+    internal init(_ data: Data, _ offset: Int) {
         self.data = data
         self.offset = offset
         self.currentOffset = offset
