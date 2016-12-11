@@ -6,6 +6,7 @@
 //  Copyright © 2016年 yaslab. All rights reserved.
 //
 
+import Foundation
 import XCTest
 import ZeroFormatter
 

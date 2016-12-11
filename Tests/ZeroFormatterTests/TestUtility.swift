@@ -18,6 +18,7 @@ extension NSData {
     }
     
     func toArray() -> [UInt8] {
+        let test = Data()
         let p = bytes.assumingMemoryBound(to: UInt8.self)
         var array = [UInt8]()
         for i in 0 ..< length {
