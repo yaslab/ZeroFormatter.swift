@@ -133,7 +133,7 @@ class ArrayTestCase: XCTestCase {
         ]
         
         let expected: [Int16] = [1, 2, 3, 4, 5]
-        let actual: [Int16]? = ZeroFormatter.deserialize(Data(bytes: testData))
+        let actual: [Int16]? = ZeroFormatter.deserialize(NSData(bytes: testData))
         
         XCTAssertNotNil(actual)
         XCTAssertEqual(actual!, expected)
@@ -166,7 +166,7 @@ class ArrayTestCase: XCTestCase {
             VariableSizeObject(a: 2, b: "01234", c: 3),
             VariableSizeObject(a: 4, b: "567890", c: 5)
         ]
-        let actual: [VariableSizeObject]? = ZeroFormatter.deserialize(Data(bytes: testData))
+        let actual: [VariableSizeObject]? = ZeroFormatter.deserialize(NSData(bytes: testData))
         
         XCTAssertNotNil(actual)
         XCTAssertEqual(actual![0].a, expected[0].a)
@@ -194,7 +194,7 @@ class ArrayTestCase: XCTestCase {
             VariableSizeStruct(a: 2, b: "01234", c: 3),
             VariableSizeStruct(a: 4, b: "567890", c: 5)
         ]
-        let actual: [VariableSizeStruct]? = ZeroFormatter.deserialize(Data(bytes: testData))
+        let actual: [VariableSizeStruct]? = ZeroFormatter.deserialize(NSData(bytes: testData))
         
         XCTAssertNotNil(actual)
         XCTAssertEqual(actual![0].a, expected[0].a)

@@ -52,7 +52,7 @@ class ObjectTestCase: XCTestCase {
         ]
         
         let expexted = FixedSizeObject_2(a: 1234, b: 5678, c: 9012)
-        let actual: FixedSizeObject_2? = ZeroFormatter.deserialize(Data(bytes: testData))
+        let actual: FixedSizeObject_2? = ZeroFormatter.deserialize(NSData(bytes: testData))
         
         XCTAssertNotNil(actual)
         XCTAssertEqual(actual!.a, expexted.a)
@@ -81,7 +81,7 @@ class ObjectTestCase: XCTestCase {
         ]
         
         let expexted = FixedSizeStruct(a: 250, b: 500, c: 1000)
-        let actual: FixedSizeStruct = ZeroFormatter.deserialize(Data(bytes: testData))
+        let actual: FixedSizeStruct = ZeroFormatter.deserialize(NSData(bytes: testData))
         
         XCTAssertEqual(actual.a, expexted.a)
         XCTAssertEqual(actual.b, expexted.b)
@@ -110,7 +110,7 @@ class ObjectTestCase: XCTestCase {
             y: FixedSizeObject_2(a: 1234, b: 5678, c: 9012),
             z: 1112
         )
-        let actual: FixedSizeStruct_2? = ZeroFormatter.deserialize(Data(bytes: testData))
+        let actual: FixedSizeStruct_2? = ZeroFormatter.deserialize(NSData(bytes: testData))
         
         XCTAssertNotNil(actual)
         XCTAssertNotNil(actual!.y)

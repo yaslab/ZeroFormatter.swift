@@ -12,7 +12,7 @@ class ListSerializer {
     
     // ...
     
-    static func deserialize<T: PrimitiveDeserializable>(data: Data, offset: Int) -> List<T>? {
+    static func deserialize<T: PrimitiveDeserializable>(data: NSData, offset: Int) -> List<T>? {
         let length: Int32 = _deserialize(data, offset)
         if length < 0 {
             return nil
@@ -25,7 +25,7 @@ class ListSerializer {
         }
     }
     
-    static func deserialize<T: ObjectDeserializable>(data: Data, offset: Int) -> List<T>? {
+    static func deserialize<T: ObjectDeserializable>(data: NSData, offset: Int) -> List<T>? {
         let length: Int32 = _deserialize(data, offset)
         if length < 0 {
             return nil
@@ -38,7 +38,7 @@ class ListSerializer {
         }
     }
     
-    static func deserialize<T: StructDeserializable>(data: Data, offset: Int) -> List<T>? {
+    static func deserialize<T: StructDeserializable>(data: NSData, offset: Int) -> List<T>? {
         let length: Int32 = _deserialize(data, offset)
         if length < 0 {
             return nil
@@ -209,12 +209,12 @@ class ListSerializer {
 
 public /* abstract */ class List<T>: RandomAccessCollection {
     
-    let _originalData: Data
+    let _originalData: NSData
     let _offset: Int
     
     let _count: Int
     
-    init(data: Data, offset: Int, count: Int) {
+    init(data: NSData, offset: Int, count: Int) {
         _originalData = data
         _offset = offset
         _count = count
@@ -248,7 +248,7 @@ public class PrimitiveFixedSizeList<T: PrimitiveDeserializable>: List<T> {
     
     let _itemSize: Int
     
-    init(data: Data, offset: Int, itemSize: Int) {
+    init(data: NSData, offset: Int, itemSize: Int) {
         _itemSize = itemSize
         let length: Int32 = _deserialize(data, offset)
         super.init(data: data, offset: offset, count: Int(length))
@@ -267,7 +267,7 @@ public class PrimitiveVariableSizeList<T: PrimitiveDeserializable>: List<T> {
     
     let _byteSize: Int
     
-    init(data: Data, offset: Int) {
+    init(data: NSData, offset: Int) {
         let byteSize: Int32 = _deserialize(data, offset)
         _byteSize = Int(byteSize)
         let length: Int32 = _deserialize(data, offset + 4)
@@ -287,7 +287,7 @@ public class ObjectFixedSizeList<T: ObjectDeserializable>: List<T> {
     
     let _itemSize: Int
     
-    init(data: Data, offset: Int, itemSize: Int) {
+    init(data: NSData, offset: Int, itemSize: Int) {
         _itemSize = itemSize
         let length: Int32 = _deserialize(data, offset)
         super.init(data: data, offset: offset, count: Int(length))
@@ -306,7 +306,7 @@ public class ObjectVariableSizeList<T: ObjectDeserializable>: List<T> {
     
     let _byteSize: Int
     
-    init(data: Data, offset: Int) {
+    init(data: NSData, offset: Int) {
         let byteSize: Int32 = _deserialize(data, offset)
         _byteSize = Int(byteSize)
         let length: Int32 = _deserialize(data, offset + 4)
@@ -326,7 +326,7 @@ public class StructFixedSizeList<T: StructDeserializable>: List<T> {
     
     let _itemSize: Int
     
-    init(data: Data, offset: Int, itemSize: Int) {
+    init(data: NSData, offset: Int, itemSize: Int) {
         _itemSize = itemSize
         let length: Int32 = _deserialize(data, offset)
         super.init(data: data, offset: offset, count: Int(length))
@@ -346,7 +346,7 @@ public class StructVariableSizeList<T: StructDeserializable>: List<T> {
     
     let _byteSize: Int
     
-    init(data: Data, offset: Int) {
+    init(data: NSData, offset: Int) {
         let byteSize: Int32 = _deserialize(data, offset)
         _byteSize = Int(byteSize)
         let length: Int32 = _deserialize(data, offset + 4)

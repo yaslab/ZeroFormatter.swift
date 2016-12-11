@@ -10,19 +10,19 @@ import Foundation
 
 // MARK: - PrimitiveDeserializable
 
-public func deserialize<T: PrimitiveDeserializable>(_ data: Data) -> T {
+public func deserialize<T: PrimitiveDeserializable>(_ data: NSData) -> T {
     var size = 0
     return T.deserialize(data, 0, &size)
 }
 
-public func deserialize<T: PrimitiveDeserializable>(_ data: Data) -> T? {
+public func deserialize<T: PrimitiveDeserializable>(_ data: NSData) -> T? {
     var size = 0
     return T.deserialize(data, 0, &size)
 }
 
 // MARK: - ObjectDeserializable
 
-public func deserialize<T: ObjectDeserializable>(_ data: Data) -> T? {
+public func deserialize<T: ObjectDeserializable>(_ data: NSData) -> T? {
     let extractor = ObjectExtractor(data, 0)
     if extractor.isNil {
         return nil
@@ -33,12 +33,12 @@ public func deserialize<T: ObjectDeserializable>(_ data: Data) -> T? {
 
 // MARK: - StructDeserializable
 
-public func deserialize<T: StructDeserializable>(_ data: Data) -> T {
+public func deserialize<T: StructDeserializable>(_ data: NSData) -> T {
     let extractor = StructExtractor(data, 0)
     return T.deserialize(extractor: extractor)
 }
 
-public func deserialize<T: StructDeserializable>(_ data: Data) -> T? {
+public func deserialize<T: StructDeserializable>(_ data: NSData) -> T? {
     let extractor = StructExtractor(data, 0)
     let obj: T = T.deserialize(extractor: extractor)
     return obj
@@ -46,7 +46,7 @@ public func deserialize<T: StructDeserializable>(_ data: Data) -> T? {
 
 // MARK: - Array of PrimitiveDeserializable
 
-public func deserialize<T: PrimitiveDeserializable>(_ data: Data) -> Array<T>? {
+public func deserialize<T: PrimitiveDeserializable>(_ data: NSData) -> Array<T>? {
     let length: Int32 = _deserialize(data, 0)
     if length < 0 {
         return nil
@@ -63,7 +63,7 @@ public func deserialize<T: PrimitiveDeserializable>(_ data: Data) -> Array<T>? {
 
 // MARK: - Array of ObjectDeserializable
 
-public func deserialize<T: ObjectDeserializable>(_ data: Data) -> Array<T>? {
+public func deserialize<T: ObjectDeserializable>(_ data: NSData) -> Array<T>? {
     let length: Int32 = _deserialize(data, 0)
     if length < 0 {
         return nil
@@ -80,7 +80,7 @@ public func deserialize<T: ObjectDeserializable>(_ data: Data) -> Array<T>? {
 
 // MARK: - Array of StructDeserializable
 
-public func deserialize<T: StructDeserializable>(_ data: Data) -> Array<T>? {
+public func deserialize<T: StructDeserializable>(_ data: NSData) -> Array<T>? {
     let length: Int32 = _deserialize(data, 0)
     if length < 0 {
         return nil
@@ -97,14 +97,14 @@ public func deserialize<T: StructDeserializable>(_ data: Data) -> Array<T>? {
 
 // MARK: - List
 
-public func deserialize<T: PrimitiveDeserializable>(_ data: Data) -> List<T>? {
+public func deserialize<T: PrimitiveDeserializable>(_ data: NSData) -> List<T>? {
     return ListSerializer.deserialize(data: data, offset: 0)
 }
 
-public func deserialize<T: ObjectDeserializable>(_ data: Data) -> List<T>? {
+public func deserialize<T: ObjectDeserializable>(_ data: NSData) -> List<T>? {
     return ListSerializer.deserialize(data: data, offset: 0)
 }
 
-public func deserialize<T: StructDeserializable>(_ data: Data) -> List<T>? {
+public func deserialize<T: StructDeserializable>(_ data: NSData) -> List<T>? {
     return ListSerializer.deserialize(data: data, offset: 0)
 }

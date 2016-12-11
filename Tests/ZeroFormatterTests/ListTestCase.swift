@@ -93,7 +93,7 @@ class ListTestCase: XCTestCase {
         ]
         
         let expected: [Int16] = [1, 2, 3, 4, 5]
-        let actual: List<Int16>? = ZeroFormatter.deserialize(Data(bytes: testData))
+        let actual: List<Int16>? = ZeroFormatter.deserialize(NSData(bytes: testData))
         
         XCTAssertNotNil(actual)
         XCTAssertEqual(actual!.count, 5)
@@ -136,7 +136,7 @@ class ListTestCase: XCTestCase {
             VariableSizeObject(a: 2, b: "01234", c: 3),
             VariableSizeObject(a: 4, b: "567890", c: 5)
         ]
-        let actual: List<VariableSizeObject>? = ZeroFormatter.deserialize(Data(bytes: testData))
+        let actual: List<VariableSizeObject>? = ZeroFormatter.deserialize(NSData(bytes: testData))
 
         XCTAssertNotNil(actual)
         XCTAssertEqual(actual!.count, 2)

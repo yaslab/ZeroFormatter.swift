@@ -28,7 +28,7 @@ class PrimitiveDeserializeOptionalTestCase: XCTestCase {
         ]
         
         let expected: Int8? = 123
-        let actual: Int8? = ZeroFormatter.deserialize(Data(bytes: testData))
+        let actual: Int8? = ZeroFormatter.deserialize(NSData(bytes: testData))
         
         XCTAssertEqual(actual, expected)
     }
@@ -40,7 +40,7 @@ class PrimitiveDeserializeOptionalTestCase: XCTestCase {
         ]
         
         let expected: Int16? = 123
-        let actual: Int16? = ZeroFormatter.deserialize(Data(bytes: testData))
+        let actual: Int16? = ZeroFormatter.deserialize(NSData(bytes: testData))
         
         XCTAssertEqual(actual, expected)
     }
@@ -52,7 +52,7 @@ class PrimitiveDeserializeOptionalTestCase: XCTestCase {
         ]
         
         let expected: Int32? = 123
-        let actual: Int32? = ZeroFormatter.deserialize(Data(bytes: testData))
+        let actual: Int32? = ZeroFormatter.deserialize(NSData(bytes: testData))
         
         XCTAssertEqual(actual, expected)
     }
@@ -64,7 +64,7 @@ class PrimitiveDeserializeOptionalTestCase: XCTestCase {
         ]
         
         let expected: Int64? = 123
-        let actual: Int64? = ZeroFormatter.deserialize(Data(bytes: testData))
+        let actual: Int64? = ZeroFormatter.deserialize(NSData(bytes: testData))
         
         XCTAssertEqual(actual, expected)
     }
@@ -76,7 +76,7 @@ class PrimitiveDeserializeOptionalTestCase: XCTestCase {
         ]
         
         let expected: UInt8? = 123
-        let actual: UInt8? = ZeroFormatter.deserialize(Data(bytes: testData))
+        let actual: UInt8? = ZeroFormatter.deserialize(NSData(bytes: testData))
         
         XCTAssertEqual(actual, expected)
     }
@@ -88,7 +88,7 @@ class PrimitiveDeserializeOptionalTestCase: XCTestCase {
         ]
         
         let expected: UInt16? = 123
-        let actual: UInt16? = ZeroFormatter.deserialize(Data(bytes: testData))
+        let actual: UInt16? = ZeroFormatter.deserialize(NSData(bytes: testData))
         
         XCTAssertEqual(actual, expected)
     }
@@ -100,7 +100,7 @@ class PrimitiveDeserializeOptionalTestCase: XCTestCase {
         ]
         
         let expected: UInt32? = 123
-        let actual: UInt32? = ZeroFormatter.deserialize(Data(bytes: testData))
+        let actual: UInt32? = ZeroFormatter.deserialize(NSData(bytes: testData))
         
         XCTAssertEqual(actual, expected)
     }
@@ -112,7 +112,7 @@ class PrimitiveDeserializeOptionalTestCase: XCTestCase {
         ]
         
         let expected: UInt64? = 123
-        let actual: UInt64? = ZeroFormatter.deserialize(Data(bytes: testData))
+        let actual: UInt64? = ZeroFormatter.deserialize(NSData(bytes: testData))
         
         XCTAssertEqual(actual, expected)
     }
@@ -124,7 +124,7 @@ class PrimitiveDeserializeOptionalTestCase: XCTestCase {
         ]
         
         let expected: Float? = 123
-        let actual: Float? = ZeroFormatter.deserialize(Data(bytes: testData))
+        let actual: Float? = ZeroFormatter.deserialize(NSData(bytes: testData))
         
         XCTAssertEqual(actual, expected)
     }
@@ -136,7 +136,7 @@ class PrimitiveDeserializeOptionalTestCase: XCTestCase {
         ]
         
         let expected: Double? = 123
-        let actual: Double? = ZeroFormatter.deserialize(Data(bytes: testData))
+        let actual: Double? = ZeroFormatter.deserialize(NSData(bytes: testData))
         
         XCTAssertEqual(actual, expected)
     }
@@ -148,7 +148,7 @@ class PrimitiveDeserializeOptionalTestCase: XCTestCase {
         ]
         
         let expected: Bool? = false
-        let actual: Bool? = ZeroFormatter.deserialize(Data(bytes: testData))
+        let actual: Bool? = ZeroFormatter.deserialize(NSData(bytes: testData))
         
         XCTAssertEqual(actual, expected)
     }
@@ -160,7 +160,7 @@ class PrimitiveDeserializeOptionalTestCase: XCTestCase {
         ]
         
         let expected: Bool? = true
-        let actual: Bool? = ZeroFormatter.deserialize(Data(bytes: testData))
+        let actual: Bool? = ZeroFormatter.deserialize(NSData(bytes: testData))
         
         XCTAssertEqual(actual, expected)
     }
@@ -173,7 +173,7 @@ class PrimitiveDeserializeOptionalTestCase: XCTestCase {
         ]
         
         let expected: Date? = Date(timeIntervalSince1970: 123.455999970)
-        let actual: Date? = ZeroFormatter.deserialize(Data(bytes: testData))
+        let actual: Date? = ZeroFormatter.deserialize(NSData(bytes: testData))
         
         XCTAssertEqual(actual, expected)
     }
@@ -185,7 +185,7 @@ class PrimitiveDeserializeOptionalTestCase: XCTestCase {
         ]
         
         let expected: String? = "abcd"
-        let actual: String? = ZeroFormatter.deserialize(Data(bytes: testData))
+        let actual: String? = ZeroFormatter.deserialize(NSData(bytes: testData))
         
         XCTAssertEqual(actual, expected)
     }

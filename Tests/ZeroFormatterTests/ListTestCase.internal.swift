@@ -36,9 +36,9 @@ class ListTestCase_internal: XCTestCase {
             0x04, 0x00,
             0x05, 0x00
         ]
-        
+    
         let expected: [Int16] = [1, 2, 3, 4, 5]
-        let actual = PrimitiveFixedSizeList<Int16>(data: Data(bytes: testData), offset: 0, itemSize: Int16.fixedSize!)
+        let actual = PrimitiveFixedSizeList<Int16>(data: NSData(bytes: testData), offset: 0, itemSize: Int16.fixedSize!)
         
         XCTAssertEqual(actual.count, 5)
         XCTAssertEqual(actual[0], expected[0])
@@ -83,7 +83,7 @@ class ListTestCase_internal: XCTestCase {
             VariableSizeObject(a: 2, b: "01234", c: 3),
             VariableSizeObject(a: 4, b: "567890", c: 5)
         ]
-        let actual = ObjectVariableSizeList<VariableSizeObject>(data: Data(bytes: testData), offset: 0)
+        let actual = ObjectVariableSizeList<VariableSizeObject>(data: NSData(bytes: testData), offset: 0)
         
         XCTAssertEqual(actual.count, 2)
         XCTAssertEqual(actual[0].a, expected[0].a)

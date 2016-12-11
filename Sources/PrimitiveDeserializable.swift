@@ -9,72 +9,68 @@
 import Foundation
 
 public protocol PrimitiveDeserializable: ZeroFormattable {
-    static func deserialize(_ data: Data, _ offset: Int, _ size: inout Int) -> Self
-    static func deserialize(_ data: Data, _ offset: Int, _ size: inout Int) -> Self?
+    static func deserialize(_ data: NSData, _ offset: Int, _ size: inout Int) -> Self
+    static func deserialize(_ data: NSData, _ offset: Int, _ size: inout Int) -> Self?
 }
 
-internal func _deserialize<T: PrimitiveDeserializable>(_ data: Data, _ offset: Int) -> T {
-    return data.withUnsafeBytes { (bytes: UnsafePointer<UInt8>) in
-        return (bytes + offset).withMemoryRebound(to: T.self, capacity: 1) {
-            return $0[0]
-        }
-    }
+internal func _deserialize<T: PrimitiveDeserializable>(_ data: NSData, _ offset: Int) -> T {
+    return (data.bytes + offset).assumingMemoryBound(to: T.self)[0]
+//    return data.withUnsafeBytes { (bytes: UnsafePointer<UInt8>) in
+//        return (bytes + offset).withMemoryRebound(to: T.self, capacity: 1) {
+//            return $0[0]
+//        }
+//    }
 }
 
-internal func _deserialize<T: PrimitiveDeserializable>(_ data: Data, _ offset: Int) -> T? {
-    return data.withUnsafeBytes { (bytes: UnsafePointer<UInt8>) in
-        let p = bytes + offset
-        let hasValue = p[0]
-        if hasValue == 0 {
-            return nil
-        }
-        return (p + 1).withMemoryRebound(to: T.self, capacity: 1) {
-            return $0[0]
-        }
+internal func _deserialize<T: PrimitiveDeserializable>(_ data: NSData, _ offset: Int) -> T? {
+    let hasValue = (data.bytes + offset).assumingMemoryBound(to: UInt8.self)[0]
+    if hasValue == 0 {
+        return nil
     }
+    return (data.bytes + offset + 1).assumingMemoryBound(to: T.self)[0]
 }
 
 extension Int8: PrimitiveDeserializable {
-    public static func deserialize(_ data: Data, _ offset: Int, _ size: inout Int) -> Int8 {
+    public static func deserialize(_ data: NSData, _ offset: Int, _ size: inout Int) -> Int8 {
         size = 1
         return _deserialize(data, offset)
     }
-    public static func deserialize(_ data: Data, _ offset: Int, _ size: inout Int) -> Int8? {
+    public static func deserialize(_ data: NSData, _ offset: Int, _ size: inout Int) -> Int8? {
         size = 2
         return _deserialize(data, offset)
     }
 }
 extension Int16: PrimitiveDeserializable {
-    public static func deserialize(_ data: Data, _ offset: Int, _ size: inout Int) -> Int16 {
+    public static func deserialize(_ data: NSData, _ offset: Int, _ size: inout Int) -> Int16 {
         size = 2
         let value: Int16 = _deserialize(data, offset)
         return value.littleEndian
     }
-    public static func deserialize(_ data: Data, _ offset: Int, _ size: inout Int) -> Int16? {
+    public static func deserialize(_ data: NSData, _ offset: Int, _ size: inout Int) -> Int16? {
         size = 3
         let value: Int16? = _deserialize(data, offset)
         return value?.littleEndian
     }
 }
 extension Int32: PrimitiveDeserializable {
-    public static func deserialize(_ data: Data, _ offset: Int, _ size: inout Int) -> Int32 {
+    public static func deserialize(_ data: NSData, _ offset: Int, _ size: inout Int) -> Int32 {
         size = 4
         let value: Int32 = _deserialize(data, offset)
         return value.littleEndian
     }
-    public static func deserialize(_ data: Data, _ offset: Int, _ size: inout Int) -> Int32? {
+    public static func deserialize(_ data: NSData, _ offset: Int, _ size: inout Int) -> Int32? {
         size = 5
         let value: Int32? = _deserialize(data, offset)
         return value?.littleEndian
     }
 }
 extension Int64: PrimitiveDeserializable {
-    public static func deserialize(_ data: Data, _ offset: Int, _ size: inout Int) -> Int64 {
+    public static func deserialize(_ data: NSData, _ offset: Int, _ size: inout Int) -> Int64 {
         size = 8
         let value: Int64 = _deserialize(data, offset)
         return value.littleEndian
     }
-    public static func deserialize(_ data: Data, _ offset: Int, _ size: inout Int) -> Int64? {
+    public static func deserialize(_ data: NSData, _ offset: Int, _ size: inout Int) -> Int64? {
         size = 9
         let value: Int64? = _deserialize(data, offset)
         return value?.littleEndian
@@ -82,46 +78,46 @@ extension Int64: PrimitiveDeserializable {
 }
 
 extension UInt8: PrimitiveDeserializable {
-    public static func deserialize(_ data: Data, _ offset: Int, _ size: inout Int) -> UInt8 {
+    public static func deserialize(_ data: NSData, _ offset: Int, _ size: inout Int) -> UInt8 {
         size = 1
         return _deserialize(data, offset)
     }
-    public static func deserialize(_ data: Data, _ offset: Int, _ size: inout Int) -> UInt8? {
+    public static func deserialize(_ data: NSData, _ offset: Int, _ size: inout Int) -> UInt8? {
         size = 2
         return _deserialize(data, offset)
     }
 }
 extension UInt16: PrimitiveDeserializable {
-    public static func deserialize(_ data: Data, _ offset: Int, _ size: inout Int) -> UInt16 {
+    public static func deserialize(_ data: NSData, _ offset: Int, _ size: inout Int) -> UInt16 {
         size = 2
         let value: UInt16 = _deserialize(data, offset)
         return value.littleEndian
     }
-    public static func deserialize(_ data: Data, _ offset: Int, _ size: inout Int) -> UInt16? {
+    public static func deserialize(_ data: NSData, _ offset: Int, _ size: inout Int) -> UInt16? {
         size = 3
         let value: UInt16? = _deserialize(data, offset)
         return value?.littleEndian
     }
 }
 extension UInt32: PrimitiveDeserializable {
-    public static func deserialize(_ data: Data, _ offset: Int, _ size: inout Int) -> UInt32 {
+    public static func deserialize(_ data: NSData, _ offset: Int, _ size: inout Int) -> UInt32 {
         size = 4
         let value: UInt32 = _deserialize(data, offset)
         return value.littleEndian
     }
-    public static func deserialize(_ data: Data, _ offset: Int, _ size: inout Int) -> UInt32? {
+    public static func deserialize(_ data: NSData, _ offset: Int, _ size: inout Int) -> UInt32? {
         size = 5
         let value: UInt32? = _deserialize(data, offset)
         return value?.littleEndian
     }
 }
 extension UInt64: PrimitiveDeserializable {
-    public static func deserialize(_ data: Data, _ offset: Int, _ size: inout Int) -> UInt64 {
+    public static func deserialize(_ data: NSData, _ offset: Int, _ size: inout Int) -> UInt64 {
         size = 8
         let value: UInt64 = _deserialize(data, offset)
         return value.littleEndian
     }
-    public static func deserialize(_ data: Data, _ offset: Int, _ size: inout Int) -> UInt64? {
+    public static func deserialize(_ data: NSData, _ offset: Int, _ size: inout Int) -> UInt64? {
         size = 9
         let value: UInt64? = _deserialize(data, offset)
         return value?.littleEndian
@@ -129,12 +125,12 @@ extension UInt64: PrimitiveDeserializable {
 }
 
 extension Float: PrimitiveDeserializable {
-    public static func deserialize(_ data: Data, _ offset: Int, _ size: inout Int) -> Float {
+    public static func deserialize(_ data: NSData, _ offset: Int, _ size: inout Int) -> Float {
         size = 4
         let value: UInt32 = _deserialize(data, offset)
         return Float(bitPattern: value.littleEndian)
     }
-    public static func deserialize(_ data: Data, _ offset: Int, _ size: inout Int) -> Float? {
+    public static func deserialize(_ data: NSData, _ offset: Int, _ size: inout Int) -> Float? {
         size = 5
         let value: UInt32? = _deserialize(data, offset)
         if let value = value {
@@ -145,12 +141,12 @@ extension Float: PrimitiveDeserializable {
     }
 }
 extension Double: PrimitiveDeserializable {
-    public static func deserialize(_ data: Data, _ offset: Int, _ size: inout Int) -> Double {
+    public static func deserialize(_ data: NSData, _ offset: Int, _ size: inout Int) -> Double {
         size = 8
         let value: UInt64 = _deserialize(data, offset)
         return Double(bitPattern: value.littleEndian)
     }
-    public static func deserialize(_ data: Data, _ offset: Int, _ size: inout Int) -> Double? {
+    public static func deserialize(_ data: NSData, _ offset: Int, _ size: inout Int) -> Double? {
         size = 9
         let value: UInt64? = _deserialize(data, offset)
         if let value = value {
@@ -161,12 +157,12 @@ extension Double: PrimitiveDeserializable {
     }
 }
 extension Bool: PrimitiveDeserializable {
-    public static func deserialize(_ data: Data, _ offset: Int, _ size: inout Int) -> Bool {
+    public static func deserialize(_ data: NSData, _ offset: Int, _ size: inout Int) -> Bool {
         size = 1
         let value: UInt8 = _deserialize(data, offset)
         return value != 0
     }
-    public static func deserialize(_ data: Data, _ offset: Int, _ size: inout Int) -> Bool? {
+    public static func deserialize(_ data: NSData, _ offset: Int, _ size: inout Int) -> Bool? {
         size = 2
         let value: UInt8? = _deserialize(data, offset)
         if let value = value {
@@ -178,7 +174,7 @@ extension Bool: PrimitiveDeserializable {
 }
 
 extension Date: PrimitiveDeserializable {
-    public static func deserialize(_ data: Data, _ offset: Int, _ size: inout Int) -> Date {
+    public static func deserialize(_ data: NSData, _ offset: Int, _ size: inout Int) -> Date {
         size = 12
         let seconds: Int64 = _deserialize(data, offset)
         let nanos: Int32 = _deserialize(data, offset + 8)
@@ -186,7 +182,7 @@ extension Date: PrimitiveDeserializable {
         unixTime += TimeInterval(nanos.littleEndian) / 1_000_000_000
         return Date(timeIntervalSince1970: unixTime)
     }
-    public static func deserialize(_ data: Data, _ offset: Int, _ size: inout Int) -> Date? {
+    public static func deserialize(_ data: NSData, _ offset: Int, _ size: inout Int) -> Date? {
         size = 13
         let hasValue: UInt8 = _deserialize(data, offset)
         if hasValue == 0 {
@@ -198,7 +194,7 @@ extension Date: PrimitiveDeserializable {
     }
 }
 extension String: PrimitiveDeserializable {
-    public static func deserialize(_ data: Data, _ offset: Int, _ size: inout Int) -> String {
+    public static func deserialize(_ data: NSData, _ offset: Int, _ size: inout Int) -> String {
         size = 4
         let length: Int32 = _deserialize(data, offset)
         if length <= 0 {
@@ -206,11 +202,20 @@ extension String: PrimitiveDeserializable {
         }
         size += Int(length)
         let start = offset + 4
-        let end = start + Int(length)
-        let utf8Data = data.subdata(in: start ..< end)
-        return String(data: utf8Data, encoding: .utf8)!
+//        let end = start + Int(length)
+        let bufferSize = Int(length) + 1
+        let cString = malloc(bufferSize).assumingMemoryBound(to: UInt8.self)
+        defer {
+            free(cString)
+        }
+        memset(cString, 0, bufferSize)
+        memcpy(cString, data.bytes + start, Int(length))
+        //let range = NSRange.init(location: start, length: Int(length))
+        //let utf8Data = data.subdata(with: range)
+        //return String(data: utf8Data, encoding: .utf8)!
+        return String(cString: cString)
     }
-    public static func deserialize(_ data: Data, _ offset: Int, _ size: inout Int) -> String? {
+    public static func deserialize(_ data: NSData, _ offset: Int, _ size: inout Int) -> String? {
         size = 4
         let length: Int32 = _deserialize(data, offset)
         if length < 0 {
@@ -220,8 +225,17 @@ extension String: PrimitiveDeserializable {
         }
         size += Int(length)
         let start = offset + 4
-        let end = start + Int(length)
-        let utf8Data = data.subdata(in: start ..< end)
-        return String(data: utf8Data, encoding: .utf8)
+        //let end = start + Int(length)
+        let bufferSize = Int(length) + 1
+        let cString = malloc(bufferSize).assumingMemoryBound(to: UInt8.self)
+        defer {
+            free(cString)
+        }
+        memset(cString, 0, bufferSize)
+        memcpy(cString, data.bytes + start, Int(length))
+        //let utf8Data = data.subdata(in: start ..< end)
+        //return String(data: utf8Data, encoding: .utf8)
+        return String(cString: cString)
     }
 }
+ 
