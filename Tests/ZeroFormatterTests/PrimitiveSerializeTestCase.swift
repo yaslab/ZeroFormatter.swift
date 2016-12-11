@@ -28,8 +28,8 @@ class PrimitiveSerializeTestCase: XCTestCase {
             0x7b
         ]
         let actual = ZeroFormatter.serialize(testData)
-        
-        XCTAssertEqual(Array(actual), expected)
+
+        XCTAssertEqual(actual.toArray(), expected)
     }
 
     func testInt16() {
@@ -40,7 +40,7 @@ class PrimitiveSerializeTestCase: XCTestCase {
         ]
         let actual = ZeroFormatter.serialize(testData)
         
-        XCTAssertEqual(Array(actual), expected)
+        XCTAssertEqual(actual.toArray(), expected)
     }
     
     func testInt32() {
@@ -51,7 +51,7 @@ class PrimitiveSerializeTestCase: XCTestCase {
         ]
         let actual = ZeroFormatter.serialize(testData)
         
-        XCTAssertEqual(Array(actual), expected)
+        XCTAssertEqual(actual.toArray(), expected)
     }
     
     func testInt64() {
@@ -62,7 +62,7 @@ class PrimitiveSerializeTestCase: XCTestCase {
         ]
         let actual = ZeroFormatter.serialize(testData)
         
-        XCTAssertEqual(Array(actual), expected)
+        XCTAssertEqual(actual.toArray(), expected)
     }
     
     func testUInt8() {
@@ -73,7 +73,7 @@ class PrimitiveSerializeTestCase: XCTestCase {
         ]
         let actual = ZeroFormatter.serialize(testData)
         
-        XCTAssertEqual(Array(actual), expected)
+        XCTAssertEqual(actual.toArray(), expected)
     }
     
     func testUInt16() {
@@ -84,7 +84,7 @@ class PrimitiveSerializeTestCase: XCTestCase {
         ]
         let actual = ZeroFormatter.serialize(testData)
         
-        XCTAssertEqual(Array(actual), expected)
+        XCTAssertEqual(actual.toArray(), expected)
     }
     
     func testUInt32() {
@@ -95,7 +95,7 @@ class PrimitiveSerializeTestCase: XCTestCase {
         ]
         let actual = ZeroFormatter.serialize(testData)
         
-        XCTAssertEqual(Array(actual), expected)
+        XCTAssertEqual(actual.toArray(), expected)
     }
     
     func testUInt64() {
@@ -106,7 +106,7 @@ class PrimitiveSerializeTestCase: XCTestCase {
         ]
         let actual = ZeroFormatter.serialize(testData)
         
-        XCTAssertEqual(Array(actual), expected)
+        XCTAssertEqual(actual.toArray(), expected)
     }
     
     func testFloat() {
@@ -117,7 +117,7 @@ class PrimitiveSerializeTestCase: XCTestCase {
         ]
         let actual = ZeroFormatter.serialize(testData)
         
-        XCTAssertEqual(Array(actual), expected)
+        XCTAssertEqual(actual.toArray(), expected)
     }
     
     func testDouble() {
@@ -128,7 +128,7 @@ class PrimitiveSerializeTestCase: XCTestCase {
         ]
         let actual = ZeroFormatter.serialize(testData)
         
-        XCTAssertEqual(Array(actual), expected)
+        XCTAssertEqual(actual.toArray(), expected)
     }
     
     func testBoolFalse() {
@@ -139,7 +139,7 @@ class PrimitiveSerializeTestCase: XCTestCase {
         ]
         let actual = ZeroFormatter.serialize(testData)
         
-        XCTAssertEqual(Array(actual), expected)
+        XCTAssertEqual(actual.toArray(), expected)
     }
 
     func testBoolTrue() {
@@ -150,7 +150,7 @@ class PrimitiveSerializeTestCase: XCTestCase {
         ]
         let actual = ZeroFormatter.serialize(testData)
         
-        XCTAssertEqual(Array(actual), expected)
+        XCTAssertEqual(actual.toArray(), expected)
     }
     
     func testDate() {
@@ -162,7 +162,7 @@ class PrimitiveSerializeTestCase: XCTestCase {
         ]
         let actual = ZeroFormatter.serialize(testData)
         
-        XCTAssertEqual(Array(actual), expected)
+        XCTAssertEqual(actual.toArray(), expected)
     }
     
     func testString() {
@@ -174,7 +174,7 @@ class PrimitiveSerializeTestCase: XCTestCase {
         ]
         let actual = ZeroFormatter.serialize(testData)
         
-        XCTAssertEqual(Array(actual), expected)
+        XCTAssertEqual(actual.toArray(), expected)
     }
     
 }

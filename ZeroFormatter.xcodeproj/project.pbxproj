@@ -29,6 +29,7 @@
 		0EF7B09F1DFD9B83007C5CD6 /* PrimitiveSerializeOptionalTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EF7B09E1DFD9B83007C5CD6 /* PrimitiveSerializeOptionalTestCase.swift */; };
 		0EF7B0A11DFD9CFA007C5CD6 /* PrimitiveDeserializeTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EF7B0A01DFD9CFA007C5CD6 /* PrimitiveDeserializeTestCase.swift */; };
 		0EF7B0A31DFDA122007C5CD6 /* PrimitiveDeserializeOptionalTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EF7B0A21DFDA122007C5CD6 /* PrimitiveDeserializeOptionalTestCase.swift */; };
+		0EF7B0A51DFDA602007C5CD6 /* TestUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EF7B0A41DFDA602007C5CD6 /* TestUtility.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -67,6 +68,7 @@
 		0EF7B09E1DFD9B83007C5CD6 /* PrimitiveSerializeOptionalTestCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrimitiveSerializeOptionalTestCase.swift; sourceTree = "<group>"; };
 		0EF7B0A01DFD9CFA007C5CD6 /* PrimitiveDeserializeTestCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrimitiveDeserializeTestCase.swift; sourceTree = "<group>"; };
 		0EF7B0A21DFDA122007C5CD6 /* PrimitiveDeserializeOptionalTestCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrimitiveDeserializeOptionalTestCase.swift; sourceTree = "<group>"; };
+		0EF7B0A41DFDA602007C5CD6 /* TestUtility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestUtility.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -163,6 +165,7 @@
 				0EF7B0A01DFD9CFA007C5CD6 /* PrimitiveDeserializeTestCase.swift */,
 				0EF7B09E1DFD9B83007C5CD6 /* PrimitiveSerializeOptionalTestCase.swift */,
 				0EF7B09C1DFD94C5007C5CD6 /* PrimitiveSerializeTestCase.swift */,
+				0EF7B0A41DFDA602007C5CD6 /* TestUtility.swift */,
 			);
 			path = ZeroFormatterTests;
 			sourceTree = "<group>";
@@ -305,6 +308,7 @@
 				0ECF42031DFC8A2600B90FB3 /* ListTestCase.internal.swift in Sources */,
 				0ECF41EE1DFC4B5100B90FB3 /* Models.swift in Sources */,
 				0EF7B0A31DFDA122007C5CD6 /* PrimitiveDeserializeOptionalTestCase.swift in Sources */,
+				0EF7B0A51DFDA602007C5CD6 /* TestUtility.swift in Sources */,
 				0EF7B0A11DFD9CFA007C5CD6 /* PrimitiveDeserializeTestCase.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

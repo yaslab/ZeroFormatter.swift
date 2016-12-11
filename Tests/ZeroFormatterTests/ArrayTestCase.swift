@@ -45,7 +45,7 @@ class ArrayTestCase: XCTestCase {
         ]
         let actual = ZeroFormatter.serialize(testData)
         
-        XCTAssertEqual(Array(actual), expected)
+        XCTAssertEqual(actual.toArray(), expected)
     }
     
     func testSerializePrimitiveArrayInArray() {
@@ -63,7 +63,7 @@ class ArrayTestCase: XCTestCase {
         ]
         let actual = ZeroFormatter.serialize(testData)
         
-        XCTAssertEqual(Array(actual), expected)
+        XCTAssertEqual(actual.toArray(), expected)
     }
 
     func testSerializeObjectArray() {
@@ -95,7 +95,7 @@ class ArrayTestCase: XCTestCase {
         ]
         let actual = ZeroFormatter.serialize(testData)
         
-        XCTAssertEqual(Array(actual), expected)
+        XCTAssertEqual(actual.toArray(), expected)
     }
     
     func testSerializeStructArray() {
@@ -117,7 +117,7 @@ class ArrayTestCase: XCTestCase {
         ]
         let actual = ZeroFormatter.serialize(testData)
         
-        XCTAssertEqual(Array(actual), expected)
+        XCTAssertEqual(actual.toArray(), expected)
     }
     
     // MARK: - Deserialize

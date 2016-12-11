@@ -10,21 +10,21 @@ import Foundation
 
 // MARK: - PrimitiveSerializable
 
-public func serialize<T: PrimitiveSerializable>(_ value: T) -> Data {
+public func serialize<T: PrimitiveSerializable>(_ value: T) -> NSData {
     let data = NSMutableData()
     _ = T.serialize(data, value)
-    return data as Data
+    return data
 }
 
-public func serialize<T: PrimitiveSerializable>(_ value: T?) -> Data {
+public func serialize<T: PrimitiveSerializable>(_ value: T?) -> NSData {
     let data = NSMutableData()
     _ = T.serialize(data, value)
-    return data as Data
+    return data
 }
 
 // MARK: - ObjectSerializable
 
-public func serialize<T: ObjectSerializable>(_ value: T?) -> Data {
+public func serialize<T: ObjectSerializable>(_ value: T?) -> NSData {
     let data = NSMutableData()
     if let value = value {
         let builder = ObjectBuilder(data)
@@ -33,19 +33,19 @@ public func serialize<T: ObjectSerializable>(_ value: T?) -> Data {
     } else {
         _serialize(data, Int32(-1))
     }
-    return data as Data
+    return data
 }
 
 // MARK: - StructSerializable
 
-public func serialize<T: StructSerializable>(_ value: T) -> Data {
+public func serialize<T: StructSerializable>(_ value: T) -> NSData {
     let data = NSMutableData()
     let builder = StructBuilder(data)
     T.serialize(obj: value, builder: builder)
-    return data as Data
+    return data
 }
 
-public func serialize<T: StructSerializable>(_ value: T?) -> Data {
+public func serialize<T: StructSerializable>(_ value: T?) -> NSData {
     let data = NSMutableData()
     if let value = value {
         _serialize(data, UInt8(1)) // hasValue
@@ -54,12 +54,12 @@ public func serialize<T: StructSerializable>(_ value: T?) -> Data {
     } else {
         _serialize(data, UInt8(0)) // hasValue
     }
-    return data as Data
+    return data
 }
 
 // MARK: - Array of PrimitiveSerializable
 
-public func serialize<T: Sequence>(_ values: T?) -> Data where T.Iterator.Element: PrimitiveSerializable {
+public func serialize<T: Sequence>(_ values: T?) -> NSData where T.Iterator.Element: PrimitiveSerializable {
     let data = NSMutableData()
     if let values = values {
         _serialize(data, Int32(0).littleEndian)
@@ -73,12 +73,12 @@ public func serialize<T: Sequence>(_ values: T?) -> Data where T.Iterator.Elemen
     } else {
         _serialize(data, Int32(-1).littleEndian)
     }
-    return data as Data
+    return data
 }
 
 // MARK: - Array of ObjectSerializable
 
-public func serialize<T: Sequence>(_ values: T?) -> Data where T.Iterator.Element: ObjectSerializable {
+public func serialize<T: Sequence>(_ values: T?) -> NSData where T.Iterator.Element: ObjectSerializable {
     let data = NSMutableData()
     if let values = values {
         _serialize(data, Int32(0).littleEndian)
@@ -94,12 +94,12 @@ public func serialize<T: Sequence>(_ values: T?) -> Data where T.Iterator.Elemen
     } else {
         _serialize(data, Int32(-1).littleEndian)
     }
-    return data as Data
+    return data
 }
 
 // MARK: - Array of StructSerializable
 
-public func serialize<T: Sequence>(_ values: T?) -> Data where T.Iterator.Element: StructSerializable {
+public func serialize<T: Sequence>(_ values: T?) -> NSData where T.Iterator.Element: StructSerializable {
     let data = NSMutableData()
     if let values = values {
         _serialize(data, Int32(0).littleEndian)
@@ -114,12 +114,12 @@ public func serialize<T: Sequence>(_ values: T?) -> Data where T.Iterator.Elemen
     } else {
         _serialize(data, Int32(-1).littleEndian)
     }
-    return data as Data
+    return data
 }
 
 // MARK: - Array in Array
 
-public func serialize<T: Sequence>(_ values: T?) -> Data where T.Iterator.Element: Sequence, T.Iterator.Element.Iterator.Element: PrimitiveSerializable {
+public func serialize<T: Sequence>(_ values: T?) -> NSData where T.Iterator.Element: Sequence, T.Iterator.Element.Iterator.Element: PrimitiveSerializable {
     let data = NSMutableData()
     if let values = values {
         _serialize(data, Int32(0).littleEndian)
@@ -133,10 +133,10 @@ public func serialize<T: Sequence>(_ values: T?) -> Data where T.Iterator.Elemen
     } else {
         _serialize(data, Int32(-1).littleEndian)
     }
-    return data as Data
+    return data
 }
 
-public func serialize<T: Sequence>(_ values: T?) -> Data where T.Iterator.Element: Sequence, T.Iterator.Element.Iterator.Element: ObjectSerializable {
+public func serialize<T: Sequence>(_ values: T?) -> NSData where T.Iterator.Element: Sequence, T.Iterator.Element.Iterator.Element: ObjectSerializable {
     let data = NSMutableData()
     if let values = values {
         _serialize(data, Int32(0).littleEndian)
@@ -150,10 +150,10 @@ public func serialize<T: Sequence>(_ values: T?) -> Data where T.Iterator.Elemen
     } else {
         _serialize(data, Int32(-1).littleEndian)
     }
-    return data as Data
+    return data
 }
 
-public func serialize<T: Sequence>(_ values: T?) -> Data where T.Iterator.Element: Sequence, T.Iterator.Element.Iterator.Element: StructSerializable {
+public func serialize<T: Sequence>(_ values: T?) -> NSData where T.Iterator.Element: Sequence, T.Iterator.Element.Iterator.Element: StructSerializable {
     let data = NSMutableData()
     if let values = values {
         _serialize(data, Int32(0).littleEndian)
@@ -167,33 +167,33 @@ public func serialize<T: Sequence>(_ values: T?) -> Data where T.Iterator.Elemen
     } else {
         _serialize(data, Int32(-1).littleEndian)
     }
-    return data as Data
+    return data
 }
 
 // MARK: - List
 
-public func serialize<T: ObjectSerializable>(_ values: List<T>?) -> Data {
+public func serialize<T: ObjectSerializable>(_ values: List<T>?) -> NSData {
     let data = NSMutableData()
     _ = ListSerializer.serialize(data, values)
-    return data as Data
+    return data
 }
 
 // MARK: - List from Array
 
-public func serializeAsList<T: PrimitiveSerializable>(_ values: Array<T>?) -> Data {
+public func serializeAsList<T: PrimitiveSerializable>(_ values: Array<T>?) -> NSData {
     let data = NSMutableData()
     _ = ListSerializer.serializeAsList(data, values)
-    return data as Data
+    return data
 }
 
-public func serializeAsList<T: ObjectSerializable>(_ values: Array<T>?) -> Data {
+public func serializeAsList<T: ObjectSerializable>(_ values: Array<T>?) -> NSData {
     let data = NSMutableData()
     _ = ListSerializer.serializeAsList(data, values)
-    return data as Data
+    return data
 }
 
-public func serializeAsList<T: StructSerializable>(_ values: Array<T>?) -> Data {
+public func serializeAsList<T: StructSerializable>(_ values: Array<T>?) -> NSData {
     let data = NSMutableData()
     _ = ListSerializer.serializeAsList(data, values)
-    return data as Data
+    return data
 }

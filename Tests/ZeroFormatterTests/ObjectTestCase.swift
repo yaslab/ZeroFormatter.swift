@@ -36,7 +36,7 @@ class ObjectTestCase: XCTestCase {
         ]
         let actual = ZeroFormatter.serialize(testData)
 
-        XCTAssertEqual(Array(actual), expexted)
+        XCTAssertEqual(actual.toArray(), expexted)
     }
     
     func testDeserializeFixedSizeObject() {
@@ -70,7 +70,7 @@ class ObjectTestCase: XCTestCase {
         ]
         let actual = ZeroFormatter.serialize(testData)
         
-        XCTAssertEqual(Array(actual), expexted)
+        XCTAssertEqual(actual.toArray(), expexted)
     }
     
     func testDeserializeFixedSizeStruct() {

@@ -38,7 +38,7 @@ class ListTestCase: XCTestCase {
         ]
         let actual = ZeroFormatter.serializeAsList(testData)
         
-        XCTAssertEqual(Array(actual), expected)
+        XCTAssertEqual(actual.toArray(), expected)
     }
 
     func testSerializeVariableSizeList() {
@@ -75,7 +75,7 @@ class ListTestCase: XCTestCase {
         ]
         let actual = ZeroFormatter.serializeAsList(testData)
         
-        XCTAssertEqual(Array(actual), expected)
+        XCTAssertEqual(actual.toArray(), expected)
     }
     
     // MARK: - Deserialize
