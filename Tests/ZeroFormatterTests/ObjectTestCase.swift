@@ -1,5 +1,5 @@
 //
-//  ZeroFormatterTestCase.swift
+//  ObjectTestCase.swift
 //  ZeroFormatter
 //
 //  Created by Yasuhiro Hatta on 2016/11/26.
@@ -9,7 +9,7 @@
 import XCTest
 import ZeroFormatter
 
-class ZeroFormatterTestCase: XCTestCase {
+class ObjectTestCase: XCTestCase {
 
     override func setUp() {
         super.setUp()
@@ -19,20 +19,6 @@ class ZeroFormatterTestCase: XCTestCase {
     override func tearDown() {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
         super.tearDown()
-    }
-    
-    func testSerializeInt32() {
-        let testData: Int32 = 1234
-
-        var expected = Int32(1234).littleEndian
-        let actual = ZeroFormatter.serialize(testData)
-        
-        withUnsafeBytes(of: &expected) { (p1) in
-            actual.withUnsafeBytes { (p2: UnsafePointer<UInt8>) in
-                let ret = memcmp(p1.baseAddress!, p2, 4)
-                XCTAssertEqual(ret, 0)
-            }
-        }
     }
 
     func testSerializeFixedSizeObject() {
