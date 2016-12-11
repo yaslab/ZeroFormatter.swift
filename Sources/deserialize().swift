@@ -44,7 +44,7 @@ public func deserialize<T: StructDeserializable>(_ data: Data) -> T? {
     return obj
 }
 
-// MARK: - Array of PrimitiveDeserializable
+// MARK: - Array
 
 public func deserialize<T: PrimitiveDeserializable>(_ data: Data) -> Array<T>? {
     let length: Int32 = _deserialize(data, 0)
@@ -61,8 +61,6 @@ public func deserialize<T: PrimitiveDeserializable>(_ data: Data) -> Array<T>? {
     return array
 }
 
-// MARK: - Array of ObjectDeserializable
-
 public func deserialize<T: ObjectDeserializable>(_ data: Data) -> Array<T>? {
     let length: Int32 = _deserialize(data, 0)
     if length < 0 {
@@ -77,8 +75,6 @@ public func deserialize<T: ObjectDeserializable>(_ data: Data) -> Array<T>? {
     }
     return array
 }
-
-// MARK: - Array of StructDeserializable
 
 public func deserialize<T: StructDeserializable>(_ data: Data) -> Array<T>? {
     let length: Int32 = _deserialize(data, 0)

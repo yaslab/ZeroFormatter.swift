@@ -57,60 +57,47 @@ public func serialize<T: StructSerializable>(_ value: T?) -> NSData {
     return data
 }
 
-// MARK: - Array of PrimitiveSerializable
+// MARK: - Array
 
-public func serialize<T: Sequence>(_ values: T?) -> NSData where T.Iterator.Element: PrimitiveSerializable {
+// TODO: Use ArraySerializer
+public func serialize<T: PrimitiveSerializable>(_ values: Array<T>?) -> NSData {
     let data = NSMutableData()
     if let values = values {
-        _serialize(data, Int32(0).littleEndian)
-        var length = 0
+        _serialize(data, Int32(values.count).littleEndian)
         for value in values {
-            length += 1
-            _ = T.Iterator.Element.serialize(data, value)
+            _ = T.serialize(data, value)
         }
-        
-        (data.mutableBytes + 0).assumingMemoryBound(to: Int32.self)[0] = Int32(length).littleEndian
     } else {
         _serialize(data, Int32(-1).littleEndian)
     }
     return data
 }
 
-// MARK: - Array of ObjectSerializable
-
-public func serialize<T: Sequence>(_ values: T?) -> NSData where T.Iterator.Element: ObjectSerializable {
+// TODO: Use ArraySerializer
+public func serialize<T: ObjectSerializable>(_ values: Array<T>?) -> NSData {
     let data = NSMutableData()
     if let values = values {
-        _serialize(data, Int32(0).littleEndian)
-        var length = 0
+        _serialize(data, Int32(values.count).littleEndian)
         for value in values {
-            length += 1
             let builder = ObjectBuilder(data)
-            T.Iterator.Element.serialize(obj: value, builder: builder)
+            T.serialize(obj: value, builder: builder)
             _ = builder.build()
         }
-        
-        (data.mutableBytes + 0).assumingMemoryBound(to: Int32.self)[0] = Int32(length).littleEndian
     } else {
         _serialize(data, Int32(-1).littleEndian)
     }
     return data
 }
 
-// MARK: - Array of StructSerializable
-
-public func serialize<T: Sequence>(_ values: T?) -> NSData where T.Iterator.Element: StructSerializable {
+// TODO: Use ArraySerializer
+public func serialize<T: StructSerializable>(_ values: Array<T>?) -> NSData {
     let data = NSMutableData()
     if let values = values {
-        _serialize(data, Int32(0).littleEndian)
-        var length = 0
+        _serialize(data, Int32(values.count).littleEndian)
         for value in values {
-            length += 1
             let builder = StructBuilder(data)
-            T.Iterator.Element.serialize(obj: value, builder: builder)
+            T.serialize(obj: value, builder: builder)
         }
-        
-        (data.mutableBytes + 0).assumingMemoryBound(to: Int32.self)[0] = Int32(length).littleEndian
     } else {
         _serialize(data, Int32(-1).littleEndian)
     }
@@ -119,51 +106,39 @@ public func serialize<T: Sequence>(_ values: T?) -> NSData where T.Iterator.Elem
 
 // MARK: - Array in Array
 
-public func serialize<T: Sequence>(_ values: T?) -> NSData where T.Iterator.Element: Sequence, T.Iterator.Element.Iterator.Element: PrimitiveSerializable {
+public func serialize<T: PrimitiveSerializable>(_ values: Array<Array<T>>?) -> NSData {
     let data = NSMutableData()
     if let values = values {
-        _serialize(data, Int32(0).littleEndian)
-        var length = 0
+        _serialize(data, Int32(values.count).littleEndian)
         for value in values {
-            length += 1
-            _ = T.Iterator.Element.serialize(data, value)
+            _ = ArraySerializer.serialize(data, value)
         }
-        
-        (data.mutableBytes + 0).assumingMemoryBound(to: Int32.self)[0] = Int32(length).littleEndian
     } else {
         _serialize(data, Int32(-1).littleEndian)
     }
     return data
 }
 
-public func serialize<T: Sequence>(_ values: T?) -> NSData where T.Iterator.Element: Sequence, T.Iterator.Element.Iterator.Element: ObjectSerializable {
+public func serialize<T: ObjectSerializable>(_ values: Array<Array<T>>?) -> NSData {
     let data = NSMutableData()
     if let values = values {
-        _serialize(data, Int32(0).littleEndian)
-        var length = 0
+        _serialize(data, Int32(values.count).littleEndian)
         for value in values {
-            length += 1
-            _ = T.Iterator.Element.serialize(data, value)
+            _ = ArraySerializer.serialize(data, value)
         }
-        
-        (data.mutableBytes + 0).assumingMemoryBound(to: Int32.self)[0] = Int32(length).littleEndian
     } else {
         _serialize(data, Int32(-1).littleEndian)
     }
     return data
 }
 
-public func serialize<T: Sequence>(_ values: T?) -> NSData where T.Iterator.Element: Sequence, T.Iterator.Element.Iterator.Element: StructSerializable {
+public func serialize<T: StructSerializable>(_ values: Array<Array<T>>?) -> NSData {
     let data = NSMutableData()
     if let values = values {
-        _serialize(data, Int32(0).littleEndian)
-        var length = 0
+        _serialize(data, Int32(values.count).littleEndian)
         for value in values {
-            length += 1
-            _ = T.Iterator.Element.serialize(data, value)
+            _ = ArraySerializer.serialize(data, value)
         }
-        
-        (data.mutableBytes + 0).assumingMemoryBound(to: Int32.self)[0] = Int32(length).littleEndian
     } else {
         _serialize(data, Int32(-1).littleEndian)
     }
@@ -172,7 +147,19 @@ public func serialize<T: Sequence>(_ values: T?) -> NSData where T.Iterator.Elem
 
 // MARK: - List
 
+public func serialize<T: PrimitiveSerializable>(_ values: List<T>?) -> NSData {
+    let data = NSMutableData()
+    _ = ListSerializer.serialize(data, values)
+    return data
+}
+
 public func serialize<T: ObjectSerializable>(_ values: List<T>?) -> NSData {
+    let data = NSMutableData()
+    _ = ListSerializer.serialize(data, values)
+    return data
+}
+
+public func serialize<T: StructSerializable>(_ values: List<T>?) -> NSData {
     let data = NSMutableData()
     _ = ListSerializer.serialize(data, values)
     return data
