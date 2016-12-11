@@ -11,6 +11,23 @@ import XCTest
 import ZeroFormatter
 
 class PrimitiveDeserializeOptionalTestCase: XCTestCase {
+    
+    static let allTests = [
+        ("testInt8", testInt8),
+        ("testInt16", testInt16),
+        ("testInt32", testInt32),
+        ("testInt64", testInt64),
+        ("testUInt8", testUInt8),
+        ("testUInt16", testUInt16),
+        ("testUInt32", testUInt32),
+        ("testUInt64", testUInt64),
+        ("testFloat", testFloat),
+        ("testDouble", testDouble),
+        ("testBoolFalse", testBoolFalse),
+        ("testBoolTrue", testBoolTrue),
+        ("testDate", testDate),
+        ("testString", testString)
+    ]
 
     override func setUp() {
         super.setUp()

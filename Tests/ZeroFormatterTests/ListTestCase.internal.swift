@@ -11,6 +11,11 @@ import XCTest
 @testable import ZeroFormatter
 
 class ListTestCase_internal: XCTestCase {
+    
+    static let allTests = [
+        ("testSerializeFixedSizeList", testSerializeFixedSizeList),
+        ("testSerializeVariableSizeList", testSerializeVariableSizeList)
+    ]
 
     override func setUp() {
         super.setUp()

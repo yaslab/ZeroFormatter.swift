@@ -11,6 +11,14 @@ import XCTest
 import ZeroFormatter
 
 class ObjectTestCase: XCTestCase {
+    
+    static let allTests = [
+        ("testSerializeFixedSizeObject", testSerializeFixedSizeObject),
+        ("testDeserializeFixedSizeObject", testDeserializeFixedSizeObject),
+        ("testSerializeFixedSizeStruct", testSerializeFixedSizeStruct),
+        ("testDeserializeFixedSizeStruct", testDeserializeFixedSizeStruct),
+        ("testDeserializeObjectInStruct", testDeserializeObjectInStruct)
+    ]
 
     override func setUp() {
         super.setUp()
