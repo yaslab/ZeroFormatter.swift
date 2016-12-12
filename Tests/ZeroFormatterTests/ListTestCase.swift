@@ -32,7 +32,7 @@ class ListTestCase: XCTestCase {
     // MARK: - Serialize
     
     func testSerializeFixedSizeList() {
-        XCTAssertNotNil(Int16.fixedSize)
+        XCTAssertNotNil(Int16.length)
         
         let testData: [Int16] = [1, 2, 3, 4, 5]
         
@@ -50,7 +50,7 @@ class ListTestCase: XCTestCase {
     }
 
     func testSerializeVariableSizeList() {
-        XCTAssertNil(VariableSizeObject.fixedSize)
+        XCTAssertNil(VariableSizeObject.length)
         
         let testData: [VariableSizeObject] = [
             VariableSizeObject(a: 2, b: "01234", c: 3),
@@ -89,7 +89,7 @@ class ListTestCase: XCTestCase {
     // MARK: - Deserialize
     
     func testDeserializeFixedSizeList() {
-        XCTAssertNotNil(Int16.fixedSize)
+        XCTAssertNotNil(Int16.length)
         
         let testData: [UInt8] = [
             0x05, 0x00, 0x00, 0x00,
@@ -101,7 +101,7 @@ class ListTestCase: XCTestCase {
         ]
         
         let expected: [Int16] = [1, 2, 3, 4, 5]
-        let actual: List<Int16>? = ZeroFormatter.deserialize(Data(bytes: testData))
+        let actual: List<Int16>? = ZeroFormatter.deserialize(testData.toData())
         
         XCTAssertNotNil(actual)
         XCTAssertEqual(actual!.count, 5)
@@ -113,7 +113,7 @@ class ListTestCase: XCTestCase {
     }
     
     func testDeserializeVariableSizeList() {
-        XCTAssertNil(VariableSizeObject.fixedSize)
+        XCTAssertNil(VariableSizeObject.length)
 
         let testData: [UInt8] = [
             0x57, 0x00, 0x00, 0x00, // byteSize: 87
@@ -144,7 +144,7 @@ class ListTestCase: XCTestCase {
             VariableSizeObject(a: 2, b: "01234", c: 3),
             VariableSizeObject(a: 4, b: "567890", c: 5)
         ]
-        let actual: List<VariableSizeObject>? = ZeroFormatter.deserialize(Data(bytes: testData))
+        let actual: List<VariableSizeObject>? = ZeroFormatter.deserialize(testData.toData())
 
         XCTAssertNotNil(actual)
         XCTAssertEqual(actual!.count, 2)

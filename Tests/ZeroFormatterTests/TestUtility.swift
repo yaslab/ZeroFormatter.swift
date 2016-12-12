@@ -15,3 +15,15 @@ extension NSData {
     }
     
 }
+
+extension Collection where IndexDistance == Int, Iterator.Element == UInt8 {
+    
+    func toData() -> NSData {
+        let buffer = malloc(count).assumingMemoryBound(to: UInt8.self)
+        for (i, v) in self.enumerated() {
+            buffer[i] = v
+        }
+        return NSData(bytesNoCopy: buffer, length: count, freeWhenDone: true)
+    }
+    
+}
