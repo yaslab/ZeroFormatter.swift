@@ -8,141 +8,94 @@
 
 import Foundation
 
-internal func _serialize<T: PrimitiveSerializable>(_ bytes: NSMutableData, _ value: T) {
-    var value = value
-    withUnsafeBytes(of: &value) {
-        bytes.append($0.baseAddress!.assumingMemoryBound(to: UInt8.self), length: $0.count)
-    }
-}
-
-internal func _serialize<T: PrimitiveSerializable>(_ bytes: NSMutableData, _ value: T?) {
-    if let value = value {
-        _serialize(bytes, Int8(1)) // hasValue:bool(1)
-        _serialize(bytes, value)
-    } else {
-        _serialize(bytes, Int8(0)) // hasValue:bool(1)
-        var zero: Int64 = 0
-        withUnsafeBytes(of: &zero) {
-            bytes.append($0.baseAddress!, length: MemoryLayout<T>.size)
-        }
-    }
-}
-
 extension Int8: PrimitiveSerializable {
     public static func serialize(_ bytes: NSMutableData, _ offset: Int, _ value: Int8) -> Int {
-        _serialize(bytes, value)
-        return 1
+        return BinaryUtility.serialize(bytes, value)
     }
     public static func serialize(_ bytes: NSMutableData, _ offset: Int, _ value: Int8?) -> Int {
-        _serialize(bytes, value)
-        return 2
+        return BinaryUtility.serialize(bytes, value)
     }
 }
 extension Int16: PrimitiveSerializable {
     public static func serialize(_ bytes: NSMutableData, _ offset: Int, _ value: Int16) -> Int {
-        _serialize(bytes, value.littleEndian)
-        return 2
+        return BinaryUtility.serialize(bytes, value)
     }
     public static func serialize(_ bytes: NSMutableData, _ offset: Int, _ value: Int16?) -> Int {
-        _serialize(bytes, value?.littleEndian)
-        return 3
+        return BinaryUtility.serialize(bytes, value)
     }
 }
 extension Int32: PrimitiveSerializable {
     public static func serialize(_ bytes: NSMutableData, _ offset: Int, _ value: Int32) -> Int {
-        _serialize(bytes, value.littleEndian)
-        return 4
+        return BinaryUtility.serialize(bytes, value)
     }
     public static func serialize(_ bytes: NSMutableData, _ offset: Int, _ value: Int32?) -> Int {
-        _serialize(bytes, value?.littleEndian)
-        return 5
+        return BinaryUtility.serialize(bytes, value)
     }
 }
 extension Int64: PrimitiveSerializable {
     public static func serialize(_ bytes: NSMutableData, _ offset: Int, _ value: Int64) -> Int {
-        _serialize(bytes, value.littleEndian)
-        return 8
+        return BinaryUtility.serialize(bytes, value)
     }
     public static func serialize(_ bytes: NSMutableData, _ offset: Int, _ value: Int64?) -> Int {
-        _serialize(bytes, value?.littleEndian)
-        return 9
+        return BinaryUtility.serialize(bytes, value)
     }
 }
 
 extension UInt8: PrimitiveSerializable {
     public static func serialize(_ bytes: NSMutableData, _ offset: Int, _ value: UInt8) -> Int {
-        _serialize(bytes, value)
-        return 1
+        return BinaryUtility.serialize(bytes, value)
     }
     public static func serialize(_ bytes: NSMutableData, _ offset: Int, _ value: UInt8?) -> Int {
-        _serialize(bytes, value)
-        return 2
+        return BinaryUtility.serialize(bytes, value)
     }
 }
 extension UInt16: PrimitiveSerializable {
     public static func serialize(_ bytes: NSMutableData, _ offset: Int, _ value: UInt16) -> Int {
-        _serialize(bytes, value.littleEndian)
-        return 2
+        return BinaryUtility.serialize(bytes, value)
     }
     public static func serialize(_ bytes: NSMutableData, _ offset: Int, _ value: UInt16?) -> Int {
-        _serialize(bytes, value?.littleEndian)
-        return 3
+        return BinaryUtility.serialize(bytes, value)
     }
 }
 extension UInt32: PrimitiveSerializable {
     public static func serialize(_ bytes: NSMutableData, _ offset: Int, _ value: UInt32) -> Int {
-        _serialize(bytes, value.littleEndian)
-        return 4
+        return BinaryUtility.serialize(bytes, value)
     }
     public static func serialize(_ bytes: NSMutableData, _ offset: Int, _ value: UInt32?) -> Int {
-        _serialize(bytes, value?.littleEndian)
-        return 5
+        return BinaryUtility.serialize(bytes, value)
     }
 }
 extension UInt64: PrimitiveSerializable {
     public static func serialize(_ bytes: NSMutableData, _ offset: Int, _ value: UInt64) -> Int {
-        _serialize(bytes, value.littleEndian)
-        return 8
+        return BinaryUtility.serialize(bytes, value)
     }
     public static func serialize(_ bytes: NSMutableData, _ offset: Int, _ value: UInt64?) -> Int {
-        _serialize(bytes, value?.littleEndian)
-        return 9
+        return BinaryUtility.serialize(bytes, value)
     }
 }
 
 extension Float32: PrimitiveSerializable {
     public static func serialize(_ bytes: NSMutableData, _ offset: Int, _ value: Float) -> Int {
-        _serialize(bytes, value.bitPattern.littleEndian)
-        return 4
+        return BinaryUtility.serialize(bytes, value)
     }
     public static func serialize(_ bytes: NSMutableData, _ offset: Int, _ value: Float?) -> Int {
-        _serialize(bytes, value?.bitPattern.littleEndian)
-        return 5
+        return BinaryUtility.serialize(bytes, value)
     }
 }
 extension Float64: PrimitiveSerializable {
     public static func serialize(_ bytes: NSMutableData, _ offset: Int, _ value: Double) -> Int {
-        _serialize(bytes, value.bitPattern.littleEndian)
-        return 8
+        return BinaryUtility.serialize(bytes, value)
     }
     public static func serialize(_ bytes: NSMutableData, _ offset: Int, _ value: Double?) -> Int {
-        _serialize(bytes, value?.bitPattern.littleEndian)
-        return 9
+        return BinaryUtility.serialize(bytes, value)
     }
 }
 extension Bool: PrimitiveSerializable {
     public static func serialize(_ bytes: NSMutableData, _ offset: Int, _ value: Bool) -> Int {
-        let intValue: UInt8 = value ? 1 : 0
-        _serialize(bytes, intValue)
-        return 1
+        return BinaryUtility.serialize(bytes, value)
     }
     public static func serialize(_ bytes: NSMutableData, _ offset: Int, _ value: Bool?) -> Int {
-        var intValue: UInt8? = nil
-        if let value = value {
-            intValue = value ? 1 : 0
-        }
-        _serialize(bytes, intValue)
-        return 2
+        return BinaryUtility.serialize(bytes, value)
     }
 }
 
@@ -151,47 +104,38 @@ extension Date: PrimitiveSerializable {
         let unixTime = value.timeIntervalSince1970
         let seconds = Int64(unixTime)
         let nanos = Int32((abs(unixTime) - floor(abs(unixTime))) * 1_000_000_000)
-        _serialize(bytes, seconds.littleEndian)
-        _serialize(bytes, nanos.littleEndian)
-        return 12
+        var byteSize = 0
+        byteSize += BinaryUtility.serialize(bytes, seconds)
+        byteSize += BinaryUtility.serialize(bytes, nanos)
+        return byteSize
     }
     public static func serialize(_ bytes: NSMutableData, _ offset: Int, _ value: Date?) -> Int {
+        var byteSize = 0
         if let value = value {
-            _serialize(bytes, Int8(1)) // hasValue:bool(1)
-            _ = serialize(bytes, 0, value)
+            byteSize += BinaryUtility.serialize(bytes, true)
+            byteSize += serialize(bytes, -1, value)
         } else {
-            _serialize(bytes, Int8(0)) // hasValue:bool(1)
-            _serialize(bytes, Int64(0)) // seconds:long(8)
-            _serialize(bytes, Int32(0)) // nanos:int(4)
+            byteSize += BinaryUtility.serialize(bytes, false)
+            byteSize += BinaryUtility.serialize(bytes, Int64(0)) // seconds
+            byteSize += BinaryUtility.serialize(bytes, Int32(0)) // nanos
         }
-        return 13
+        return byteSize
     }
 }
 extension String: PrimitiveSerializable {
     public static func serialize(_ bytes: NSMutableData, _ offset: Int, _ value: String) -> Int {
+        var byteSize = 0
         let utf8Data = value.data(using: .utf8)!
-        var length = Int32(utf8Data.count).littleEndian
-        withUnsafeBytes(of: &length) {
-            bytes.append(
-                $0.baseAddress!.assumingMemoryBound(to: UInt8.self),
-                length: $0.count
-            )
-        }
+        byteSize += BinaryUtility.serialize(bytes, utf8Data.count) // length
         bytes.append(utf8Data)
-        return 4 + utf8Data.count
+        byteSize += utf8Data.count
+        return byteSize
     }
     public static func serialize(_ bytes: NSMutableData, _ offset: Int, _ value: String?) -> Int {
         if let value = value {
-            return serialize(bytes, 0, value)
+            return serialize(bytes, -1, value)
         } else {
-            var length = Int32(-1).littleEndian
-            withUnsafeBytes(of: &length) {
-                bytes.append(
-                    $0.baseAddress!.assumingMemoryBound(to: UInt8.self),
-                    length: $0.count
-                )
-            }
-            return 4
+            return BinaryUtility.serialize(bytes, -1) // length
         }
     }
 }

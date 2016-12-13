@@ -66,10 +66,9 @@ public extension ObjectSerializable {
 
     public static func serialize(_ bytes: NSMutableData, _ offset: Int, _ value: Self?) -> Int {
         if let value = value {
-            return serialize(bytes, offset, value)
+            return serialize(bytes, -1, value)
         } else {
-            _serialize(bytes, Int32(-1))
-            return 4
+            return BinaryUtility.serialize(bytes, -1) // byteSize
         }
     }
     
@@ -97,7 +96,7 @@ public extension ObjectDeserializable {
             return nil
         }
         let value = deserialize(extractor)
-        byteSize = extractor.byteSize
+        byteSize += extractor.byteSize
         return value
     }
     
@@ -116,17 +115,15 @@ public extension StructSerializable {
     public static func serialize(_ bytes: NSMutableData, _ offset: Int, _ value: Self) -> Int {
         let builder = StructBuilder(bytes)
         serialize(value, builder)
-        //let length = builder.build()
-        let length = builder.currentSize
+        let length = builder.byteSize
         return length
     }
     
     public static func serialize(_ bytes: NSMutableData, _ offset: Int, _ value: Self?) -> Int {
         if let value = value {
-            return serialize(bytes, offset, value)
+            return serialize(bytes, -1, value)
         } else {
-            _serialize(bytes, Int32(-1))
-            return 4
+            return BinaryUtility.serialize(bytes, -1) // byteSize
         }
     }
     

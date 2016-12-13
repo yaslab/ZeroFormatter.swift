@@ -10,38 +10,36 @@ import Foundation
 
 public class StructBuilder {
     
-    private let data: NSMutableData
+    private let bytes: NSMutableData
     private let offset: Int
     
-    internal init(_ data: NSMutableData) {
-        self.data = data
-        self.offset = data.length
+    internal init(_ bytes: NSMutableData) {
+        self.bytes = bytes
+        self.offset = bytes.length
     }
     
-    var currentSize: Int {
-        return data.length - offset
+    var byteSize: Int {
+        return bytes.length - offset
     }
 
     // -----
     
     public func append<T: Serializable>(_ value: T) {
-        _ = T.serialize(data, 0, value)
+        _ = T.serialize(bytes, -1, value)
     }
     
     public func append<T: Serializable>(_ value: T?) {
-        _ = T.serialize(data, 0, value)
+        _ = T.serialize(bytes, -1, value)
     }
     
     public func append<T: Serializable>(_ values: Array<T>?) {
         if let values = values {
-            let length = Int32(values.count)
-            _serialize(self.data, length.littleEndian)
+            _ = BinaryUtility.serialize(bytes, values.count)
             for value in values {
-                T.serialize(self.data, 0, value)
+                _ = T.serialize(bytes, -1, value)
             }
         } else {
-            let length = Int32(-1)
-            _serialize(self.data, length.littleEndian)
+            _ = BinaryUtility.serialize(bytes, -1)
         }
     }
 

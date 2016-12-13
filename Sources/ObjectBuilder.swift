@@ -23,14 +23,13 @@ public class ObjectBuilder {
     private func begin() {
         let lastIndex = appendFunctions.count - 1
         
-        let zero = Int32(0)
         // byteSize
-        _serialize(data, zero)
+        _ = BinaryUtility.serialize(data, 0)
         // lastIndex
-        _serialize(data, Int32(lastIndex).littleEndian)
+        _ = BinaryUtility.serialize(data, lastIndex)
         // indexOffset
         for _ in 0 ... lastIndex {
-            _serialize(data, zero)
+            _ = BinaryUtility.serialize(data, 0)
         }
     }
     
@@ -62,24 +61,22 @@ public class ObjectBuilder {
     // -----
     
     public func append<T: Serializable>(_ value: T) {
-        appendFunctions.append({ [unowned self] in _ = T.serialize(self.data, 0, value) })
+        appendFunctions.append({ [unowned self] in _ = T.serialize(self.data, -1, value) })
     }
     
     public func append<T: Serializable>(_ value: T?) {
-        appendFunctions.append({ [unowned self] in _ = T.serialize(self.data, 0, value) })
+        appendFunctions.append({ [unowned self] in _ = T.serialize(self.data, -1, value) })
     }
     
     public func append<T: Serializable>(_ values: Array<T>?) {
         appendFunctions.append({ [unowned self] in
             if let values = values {
-                let length = Int32(values.count)
-                _serialize(self.data, length.littleEndian)
+                _ = BinaryUtility.serialize(self.data, values.count) // length
                 for value in values {
-                    T.serialize(self.data, 0, value)
+                    _ = T.serialize(self.data, -1, value)
                 }
             } else {
-                let length = Int32(-1)
-                _serialize(self.data, length.littleEndian)
+                _ = BinaryUtility.serialize(self.data, -1) // length
             }
         })
     }

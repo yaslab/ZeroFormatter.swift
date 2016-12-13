@@ -10,7 +10,7 @@ import Foundation
 
 public class StructExtractor {
     
-    private let data: NSData
+    private let bytes: NSData
     private let offset: Int
     private var currentOffset: Int
     
@@ -18,8 +18,8 @@ public class StructExtractor {
         return currentOffset - offset
     }
     
-    internal init(_ data: NSData, _ offset: Int) {
-        self.data = data
+    internal init(_ bytes: NSData, _ offset: Int) {
+        self.bytes = bytes
         self.offset = offset
         self.currentOffset = offset
     }
@@ -27,30 +27,21 @@ public class StructExtractor {
     // -----
     
     public func extract<T: Deserializable>(index: Int) -> T {
-        var size = 0
-        let value: T = T.deserialize(data, currentOffset, &size)
-        currentOffset += size
-        return value
+        return T.deserialize(bytes, currentOffset, &currentOffset)
     }
     
     public func extract<T: Deserializable>(index: Int) -> T? {
-        var size = 0
-        let value: T? = T.deserialize(data, currentOffset, &size)
-        currentOffset += size
-        return value
+        return T.deserialize(bytes, currentOffset, &currentOffset)
     }
     
     public func extract<T: Deserializable>(index: Int) -> Array<T>? {
-        let length: Int32 = _deserialize(data, currentOffset)
-        currentOffset += 4
+        let length: Int = BinaryUtility.deserialize(bytes, currentOffset, &currentOffset)
         if length < 0 {
             return nil
         }
         var array = Array<T>()
         for _ in 0 ..< length {
-            var size = 0
-            array.append(T.deserialize(data, currentOffset, &size))
-            currentOffset += size
+            array.append(T.deserialize(bytes, currentOffset, &currentOffset))
         }
         return array
     }

@@ -19,7 +19,8 @@ public func deserialize<T: Deserializable>(_ bytes: NSData) -> T? {
 }
 
 public func deserialize<T: Deserializable>(_ bytes: NSData) -> Array<T>? {
-    let length: Int32 = _deserialize(bytes, 0)
+    var byteSize = 0
+    let length: Int32 = BinaryUtility.deserialize(bytes, 0, &byteSize)
     if length < 0 {
         return nil
     }

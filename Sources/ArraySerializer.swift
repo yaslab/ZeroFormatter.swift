@@ -11,27 +11,27 @@ import Foundation
 internal enum ArraySerializer {
 
     public static func serialize<T: Serializable>(_ bytes: NSMutableData, _ offset: Int, _ value: Array<T>?) -> Int {
-        var byteSize = 4
+        var byteSize = 0
         if let value = value {
-            _serialize(bytes, Int32(value.count)) // length
+            byteSize += BinaryUtility.serialize(bytes, value.count) // length
             for v in value {
                 byteSize += T.serialize(bytes, -1, v)
             }
         } else {
-            _serialize(bytes, Int32(-1).littleEndian)
+            byteSize += BinaryUtility.serialize(bytes, -1) // length
         }
         return byteSize
     }
 
     public static func serialize<T: Serializable>(_ bytes: NSMutableData, _ offset: Int, _ value: Array<Array<T>>?) -> Int {
-        var byteSize = 4
+        var byteSize = 0
         if let value = value {
-            _serialize(bytes, Int32(value.count)) // length
+            byteSize += BinaryUtility.serialize(bytes, value.count) // length
             for v in value {
                 byteSize += serialize(bytes, -1, v)
             }
         } else {
-            _serialize(bytes, Int32(-1).littleEndian)
+            byteSize += BinaryUtility.serialize(bytes, -1) // length
         }
         return byteSize
     }

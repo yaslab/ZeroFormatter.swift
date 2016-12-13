@@ -46,19 +46,18 @@ public class ObjectExtractor {
     }
     
     public func extract<T: Deserializable>(index: Int) -> Array<T>? {
-        let p = (data.bytes + offset + 4 + 4 + (4 * index))
-        let indexOffset = p.assumingMemoryBound(to: Int32.self)[0].littleEndian
+        var tmp = 0
+        let indexOffset: Int = BinaryUtility.deserialize(data, offset + 4 + 4 + (4 * index), &tmp)
         
-        let length: Int32 = _deserialize(data, Int(indexOffset))
+        var byteSize = 0
+        let length: Int = BinaryUtility.deserialize(data, indexOffset, &byteSize)
         if length < 0 {
             return nil
         }
+        
         var array = Array<T>()
-        var _offset = 4
         for _ in 0 ..< length {
-            var size = 0
-            array.append(T.deserialize(data, _offset, &size))
-            _offset += size
+            array.append(T.deserialize(data, indexOffset + byteSize, &byteSize))
         }
         return array
     }
