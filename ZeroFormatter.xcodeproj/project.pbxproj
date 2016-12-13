@@ -31,7 +31,7 @@
 		0EF7B0A11DFD9CFA007C5CD6 /* PrimitiveDeserializeTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EF7B0A01DFD9CFA007C5CD6 /* PrimitiveDeserializeTestCase.swift */; };
 		0EF7B0A31DFDA122007C5CD6 /* PrimitiveDeserializeOptionalTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EF7B0A21DFDA122007C5CD6 /* PrimitiveDeserializeOptionalTestCase.swift */; };
 		0EF7B0A51DFDA602007C5CD6 /* TestUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EF7B0A41DFDA602007C5CD6 /* TestUtility.swift */; };
-		0EF7B0A71DFDBC65007C5CD6 /* Array.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EF7B0A61DFDBC65007C5CD6 /* Array.swift */; };
+		0EF7B0A71DFDBC65007C5CD6 /* ArraySerializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EF7B0A61DFDBC65007C5CD6 /* ArraySerializer.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -72,7 +72,7 @@
 		0EF7B0A01DFD9CFA007C5CD6 /* PrimitiveDeserializeTestCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrimitiveDeserializeTestCase.swift; sourceTree = "<group>"; };
 		0EF7B0A21DFDA122007C5CD6 /* PrimitiveDeserializeOptionalTestCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrimitiveDeserializeOptionalTestCase.swift; sourceTree = "<group>"; };
 		0EF7B0A41DFDA602007C5CD6 /* TestUtility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestUtility.swift; sourceTree = "<group>"; };
-		0EF7B0A61DFDBC65007C5CD6 /* Array.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Array.swift; sourceTree = "<group>"; };
+		0EF7B0A61DFDBC65007C5CD6 /* ArraySerializer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArraySerializer.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -117,7 +117,7 @@
 		0E2E62FD1DE5F7FB005C9DDB /* Sources */ = {
 			isa = PBXGroup;
 			children = (
-				0EF7B0A61DFDBC65007C5CD6 /* Array.swift */,
+				0EF7B0A61DFDBC65007C5CD6 /* ArraySerializer.swift */,
 				0EF7B09A1DFD847B007C5CD6 /* deserialize().swift */,
 				0EF65A671DF4483700524C21 /* List.swift */,
 				0E3241291E0038CE003C4080 /* ListSerializer.swift */,
@@ -298,7 +298,7 @@
 				0E2B8EDA1DEDE35100B157D9 /* PrimitiveFormattable.swift in Sources */,
 				0E2E63131DE5FBFF005C9DDB /* PrimitiveSerializable.swift in Sources */,
 				0E2E63171DE6024F005C9DDB /* ObjectBuilder.swift in Sources */,
-				0EF7B0A71DFDBC65007C5CD6 /* Array.swift in Sources */,
+				0EF7B0A71DFDBC65007C5CD6 /* ArraySerializer.swift in Sources */,
 				0E2F46151DE88BDB0088B4EA /* ZeroFormatter.swift in Sources */,
 				0E2F45F21DE721900088B4EA /* ObjectExtractor.swift in Sources */,
 			);

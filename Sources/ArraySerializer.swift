@@ -1,5 +1,5 @@
 //
-//  Array.swift
+//  ArraySerializer.swift
 //  ZeroFormatter
 //
 //  Created by Yasuhiro Hatta on 2016/12/12.
