@@ -20,6 +20,7 @@
 		0E2F460B1DE887E60088B4EA /* ZeroFormatter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E2E63051DE5F8AF005C9DDB /* ZeroFormatter.framework */; };
 		0E2F46141DE88A050088B4EA /* ObjectTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E2F46131DE88A050088B4EA /* ObjectTestCase.swift */; };
 		0E2F46151DE88BDB0088B4EA /* ZeroFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E2E62FE1DE5F83F005C9DDB /* ZeroFormatter.swift */; };
+		0E32412A1E0038CE003C4080 /* ListSerializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E3241291E0038CE003C4080 /* ListSerializer.swift */; };
 		0ECF41EA1DFC405C00B90FB3 /* ListTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ECF41E91DFC405C00B90FB3 /* ListTestCase.swift */; };
 		0ECF41EE1DFC4B5100B90FB3 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ECF41ED1DFC4B5100B90FB3 /* Models.swift */; };
 		0ECF42031DFC8A2600B90FB3 /* ListTestCase.internal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ECF42021DFC8A2600B90FB3 /* ListTestCase.internal.swift */; };
@@ -60,6 +61,7 @@
 		0E2F45FB1DE887B10088B4EA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0E2F46061DE887E50088B4EA /* ZeroFormatterTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ZeroFormatterTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0E2F46131DE88A050088B4EA /* ObjectTestCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObjectTestCase.swift; sourceTree = "<group>"; };
+		0E3241291E0038CE003C4080 /* ListSerializer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListSerializer.swift; sourceTree = "<group>"; };
 		0ECF41E91DFC405C00B90FB3 /* ListTestCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListTestCase.swift; sourceTree = "<group>"; };
 		0ECF41ED1DFC4B5100B90FB3 /* Models.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
 		0ECF42021DFC8A2600B90FB3 /* ListTestCase.internal.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListTestCase.internal.swift; sourceTree = "<group>"; };
@@ -118,6 +120,7 @@
 				0EF7B0A61DFDBC65007C5CD6 /* Array.swift */,
 				0EF7B09A1DFD847B007C5CD6 /* deserialize().swift */,
 				0EF65A671DF4483700524C21 /* List.swift */,
+				0E3241291E0038CE003C4080 /* ListSerializer.swift */,
 				0E2E63161DE6024F005C9DDB /* ObjectBuilder.swift */,
 				0E2F45F11DE721900088B4EA /* ObjectExtractor.swift */,
 				0E2F45EF1DE705440088B4EA /* PrimitiveDeserializable.swift */,
@@ -285,6 +288,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0E32412A1E0038CE003C4080 /* ListSerializer.swift in Sources */,
 				0EF7B09B1DFD847B007C5CD6 /* deserialize().swift in Sources */,
 				0E2B8ED41DEB005600B157D9 /* StructSerializable.swift in Sources */,
 				0E2E63151DE600A9005C9DDB /* serialize().swift in Sources */,
