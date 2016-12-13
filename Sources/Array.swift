@@ -8,35 +8,31 @@
 
 import Foundation
 
-class ArraySerializer {
-    
-    static func serialize<T: Serializable>(_ data: NSMutableData, _ values: Array<T>?) -> Int {
+internal enum ArraySerializer {
+
+    public static func serialize<T: Serializable>(_ bytes: NSMutableData, _ offset: Int, _ value: Array<T>?) -> Int {
         var byteSize = 4
-        
-        if let values = values {
-            _serialize(data, Int32(values.count)) // length
-            for value in values {
-                byteSize += T.serialize(data, 0, value)
+        if let value = value {
+            _serialize(bytes, Int32(value.count)) // length
+            for v in value {
+                byteSize += T.serialize(bytes, -1, v)
             }
         } else {
-            _serialize(data, Int32(-1).littleEndian)
+            _serialize(bytes, Int32(-1).littleEndian)
         }
-        
         return byteSize
     }
-    
-    static func serialize<T: Serializable>(_ data: NSMutableData, _ values: Array<Array<T>>?) -> Int {
+
+    public static func serialize<T: Serializable>(_ bytes: NSMutableData, _ offset: Int, _ value: Array<Array<T>>?) -> Int {
         var byteSize = 4
-        
-        if let values = values {
-            _serialize(data, Int32(values.count)) // length
-            for value in values {
-                byteSize += serialize(data, value)
+        if let value = value {
+            _serialize(bytes, Int32(value.count)) // length
+            for v in value {
+                byteSize += serialize(bytes, -1, v)
             }
         } else {
-            _serialize(data, Int32(-1).littleEndian)
+            _serialize(bytes, Int32(-1).littleEndian)
         }
-        
         return byteSize
     }
 

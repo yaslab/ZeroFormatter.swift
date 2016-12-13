@@ -9,38 +9,37 @@
 import Foundation
 
 public func serialize<T: Serializable>(_ value: T) -> NSData {
-    let data = NSMutableData()
-    _ = T.serialize(data, 0, value)
-    return data
+    let bytes = NSMutableData()
+    _ = T.serialize(bytes, 0, value)
+    return bytes
 }
 
 public func serialize<T: Serializable>(_ value: T?) -> NSData {
-    let data = NSMutableData()
-    _ = T.serialize(data, 0, value)
-    return data
+    let bytes = NSMutableData()
+    _ = T.serialize(bytes, 0, value)
+    return bytes
 }
 
 public func serialize<T: Serializable>(_ value: Array<T>?) -> NSData {
-    let data = NSMutableData()
-    ArraySerializer.serialize(data, value)
-    return data
+    let bytes = NSMutableData()
+    _ = ArraySerializer.serialize(bytes, 0, value)
+    return bytes
 }
 
-// TODO:
 public func serialize<T: Serializable>(_ value: Array<Array<T>>?) -> NSData {
-    let data = NSMutableData()
-    ArraySerializer.serialize(data, value)
-    return data
+    let bytes = NSMutableData()
+    _ = ArraySerializer.serialize(bytes, 0, value)
+    return bytes
 }
 
 public func serialize<T: Serializable>(_ value: List<T>?) -> NSData {
-    let data = NSMutableData()
-    ListSerializer.serialize(data, value)
-    return data
+    let bytes = NSMutableData()
+    _ = ListSerializer.serialize(bytes, value)
+    return bytes
 }
 
 public func serializeAsList<T: Serializable>(_ value: Array<T>?) -> NSData {
-    let data = NSMutableData()
-    ListSerializer.serializeAsList(data, value)
-    return data
+    let bytes = NSMutableData()
+    _ = ListSerializer.serializeAsList(bytes, value)
+    return bytes
 }
