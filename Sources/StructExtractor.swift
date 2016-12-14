@@ -1,5 +1,5 @@
 //
-//  StructDeserializable.swift
+//  StructExtractor.swift
 //  ZeroFormatter
 //
 //  Created by Yasuhiro Hatta on 2016/11/27.
