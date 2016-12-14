@@ -28,7 +28,7 @@ Implementation of [ZeroFormatter](https://github.com/neuecc/ZeroFormatter) in Sw
 | o | `Float` | `Single` |
 | o | `Double` | ← |
 | o | `Bool` | `Boolean` |
-| | TBD | `TimeSpan` |
+| o | `TimeSpan` | `TimeSpan` |
 | o | `Date` | `DateTime` |
 | | TBD | `DateTimeOffset` |
 | o | `String` | ← |
@@ -48,7 +48,7 @@ Implementation of [ZeroFormatter](https://github.com/neuecc/ZeroFormatter) in Sw
 | o | `Float?` | `Single?` |
 | o | `Double?` | ← |
 | o | `Bool?` | `Boolean?` |
-| | TBD | `TimeSpan?` |
+| o | `TimeSpan?` | `TimeSpan?` |
 | o | `Date?` | `DateTime?` |
 | | TBD | `DateTimeOffset?` |
 | o | `String?` | ← |
