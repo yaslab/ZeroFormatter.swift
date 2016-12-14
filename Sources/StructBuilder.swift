@@ -32,15 +32,8 @@ public class StructBuilder {
         _ = T.serialize(bytes, -1, value)
     }
     
-    public func append<T: Serializable>(_ values: Array<T>?) {
-        if let values = values {
-            _ = BinaryUtility.serialize(bytes, values.count)
-            for value in values {
-                _ = T.serialize(bytes, -1, value)
-            }
-        } else {
-            _ = BinaryUtility.serialize(bytes, -1)
-        }
+    public func append<T: Serializable>(_ value: Array<T>?) {
+        _ = ArraySerializer.serialize(bytes, -1, value)
     }
 
 }

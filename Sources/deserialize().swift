@@ -25,8 +25,8 @@ public func deserialize<T: Deserializable>(_ bytes: NSData) -> Array<T>? {
 
 public func deserialize<T: Deserializable>(_ bytes: NSData) -> List<T>? {
     if let itemSize = T.length {
-        return FixedSizeList<T>(data: bytes, offset: 0, itemSize: itemSize)
+        return FixedSizeList<T>(bytes: bytes, offset: 0, itemSize: itemSize)
     } else {
-        return VariableSizeList<T>(data: bytes, offset: 0)
+        return VariableSizeList<T>(bytes: bytes, offset: 0)
     }
 }

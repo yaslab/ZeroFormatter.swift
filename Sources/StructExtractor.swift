@@ -35,15 +35,7 @@ public class StructExtractor {
     }
     
     public func extract<T: Deserializable>(index: Int) -> Array<T>? {
-        let length: Int = BinaryUtility.deserialize(bytes, currentOffset, &currentOffset)
-        if length < 0 {
-            return nil
-        }
-        var array = Array<T>()
-        for _ in 0 ..< length {
-            array.append(T.deserialize(bytes, currentOffset, &currentOffset))
-        }
-        return array
+        return ArraySerializer.deserialize(bytes, currentOffset, &currentOffset)
     }
 
 }

@@ -44,7 +44,7 @@ class ListTestCase_internal: XCTestCase {
         ]
         
         let expected: [Int16] = [1, 2, 3, 4, 5]
-        let actual = FixedSizeList<Int16>(data: testData.toData(), offset: 0, itemSize: Int16.length!)
+        let actual = FixedSizeList<Int16>(bytes: testData.toData(), offset: 0, itemSize: Int16.length!)
         
         XCTAssertNotNil(actual)
         XCTAssertEqual(actual!.count, 5)
@@ -90,7 +90,7 @@ class ListTestCase_internal: XCTestCase {
             VariableSizeObject(a: 2, b: "01234", c: 3),
             VariableSizeObject(a: 4, b: "567890", c: 5)
         ]
-        let actual = VariableSizeList<VariableSizeObject>(data: testData.toData(), offset: 0)
+        let actual = VariableSizeList<VariableSizeObject>(bytes: testData.toData(), offset: 0)
         
         XCTAssertNotNil(actual)
         XCTAssertEqual(actual!.count, 2)
