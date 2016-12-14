@@ -8,15 +8,19 @@
 
 import Foundation
 
-struct TimeSpan: Serializable, Deserializable {
+public struct TimeSpan: Serializable, Deserializable {
     
-    let timeIntervalSince1970: TimeInterval
+    public let timeIntervalSince1970: TimeInterval
     
-    static var length: Int? {
+    public init(timeIntervalSince1970: TimeInterval) {
+        self.timeIntervalSince1970 = timeIntervalSince1970
+    }
+    
+    public static var length: Int? {
         return 12
     }
 
-    static func serialize(_ bytes: NSMutableData, _ offset: Int, _ value: TimeSpan) -> Int {
+    public static func serialize(_ bytes: NSMutableData, _ offset: Int, _ value: TimeSpan) -> Int {
         let unixTime = value.timeIntervalSince1970
         let seconds = Int64(unixTime)
         let nanos = Int32((abs(unixTime) - floor(abs(unixTime))) * 1_000_000_000)
@@ -26,7 +30,7 @@ struct TimeSpan: Serializable, Deserializable {
         return byteSize
     }
     
-    static func serialize(_ bytes: NSMutableData, _ offset: Int, _ value: TimeSpan?) -> Int {
+    public static func serialize(_ bytes: NSMutableData, _ offset: Int, _ value: TimeSpan?) -> Int {
         var byteSize = 0
         if let value = value {
             byteSize += BinaryUtility.serialize(bytes, true)
@@ -39,7 +43,7 @@ struct TimeSpan: Serializable, Deserializable {
         return byteSize
     }
     
-    static func deserialize(_ bytes: NSData, _ offset: Int, _ byteSize: inout Int) -> TimeSpan {
+    public static func deserialize(_ bytes: NSData, _ offset: Int, _ byteSize: inout Int) -> TimeSpan {
         let start = byteSize
         let seconds: Int64 = BinaryUtility.deserialize(bytes, offset + (byteSize - start), &byteSize)
         let nanos: Int32 = BinaryUtility.deserialize(bytes, offset + (byteSize - start), &byteSize)
@@ -48,7 +52,7 @@ struct TimeSpan: Serializable, Deserializable {
         return TimeSpan(timeIntervalSince1970: unixTime)
     }
     
-    static func deserialize(_ bytes: NSData, _ offset: Int, _ byteSize: inout Int) -> TimeSpan? {
+    public static func deserialize(_ bytes: NSData, _ offset: Int, _ byteSize: inout Int) -> TimeSpan? {
         let start = byteSize
         let hasValue: Bool = BinaryUtility.deserialize(bytes, offset + (byteSize - start), &byteSize)
         if hasValue {
