@@ -12,86 +12,72 @@ internal enum ListSerializer {
     
     static func serialize<T: Serializable>(_ data: NSMutableData, _ values: List<T>?) -> Int {
         if let values = values {
-            return __serialize(data, T.length, values.count) {
-                return T.serialize(data, -1, values[$0])
+            let offset = data.length
+            var byteSize = 0
+            
+            if let _ = T.length {
+                byteSize += BinaryUtility.serialize(data, values.count) // length
+            } else {
+                byteSize += BinaryUtility.serialize(data, 0) // byteSize
+                byteSize += BinaryUtility.serialize(data, values.count) // length
+                for _ in 0 ..< values.count {
+                    byteSize += BinaryUtility.serialize(data, 0) // elementOffset
+                }
             }
+            
+            for i in 0 ..< values.count {
+                if T.length == nil {
+                    // elementOffse
+                    _ = BinaryUtility.serialize(data, offset + 4 + 4 + (4 * i), data.length)
+                }
+                byteSize += T.serialize(data, -1, values[i])
+            }
+            
+            if T.length == nil {
+                // byteSize
+                _ = BinaryUtility.serialize(data, offset, byteSize)
+            }
+            
+            return byteSize
         } else {
-            return BinaryUtility.serialize(data, -1)
+            return BinaryUtility.serialize(data, -1) // length
         }
     }
-    
-    static func __serialize(_ data: NSMutableData, _ fixedSize: Int?, _ count: Int, _ f: ((Int) -> Int)) -> Int {
-        let offset = data.length
-        var byteSize = 0
-        
-        if fixedSize != nil {
-            byteSize += BinaryUtility.serialize(data, count) // length
-        } else {
-            byteSize += BinaryUtility.serialize(data, 0) // byteSize
-            byteSize += BinaryUtility.serialize(data, count) // length
-            for _ in 0 ..< count {
-                byteSize += BinaryUtility.serialize(data, count) // elementOffset
-            }
-        }
-        
-        for i in 0 ..< count {
-            if fixedSize == nil {
-                // elementOffset
-                let p = data.mutableBytes + offset + 4 + 4 + (4 * i)
-                p.assumingMemoryBound(to: Int32.self)[0] = Int32(data.length).littleEndian
-            }
-            byteSize += f(i)
-        }
-        
-        if fixedSize == nil {
-            // byteSize
-            let p = data.mutableBytes + offset
-            p.assumingMemoryBound(to: Int32.self)[0] = Int32(byteSize).littleEndian
-        }
-        
-        return byteSize
-    }
-    
+
     static func serializeAsList<T: Serializable>(_ data: NSMutableData, _ values: Array<T>?) -> Int {
         if let values = values {
-            return _serializeAsList(data, T.length, values.count) { T.serialize(data, 0, values[$0]) }
+            let offset = data.length
+            var byteSize = 0
+            
+            if T.length != nil {
+                byteSize += BinaryUtility.serialize(data, values.count) // length
+            } else {
+                byteSize += BinaryUtility.serialize(data, 0) // byteSize
+                byteSize += BinaryUtility.serialize(data, values.count) // length
+                for _ in 0 ..< values.count {
+                    byteSize += BinaryUtility.serialize(data, 0) // elementOffset
+                }
+            }
+            
+            for i in 0 ..< values.count {
+                if T.length == nil {
+                    // elementOffset
+                    _ = BinaryUtility.serialize(data, offset + 4 + 4 + (4 * i), data.length)
+                }
+                byteSize += T.serialize(data, -1, values[i])
+            }
+            
+            if T.length == nil {
+                // byteSize
+                _ = BinaryUtility.serialize(data, offset, byteSize)
+            }
+            
+            return byteSize
         } else {
-            return BinaryUtility.serialize(data, -1)
+            return BinaryUtility.serialize(data, -1) // length
         }
     }
-    
-    private static func _serializeAsList(_ data: NSMutableData, _ fixedSize: Int?, _ count: Int, _ f: ((Int) -> Int)) -> Int {
-        let offset = data.length
-        var byteSize = 0
-        
-        if fixedSize != nil {
-            byteSize += BinaryUtility.serialize(data, count) // length
-        } else {
-            byteSize += BinaryUtility.serialize(data, 0) // byteSize
-            byteSize += BinaryUtility.serialize(data, count) // length
-            for _ in 0 ..< count {
-                byteSize += BinaryUtility.serialize(data, 0) // elementOffset
-            }
-        }
-        
-        for i in 0 ..< count {
-            if fixedSize == nil {
-                // elementOffset
-                let p = data.mutableBytes + offset + 4 + 4 + (4 * i)
-                p.assumingMemoryBound(to: Int32.self)[0] = Int32(data.length).littleEndian
-            }
-            byteSize += f(i)
-        }
-        
-        if fixedSize == nil {
-            // byteSize
-            let p = data.mutableBytes + offset
-            p.assumingMemoryBound(to: Int32.self)[0] = Int32(byteSize).littleEndian
-        }
-        
-        return byteSize
-    }
-    
+
 }
 
 public class List<T>: RandomAccessCollection {

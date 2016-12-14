@@ -20,18 +20,7 @@ public func deserialize<T: Deserializable>(_ bytes: NSData) -> T? {
 
 public func deserialize<T: Deserializable>(_ bytes: NSData) -> Array<T>? {
     var byteSize = 0
-    let length: Int32 = BinaryUtility.deserialize(bytes, 0, &byteSize)
-    if length < 0 {
-        return nil
-    }
-    var array = Array<T>()
-    var offset = 4
-    for _ in 0 ..< length {
-        var byteSize = 0
-        array.append(T.deserialize(bytes, offset, &byteSize))
-        offset += byteSize
-    }
-    return array
+    return ArraySerializer.deserialize(bytes, 0, &byteSize)
 }
 
 public func deserialize<T: Deserializable>(_ bytes: NSData) -> List<T>? {

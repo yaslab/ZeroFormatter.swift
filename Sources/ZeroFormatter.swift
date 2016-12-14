@@ -148,11 +148,11 @@ public extension StructDeserializable {
     public static func deserialize(_ bytes: NSData, _ offset: Int, _ byteSize: inout Int) -> Self? {
         let extractor = StructExtractor(bytes, offset)
         if extractor.byteSize < 0 {
-            byteSize = extractor.byteSize
+            byteSize += extractor.byteSize
             return nil
         }
         let value = deserialize(extractor)
-        byteSize = extractor.byteSize
+        byteSize += extractor.byteSize
         return value
     }
     
