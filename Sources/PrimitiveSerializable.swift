@@ -101,25 +101,15 @@ extension Bool: PrimitiveSerializable {
 
 extension Date: PrimitiveSerializable {
     public static func serialize(_ bytes: NSMutableData, _ offset: Int, _ value: Date) -> Int {
-        let unixTime = value.timeIntervalSince1970
-        let seconds = Int64(unixTime)
-        let nanos = Int32((abs(unixTime) - floor(abs(unixTime))) * 1_000_000_000)
-        var byteSize = 0
-        byteSize += BinaryUtility.serialize(bytes, seconds)
-        byteSize += BinaryUtility.serialize(bytes, nanos)
-        return byteSize
+        let timeSpan = TimeSpan(timeIntervalSince1970: value.timeIntervalSince1970)
+        return TimeSpan.serialize(bytes, offset, timeSpan)
     }
     public static func serialize(_ bytes: NSMutableData, _ offset: Int, _ value: Date?) -> Int {
-        var byteSize = 0
+        var timeSpan: TimeSpan? = nil
         if let value = value {
-            byteSize += BinaryUtility.serialize(bytes, true)
-            byteSize += serialize(bytes, -1, value)
-        } else {
-            byteSize += BinaryUtility.serialize(bytes, false)
-            byteSize += BinaryUtility.serialize(bytes, Int64(0)) // seconds
-            byteSize += BinaryUtility.serialize(bytes, Int32(0)) // nanos
+            timeSpan = TimeSpan(timeIntervalSince1970: value.timeIntervalSince1970)
         }
-        return byteSize
+        return TimeSpan.serialize(bytes, offset, timeSpan)
     }
 }
 extension String: PrimitiveSerializable {

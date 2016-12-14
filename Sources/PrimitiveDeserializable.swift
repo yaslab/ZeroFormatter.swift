@@ -101,19 +101,13 @@ extension Bool: PrimitiveDeserializable {
 
 extension Date: PrimitiveDeserializable {
     public static func deserialize(_ bytes: NSData, _ offset: Int, _ byteSize: inout Int) -> Date {
-        let start = byteSize
-        let seconds: Int64 = BinaryUtility.deserialize(bytes, offset + (byteSize - start), &byteSize)
-        let nanos: Int32 = BinaryUtility.deserialize(bytes, offset + (byteSize - start), &byteSize)
-        var unixTime = TimeInterval(seconds)
-        unixTime += TimeInterval(nanos) / 1_000_000_000.0
-        return Date(timeIntervalSince1970: unixTime)
+        let timeSpan: TimeSpan = TimeSpan.deserialize(bytes, offset, &byteSize)
+        return Date(timeIntervalSince1970: timeSpan.timeIntervalSince1970)
     }
     public static func deserialize(_ bytes: NSData, _ offset: Int, _ byteSize: inout Int) -> Date? {
-        let start = byteSize
-        let hasValue: Bool = BinaryUtility.deserialize(bytes, offset + (byteSize - start), &byteSize)
-        if hasValue {
-            let value: Date = deserialize(bytes, offset + (byteSize - start), &byteSize)
-            return value
+        let timeSpan: TimeSpan? = TimeSpan.deserialize(bytes, offset, &byteSize)
+        if let timeSpan = timeSpan {
+            return Date(timeIntervalSince1970: timeSpan.timeIntervalSince1970)
         } else {
             return nil
         }

@@ -45,7 +45,7 @@ extension Bool: ZeroFormattable {
 }
 
 extension Date: ZeroFormattable {
-    public static var length: Int? { return 12 }
+    public static var length: Int? { return TimeSpan.length }
 }
 extension String: ZeroFormattable {
     public static var length: Int? { return nil }
