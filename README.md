@@ -30,7 +30,7 @@ Implementation of [ZeroFormatter](https://github.com/neuecc/ZeroFormatter) in Sw
 | o | `Bool` | `Boolean` |
 | o | `TimeSpan` | `TimeSpan` |
 | o | `Date` | `DateTime` |
-| | TBD | `DateTimeOffset` |
+| o | `DateTimeOffset` | `DateTimeOffset` |
 | o | `String` | ← |
 
 ### Primitive Format (Optional)
@@ -50,7 +50,7 @@ Implementation of [ZeroFormatter](https://github.com/neuecc/ZeroFormatter) in Sw
 | o | `Bool?` | `Boolean?` |
 | o | `TimeSpan?` | `TimeSpan?` |
 | o | `Date?` | `DateTime?` |
-| | TBD | `DateTimeOffset?` |
+| o | `DateTimeOffset?` | `DateTimeOffset?` |
 | o | `String?` | ← |
 
 ### Sequence Format

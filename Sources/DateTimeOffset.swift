@@ -13,6 +13,14 @@ public struct DateTimeOffset: Serializable, Deserializable {
     public let timeIntervalSince1970: TimeInterval
     public let secondsFromGMT: Int
     
+    public private(set) lazy var date: Date = {
+        return Date(timeIntervalSince1970: self.timeIntervalSince1970)
+    }()
+    
+    public private(set) lazy var timeZone: TimeZone? = {
+        return TimeZone(secondsFromGMT: self.secondsFromGMT)
+    }()
+    
     public init(timeIntervalSince1970: TimeInterval, secondsFromGMT: Int) {
         self.timeIntervalSince1970 = timeIntervalSince1970
         self.secondsFromGMT = secondsFromGMT
