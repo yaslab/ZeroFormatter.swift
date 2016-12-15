@@ -22,6 +22,8 @@
 		0E2F46151DE88BDB0088B4EA /* ZeroFormattable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E2E62FE1DE5F83F005C9DDB /* ZeroFormattable.swift */; };
 		0E32412A1E0038CE003C4080 /* ListSerializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E3241291E0038CE003C4080 /* ListSerializer.swift */; };
 		0E32412C1E004784003C4080 /* BinaryUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E32412B1E004784003C4080 /* BinaryUtility.swift */; };
+		0E7E517E1E02DF9B00D14CAE /* DateTimeOffset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E7E517D1E02DF9B00D14CAE /* DateTimeOffset.swift */; };
+		0E7E51801E02EB7C00D14CAE /* DateTimeOffsetTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E7E517F1E02EB7C00D14CAE /* DateTimeOffsetTestCase.swift */; };
 		0EB0BDA21E01A9410038EACE /* TimeSpan.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EB0BDA11E01A9410038EACE /* TimeSpan.swift */; };
 		0EB0BDA41E01AD220038EACE /* TimeSpanTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EB0BDA31E01AD210038EACE /* TimeSpanTestCase.swift */; };
 		0ECF41EA1DFC405C00B90FB3 /* ListTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ECF41E91DFC405C00B90FB3 /* ListTestCase.swift */; };
@@ -66,6 +68,8 @@
 		0E2F46131DE88A050088B4EA /* ObjectTestCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObjectTestCase.swift; sourceTree = "<group>"; };
 		0E3241291E0038CE003C4080 /* ListSerializer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListSerializer.swift; sourceTree = "<group>"; };
 		0E32412B1E004784003C4080 /* BinaryUtility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BinaryUtility.swift; sourceTree = "<group>"; };
+		0E7E517D1E02DF9B00D14CAE /* DateTimeOffset.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateTimeOffset.swift; sourceTree = "<group>"; };
+		0E7E517F1E02EB7C00D14CAE /* DateTimeOffsetTestCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateTimeOffsetTestCase.swift; sourceTree = "<group>"; };
 		0EB0BDA11E01A9410038EACE /* TimeSpan.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeSpan.swift; sourceTree = "<group>"; };
 		0EB0BDA31E01AD210038EACE /* TimeSpanTestCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeSpanTestCase.swift; sourceTree = "<group>"; };
 		0ECF41E91DFC405C00B90FB3 /* ListTestCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListTestCase.swift; sourceTree = "<group>"; };
@@ -126,6 +130,7 @@
 			children = (
 				0EF7B0A61DFDBC65007C5CD6 /* ArraySerializer.swift */,
 				0E32412B1E004784003C4080 /* BinaryUtility.swift */,
+				0E7E517D1E02DF9B00D14CAE /* DateTimeOffset.swift */,
 				0EF7B09A1DFD847B007C5CD6 /* deserialize().swift */,
 				0EF65A671DF4483700524C21 /* List.swift */,
 				0E3241291E0038CE003C4080 /* ListSerializer.swift */,
@@ -172,6 +177,7 @@
 			isa = PBXGroup;
 			children = (
 				0E2B8ED71DEC85F500B157D9 /* ArrayTestCase.swift */,
+				0E7E517F1E02EB7C00D14CAE /* DateTimeOffsetTestCase.swift */,
 				0ECF42021DFC8A2600B90FB3 /* ListTestCase.internal.swift */,
 				0ECF41E91DFC405C00B90FB3 /* ListTestCase.swift */,
 				0ECF41ED1DFC4B5100B90FB3 /* Models.swift */,
@@ -301,6 +307,7 @@
 				0E32412A1E0038CE003C4080 /* ListSerializer.swift in Sources */,
 				0EF7B09B1DFD847B007C5CD6 /* deserialize().swift in Sources */,
 				0E2B8ED41DEB005600B157D9 /* StructBuilder.swift in Sources */,
+				0E7E517E1E02DF9B00D14CAE /* DateTimeOffset.swift in Sources */,
 				0E2E63151DE600A9005C9DDB /* serialize().swift in Sources */,
 				0E2B8ED61DEB0BD000B157D9 /* StructExtractor.swift in Sources */,
 				0E32412C1E004784003C4080 /* BinaryUtility.swift in Sources */,
@@ -331,6 +338,7 @@
 				0EF7B0A31DFDA122007C5CD6 /* PrimitiveDeserializeOptionalTestCase.swift in Sources */,
 				0EF7B0A51DFDA602007C5CD6 /* TestUtility.swift in Sources */,
 				0EF7B0A11DFD9CFA007C5CD6 /* PrimitiveDeserializeTestCase.swift in Sources */,
+				0E7E51801E02EB7C00D14CAE /* DateTimeOffsetTestCase.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
