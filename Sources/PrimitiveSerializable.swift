@@ -101,13 +101,13 @@ extension Bool: PrimitiveSerializable {
 
 extension Date: PrimitiveSerializable {
     public static func serialize(_ bytes: NSMutableData, _ offset: Int, _ value: Date) -> Int {
-        let timeSpan = TimeSpan(timeIntervalSince1970: value.timeIntervalSince1970)
+        let timeSpan = TimeSpan(totalSeconds: value.timeIntervalSince1970)
         return TimeSpan.serialize(bytes, offset, timeSpan)
     }
     public static func serialize(_ bytes: NSMutableData, _ offset: Int, _ value: Date?) -> Int {
         var timeSpan: TimeSpan? = nil
         if let value = value {
-            timeSpan = TimeSpan(timeIntervalSince1970: value.timeIntervalSince1970)
+            timeSpan = TimeSpan(totalSeconds: value.timeIntervalSince1970)
         }
         return TimeSpan.serialize(bytes, offset, timeSpan)
     }

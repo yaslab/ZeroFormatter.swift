@@ -25,7 +25,7 @@ class TimeSpanTestCase: XCTestCase {
     // MARK: - Serialize
     
     func testSerializeTimeSpan() {
-        let testData = TimeSpan(timeIntervalSince1970: 123.456789012)
+        let testData = TimeSpan(totalSeconds: 123.456789012)
         
         let expected: [UInt8] = [
             0x7b, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
@@ -37,7 +37,7 @@ class TimeSpanTestCase: XCTestCase {
     }
 
     func testSerializeTimeSpanOptional() {
-        let testData: TimeSpan? = TimeSpan(timeIntervalSince1970: 123.456789012)
+        let testData: TimeSpan? = TimeSpan(totalSeconds: 123.456789012)
         
         let expected: [UInt8] = [
             0x01,
@@ -60,7 +60,7 @@ class TimeSpanTestCase: XCTestCase {
         let expected: TimeInterval = 123.456789012
         let actual: TimeSpan = ZeroFormatter.deserialize(testData.toData())
         
-        XCTAssertEqual(actual.timeIntervalSince1970, expected)
+        XCTAssertEqual(actual.totalSeconds, expected)
     }
 
     func testDeserializeTimeSpanOptional() {
@@ -74,7 +74,7 @@ class TimeSpanTestCase: XCTestCase {
         let actual: TimeSpan? = ZeroFormatter.deserialize(testData.toData())
         
         XCTAssertNotNil(actual)
-        XCTAssertEqual(actual!.timeIntervalSince1970, expected)
+        XCTAssertEqual(actual!.totalSeconds, expected)
     }
     
 }

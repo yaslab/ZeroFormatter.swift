@@ -102,12 +102,12 @@ extension Bool: PrimitiveDeserializable {
 extension Date: PrimitiveDeserializable {
     public static func deserialize(_ bytes: NSData, _ offset: Int, _ byteSize: inout Int) -> Date {
         let timeSpan: TimeSpan = TimeSpan.deserialize(bytes, offset, &byteSize)
-        return Date(timeIntervalSince1970: timeSpan.timeIntervalSince1970)
+        return Date(timeIntervalSince1970: timeSpan.totalSeconds)
     }
     public static func deserialize(_ bytes: NSData, _ offset: Int, _ byteSize: inout Int) -> Date? {
         let timeSpan: TimeSpan? = TimeSpan.deserialize(bytes, offset, &byteSize)
         if let timeSpan = timeSpan {
-            return Date(timeIntervalSince1970: timeSpan.timeIntervalSince1970)
+            return Date(timeIntervalSince1970: timeSpan.totalSeconds)
         } else {
             return nil
         }

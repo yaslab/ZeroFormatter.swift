@@ -10,18 +10,22 @@ import Foundation
 
 public struct TimeSpan: Serializable, Deserializable {
     
-    public let timeIntervalSince1970: TimeInterval
+    public let totalSeconds: TimeInterval
     
-    public init(timeIntervalSince1970: TimeInterval) {
-        self.timeIntervalSince1970 = timeIntervalSince1970
+    public init(totalSeconds: TimeInterval) {
+        self.totalSeconds = totalSeconds
     }
+    
+    // MARK: - ZeroFormattable
     
     public static var length: Int? {
         return 12
     }
 
+    // MARK: - Serializable
+    
     public static func serialize(_ bytes: NSMutableData, _ offset: Int, _ value: TimeSpan) -> Int {
-        let unixTime = value.timeIntervalSince1970
+        let unixTime = value.totalSeconds
         let seconds = Int64(unixTime)
         let nanos = Int32((abs(unixTime) - floor(abs(unixTime))) * 1_000_000_000)
         var byteSize = 0
@@ -43,13 +47,15 @@ public struct TimeSpan: Serializable, Deserializable {
         return byteSize
     }
     
+    // MARK: - Deserializable
+    
     public static func deserialize(_ bytes: NSData, _ offset: Int, _ byteSize: inout Int) -> TimeSpan {
         let start = byteSize
         let seconds: Int64 = BinaryUtility.deserialize(bytes, offset + (byteSize - start), &byteSize)
         let nanos: Int32 = BinaryUtility.deserialize(bytes, offset + (byteSize - start), &byteSize)
         var unixTime = TimeInterval(seconds)
         unixTime += TimeInterval(nanos) / 1_000_000_000.0
-        return TimeSpan(timeIntervalSince1970: unixTime)
+        return TimeSpan(totalSeconds: unixTime)
     }
     
     public static func deserialize(_ bytes: NSData, _ offset: Int, _ byteSize: inout Int) -> TimeSpan? {
