@@ -8,7 +8,7 @@
 
 import Foundation
 
-public func _fixedSize(_ types: [ZeroFormattable.Type]) -> Int? {
+public func _fixedSize(_ types: [Formattable.Type]) -> Int? {
     var size = 0
     for type in types {
         guard let length = type.length else {
@@ -21,21 +21,17 @@ public func _fixedSize(_ types: [ZeroFormattable.Type]) -> Int? {
 
 // MARK: - Basic Protocol
 
-public protocol ZeroFormattable {
+public protocol Formattable {
     
     static var length: Int? { get }
-    
+
 }
 
-public protocol Serializable: ZeroFormattable {
+public protocol Serializable: Formattable {
 
     static func serialize(_ bytes: NSMutableData, _ offset: Int, _ value: Self) -> Int
     static func serialize(_ bytes: NSMutableData, _ offset: Int, _ value: Self?) -> Int
     
-}
-
-public protocol Deserializable: ZeroFormattable {
-
     static func deserialize(_ bytes: NSData, _ offset: Int, _ byteSize: inout Int) -> Self
     static func deserialize(_ bytes: NSData, _ offset: Int, _ byteSize: inout Int) -> Self?
 
@@ -45,13 +41,12 @@ public protocol Deserializable: ZeroFormattable {
 
 public protocol PrimitiveSerializable: Serializable {}
 
-public protocol PrimitiveDeserializable: Deserializable {}
-
 // MARK: - Object Protocol
 
 public protocol ObjectSerializable: Serializable {
     
     static func serialize(_ value: Self, _ builder: ObjectBuilder)
+    static func deserialize(_ extractor: ObjectExtractor) -> Self
     
 }
 
@@ -71,17 +66,11 @@ public extension ObjectSerializable {
             return BinaryUtility.serialize(bytes, -1) // byteSize
         }
     }
-    
+
 }
 
-public protocol ObjectDeserializable: Deserializable {
+public extension ObjectSerializable {
     
-    static func deserialize(_ extractor: ObjectExtractor) -> Self
-    
-}
-
-public extension ObjectDeserializable {
-
     public static func deserialize(_ bytes: NSData, _ offset: Int, _ byteSize: inout Int) -> Self {
         let value: Self? = deserialize(bytes, offset, &byteSize)
         if value == nil {
@@ -107,6 +96,7 @@ public extension ObjectDeserializable {
 public protocol StructSerializable: Serializable {
     
     static func serialize(_ value: Self, _ builder: StructBuilder)
+    static func deserialize(_ extractor: StructExtractor) -> Self
     
 }
 
@@ -129,13 +119,7 @@ public extension StructSerializable {
     
 }
 
-public protocol StructDeserializable: Deserializable {
-    
-    static func deserialize(_ extractor: StructExtractor) -> Self
-    
-}
-
-public extension StructDeserializable {
+public extension StructSerializable {
     
     public static func deserialize(_ bytes: NSData, _ offset: Int, _ byteSize: inout Int) -> Self {
         let value: Self? = deserialize(bytes, offset, &byteSize)

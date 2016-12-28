@@ -9,7 +9,7 @@
 import Foundation
 import ZeroFormatter
 
-struct VariableSizeObject: ObjectSerializable, ObjectDeserializable {
+struct VariableSizeObject: ObjectSerializable {
     
     let a: Int32
     let b: String
@@ -35,7 +35,7 @@ struct VariableSizeObject: ObjectSerializable, ObjectDeserializable {
     
 }
 
-struct VariableSizeStruct: StructSerializable, StructDeserializable {
+struct VariableSizeStruct: StructSerializable {
     
     let a: Int32
     let b: String
@@ -61,7 +61,7 @@ struct VariableSizeStruct: StructSerializable, StructDeserializable {
     
 }
 
-struct FixedSizeObject: ObjectSerializable, ObjectDeserializable {
+struct FixedSizeObject: ObjectSerializable {
     
     let a: Int32
     let b: UInt8
@@ -87,7 +87,7 @@ struct FixedSizeObject: ObjectSerializable, ObjectDeserializable {
     
 }
 
-struct FixedSizeObject_2: ObjectSerializable, ObjectDeserializable {
+struct FixedSizeObject_2: ObjectSerializable {
     
     let a: Int32
     let b: Int64
@@ -116,7 +116,7 @@ struct FixedSizeObject_2: ObjectSerializable, ObjectDeserializable {
     
 }
 
-struct FixedSizeStruct: StructSerializable, StructDeserializable {
+struct FixedSizeStruct: StructSerializable {
     
     let a: UInt8
     let b: Int32
@@ -145,7 +145,7 @@ struct FixedSizeStruct: StructSerializable, StructDeserializable {
     
 }
 
-struct FixedSizeStruct_2: StructSerializable, StructDeserializable {
+struct FixedSizeStruct_2: StructSerializable {
     
     let x: UInt32
     let y: FixedSizeObject_2?

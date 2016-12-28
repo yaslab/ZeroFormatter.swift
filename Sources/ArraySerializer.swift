@@ -40,7 +40,7 @@ internal enum ArraySerializer {
 
     // MARK: - deserialize
     
-    public static func deserialize<T: Deserializable>(_ bytes: NSData, _ offset: Int, _ byteSize: inout Int) -> Array<T>? {
+    public static func deserialize<T: Serializable>(_ bytes: NSData, _ offset: Int, _ byteSize: inout Int) -> Array<T>? {
         let start = byteSize
         let length: Int = BinaryUtility.deserialize(bytes, offset + (byteSize - start), &byteSize)
         if length < 0 {

@@ -27,19 +27,19 @@ public class ObjectExtractor {
     
     // -----
     
-    public func extract<T: Deserializable>(index: Int) -> T {
+    public func extract<T: Serializable>(index: Int) -> T {
         var tmp = 0
         let indexOffset: Int = BinaryUtility.deserialize(bytes, offset + 4 + 4 + (4 * index), &tmp)
         return T.deserialize(bytes, Int(indexOffset), &tmp)
     }
 
-    public func extract<T: Deserializable>(index: Int) -> T? {
+    public func extract<T: Serializable>(index: Int) -> T? {
         var tmp = 0
         let indexOffset: Int = BinaryUtility.deserialize(bytes, offset + 4 + 4 + (4 * index), &tmp)
         return T.deserialize(bytes, Int(indexOffset), &tmp)
     }
     
-    public func extract<T: Deserializable>(index: Int) -> Array<T>? {
+    public func extract<T: Serializable>(index: Int) -> Array<T>? {
         var tmp = 0
         let indexOffset: Int = BinaryUtility.deserialize(bytes, offset + 4 + 4 + (4 * index), &tmp)
         

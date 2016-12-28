@@ -8,45 +8,45 @@
 
 import Foundation
 
-extension Int8: ZeroFormattable {
+extension Int8: Formattable {
     public static var length: Int? { return 1 }
 }
-extension Int16: ZeroFormattable {
+extension Int16: Formattable {
     public static var length: Int? { return 2 }
 }
-extension Int32: ZeroFormattable {
+extension Int32: Formattable {
     public static var length: Int? { return 4 }
 }
-extension Int64: ZeroFormattable {
+extension Int64: Formattable {
     public static var length: Int? { return 8 }
 }
 
-extension UInt8: ZeroFormattable {
+extension UInt8: Formattable {
     public static var length: Int? { return 1 }
 }
-extension UInt16: ZeroFormattable {
+extension UInt16: Formattable {
     public static var length: Int? { return 2 }
 }
-extension UInt32: ZeroFormattable {
+extension UInt32: Formattable {
     public static var length: Int? { return 4 }
 }
-extension UInt64: ZeroFormattable {
+extension UInt64: Formattable {
     public static var length: Int? { return 8 }
 }
 
-extension Float: ZeroFormattable {
+extension Float: Formattable {
     public static var length: Int? { return 4 }
 }
-extension Double: ZeroFormattable {
+extension Double: Formattable {
     public static var length: Int? { return 8 }
 }
-extension Bool: ZeroFormattable {
+extension Bool: Formattable {
     public static var length: Int? { return 1 }
 }
 
-extension Date: ZeroFormattable {
+extension Date: Formattable {
     public static var length: Int? { return TimeSpan.length }
 }
-extension String: ZeroFormattable {
+extension String: Formattable {
     public static var length: Int? { return nil }
 }

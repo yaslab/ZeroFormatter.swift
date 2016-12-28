@@ -26,15 +26,15 @@ public class StructExtractor {
     
     // -----
     
-    public func extract<T: Deserializable>(index: Int) -> T {
+    public func extract<T: Serializable>(index: Int) -> T {
         return T.deserialize(bytes, currentOffset, &currentOffset)
     }
     
-    public func extract<T: Deserializable>(index: Int) -> T? {
+    public func extract<T: Serializable>(index: Int) -> T? {
         return T.deserialize(bytes, currentOffset, &currentOffset)
     }
     
-    public func extract<T: Deserializable>(index: Int) -> Array<T>? {
+    public func extract<T: Serializable>(index: Int) -> Array<T>? {
         return ArraySerializer.deserialize(bytes, currentOffset, &currentOffset)
     }
 

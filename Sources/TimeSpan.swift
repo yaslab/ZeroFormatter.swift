@@ -8,7 +8,7 @@
 
 import Foundation
 
-public struct TimeSpan: Serializable, Deserializable {
+public struct TimeSpan: Serializable {
     
     public let totalSeconds: TimeInterval
     

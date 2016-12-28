@@ -117,7 +117,7 @@ public class List<T>: RandomAccessCollection {
 
 }
 
-public class FixedSizeList<T: Deserializable>: List<T> {
+public class FixedSizeList<T: Serializable>: List<T> {
     
     let _itemSize: Int
     
@@ -140,7 +140,7 @@ public class FixedSizeList<T: Deserializable>: List<T> {
     
 }
 
-public class VariableSizeList<T: Deserializable>: List<T> {
+public class VariableSizeList<T: Serializable>: List<T> {
     
     let _byteSize: Int
     

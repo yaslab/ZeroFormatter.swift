@@ -8,7 +8,7 @@
 
 import Foundation
 
-public struct DateTimeOffset: Serializable, Deserializable {
+public struct DateTimeOffset: Serializable {
 
     public let timeIntervalSince1970: TimeInterval
     public let secondsFromGMT: Int
