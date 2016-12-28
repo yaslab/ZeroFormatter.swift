@@ -78,4 +78,4 @@ Implementation of [ZeroFormatter](https://github.com/neuecc/ZeroFormatter) in Sw
 
 | Implemented | Swift type | C# type | Note |
 | ---- | ---- | ---- | ---- |
-| | TBD | `Union` | if byteSize = -1, indicates null |
+| | `Union?` | `Union` | if byteSize = -1, indicates null |
