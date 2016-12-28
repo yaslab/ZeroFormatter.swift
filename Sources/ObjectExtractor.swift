@@ -13,10 +13,10 @@ public class ObjectExtractor {
     private let bytes: NSData
     private let offset: Int
     
-    let byteSize: Int
-    let isNil: Bool
+    public let byteSize: Int
+    public let isNil: Bool
     
-    internal init(_ bytes: NSData, _ offset: Int) {
+    public init(_ bytes: NSData, _ offset: Int) {
         self.bytes = bytes
         self.offset = offset
         var tmp = 0
