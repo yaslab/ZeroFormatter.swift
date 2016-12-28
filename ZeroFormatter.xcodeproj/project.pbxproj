@@ -26,6 +26,24 @@
 		0E7E51801E02EB7C00D14CAE /* DateTimeOffsetTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E7E517F1E02EB7C00D14CAE /* DateTimeOffsetTestCase.swift */; };
 		0E7E51821E02F25A00D14CAE /* Union.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E7E51811E02F25A00D14CAE /* Union.swift */; };
 		0E8AD7F21E13D1850042A81C /* UnionTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E8AD7F11E13D1850042A81C /* UnionTestCase.swift */; };
+		0E96F3D91E143C5700A1B009 /* ZeroFormatter.h in Headers */ = {isa = PBXBuildFile; fileRef = 0E2E630F1DE5F90D005C9DDB /* ZeroFormatter.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		0E96F3DA1E143C7300A1B009 /* ArraySerializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EF7B0A61DFDBC65007C5CD6 /* ArraySerializer.swift */; };
+		0E96F3DB1E143C7300A1B009 /* BinaryUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E32412B1E004784003C4080 /* BinaryUtility.swift */; };
+		0E96F3DC1E143C7300A1B009 /* DateTimeOffset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E7E517D1E02DF9B00D14CAE /* DateTimeOffset.swift */; };
+		0E96F3DD1E143C7300A1B009 /* deserialize().swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EF7B09A1DFD847B007C5CD6 /* deserialize().swift */; };
+		0E96F3DE1E143C7300A1B009 /* List.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EF65A671DF4483700524C21 /* List.swift */; };
+		0E96F3DF1E143C7300A1B009 /* ListSerializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E3241291E0038CE003C4080 /* ListSerializer.swift */; };
+		0E96F3E01E143C7300A1B009 /* ObjectBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E2E63161DE6024F005C9DDB /* ObjectBuilder.swift */; };
+		0E96F3E11E143C7300A1B009 /* ObjectExtractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E2F45F11DE721900088B4EA /* ObjectExtractor.swift */; };
+		0E96F3E21E143C7300A1B009 /* PrimitiveDeserializable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E2F45EF1DE705440088B4EA /* PrimitiveDeserializable.swift */; };
+		0E96F3E31E143C7300A1B009 /* PrimitiveFormattable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E2B8ED91DEDE35100B157D9 /* PrimitiveFormattable.swift */; };
+		0E96F3E41E143C7300A1B009 /* PrimitiveSerializable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E2E63121DE5FBFF005C9DDB /* PrimitiveSerializable.swift */; };
+		0E96F3E51E143C7300A1B009 /* serialize().swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E2E63141DE600A9005C9DDB /* serialize().swift */; };
+		0E96F3E61E143C7300A1B009 /* StructBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E2B8ED31DEB005600B157D9 /* StructBuilder.swift */; };
+		0E96F3E71E143C7300A1B009 /* StructExtractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E2B8ED51DEB0BD000B157D9 /* StructExtractor.swift */; };
+		0E96F3E81E143C7300A1B009 /* TimeSpan.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EB0BDA11E01A9410038EACE /* TimeSpan.swift */; };
+		0E96F3E91E143C7300A1B009 /* Union.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E7E51811E02F25A00D14CAE /* Union.swift */; };
+		0E96F3EA1E143C7300A1B009 /* ZeroFormattable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E2E62FE1DE5F83F005C9DDB /* ZeroFormattable.swift */; };
 		0EB0BDA21E01A9410038EACE /* TimeSpan.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EB0BDA11E01A9410038EACE /* TimeSpan.swift */; };
 		0EB0BDA41E01AD220038EACE /* TimeSpanTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EB0BDA31E01AD210038EACE /* TimeSpanTestCase.swift */; };
 		0ECF41EA1DFC405C00B90FB3 /* ListTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ECF41E91DFC405C00B90FB3 /* ListTestCase.swift */; };
@@ -74,6 +92,7 @@
 		0E7E517F1E02EB7C00D14CAE /* DateTimeOffsetTestCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateTimeOffsetTestCase.swift; sourceTree = "<group>"; };
 		0E7E51811E02F25A00D14CAE /* Union.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Union.swift; sourceTree = "<group>"; };
 		0E8AD7F11E13D1850042A81C /* UnionTestCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UnionTestCase.swift; sourceTree = "<group>"; };
+		0E96F3D11E143BF500A1B009 /* ZeroFormatter.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ZeroFormatter.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		0EB0BDA11E01A9410038EACE /* TimeSpan.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeSpan.swift; sourceTree = "<group>"; };
 		0EB0BDA31E01AD210038EACE /* TimeSpanTestCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeSpanTestCase.swift; sourceTree = "<group>"; };
 		0ECF41E91DFC405C00B90FB3 /* ListTestCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListTestCase.swift; sourceTree = "<group>"; };
@@ -105,6 +124,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		0E96F3CD1E143BF500A1B009 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -125,6 +151,7 @@
 			children = (
 				0E2E63051DE5F8AF005C9DDB /* ZeroFormatter.framework */,
 				0E2F46061DE887E50088B4EA /* ZeroFormatterTests.xctest */,
+				0E96F3D11E143BF500A1B009 /* ZeroFormatter.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -209,6 +236,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		0E96F3CE1E143BF500A1B009 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0E96F3D91E143C5700A1B009 /* ZeroFormatter.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
@@ -248,6 +283,24 @@
 			productReference = 0E2F46061DE887E50088B4EA /* ZeroFormatterTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
+		0E96F3D01E143BF500A1B009 /* ZeroFormatter-iOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 0E96F3D61E143BF600A1B009 /* Build configuration list for PBXNativeTarget "ZeroFormatter-iOS" */;
+			buildPhases = (
+				0E96F3CC1E143BF500A1B009 /* Sources */,
+				0E96F3CD1E143BF500A1B009 /* Frameworks */,
+				0E96F3CE1E143BF500A1B009 /* Headers */,
+				0E96F3CF1E143BF500A1B009 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "ZeroFormatter-iOS";
+			productName = "ZeroFormatter-iOS";
+			productReference = 0E96F3D11E143BF500A1B009 /* ZeroFormatter.framework */;
+			productType = "com.apple.product-type.framework";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -268,6 +321,10 @@
 						LastSwiftMigration = 0810;
 						ProvisioningStyle = Automatic;
 					};
+					0E96F3D01E143BF500A1B009 = {
+						CreatedOnToolsVersion = 8.2.1;
+						ProvisioningStyle = Automatic;
+					};
 				};
 			};
 			buildConfigurationList = 0E2E62EE1DE5F7BF005C9DDB /* Build configuration list for PBXProject "ZeroFormatter" */;
@@ -282,6 +339,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
+				0E96F3D01E143BF500A1B009 /* ZeroFormatter-iOS */,
 				0E2E63041DE5F8AF005C9DDB /* ZeroFormatter-macOS */,
 				0E2F46051DE887E50088B4EA /* ZeroFormatterTests-macOS */,
 			);
@@ -297,6 +355,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		0E2F46041DE887E50088B4EA /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0E96F3CF1E143BF500A1B009 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -347,6 +412,30 @@
 				0EF7B0A51DFDA602007C5CD6 /* TestUtility.swift in Sources */,
 				0EF7B0A11DFD9CFA007C5CD6 /* PrimitiveDeserializeTestCase.swift in Sources */,
 				0E7E51801E02EB7C00D14CAE /* DateTimeOffsetTestCase.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0E96F3CC1E143BF500A1B009 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0E96F3E41E143C7300A1B009 /* PrimitiveSerializable.swift in Sources */,
+				0E96F3E51E143C7300A1B009 /* serialize().swift in Sources */,
+				0E96F3E01E143C7300A1B009 /* ObjectBuilder.swift in Sources */,
+				0E96F3E71E143C7300A1B009 /* StructExtractor.swift in Sources */,
+				0E96F3E21E143C7300A1B009 /* PrimitiveDeserializable.swift in Sources */,
+				0E96F3DD1E143C7300A1B009 /* deserialize().swift in Sources */,
+				0E96F3E31E143C7300A1B009 /* PrimitiveFormattable.swift in Sources */,
+				0E96F3DA1E143C7300A1B009 /* ArraySerializer.swift in Sources */,
+				0E96F3E11E143C7300A1B009 /* ObjectExtractor.swift in Sources */,
+				0E96F3EA1E143C7300A1B009 /* ZeroFormattable.swift in Sources */,
+				0E96F3DC1E143C7300A1B009 /* DateTimeOffset.swift in Sources */,
+				0E96F3DE1E143C7300A1B009 /* List.swift in Sources */,
+				0E96F3DB1E143C7300A1B009 /* BinaryUtility.swift in Sources */,
+				0E96F3E61E143C7300A1B009 /* StructBuilder.swift in Sources */,
+				0E96F3E81E143C7300A1B009 /* TimeSpan.swift in Sources */,
+				0E96F3DF1E143C7300A1B009 /* ListSerializer.swift in Sources */,
+				0E96F3E91E143C7300A1B009 /* Union.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -402,6 +491,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -445,6 +535,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = macosx;
@@ -533,6 +624,57 @@
 			};
 			name = Release;
 		};
+		0E96F3D71E143BF600A1B009 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = ZeroFormatter/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = net.yaslab.ZeroFormatter;
+				PRODUCT_NAME = ZeroFormatter;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		0E96F3D81E143BF600A1B009 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = ZeroFormatter/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = net.yaslab.ZeroFormatter;
+				PRODUCT_NAME = ZeroFormatter;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -562,6 +704,14 @@
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
+		};
+		0E96F3D61E143BF600A1B009 /* Build configuration list for PBXNativeTarget "ZeroFormatter-iOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0E96F3D71E143BF600A1B009 /* Debug */,
+				0E96F3D81E143BF600A1B009 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
 		};
 /* End XCConfigurationList section */
 	};
