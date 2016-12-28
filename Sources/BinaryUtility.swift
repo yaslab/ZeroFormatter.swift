@@ -242,6 +242,8 @@ internal enum BinaryUtility {
     // MARK: - Int (offset)
     
     internal static func serialize(_ bytes: NSMutableData, _ offset: Int, _ value: Int) -> Int {
+        assert(bytes.length >= (offset + 4))
+        
         let byteSize = 4
         let value = Int32(value).littleEndian
         (bytes.mutableBytes + offset).assumingMemoryBound(to: Int32.self)[0] = value
