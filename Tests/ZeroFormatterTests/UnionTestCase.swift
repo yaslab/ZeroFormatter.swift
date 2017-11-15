@@ -168,8 +168,14 @@ class UnionTestCase: XCTestCase {
         switch union!.key {
         case "Monster":
             let demon2 = union!.value as! Monster
+            XCTAssertEqual(demon.race, demon2.race)
+            XCTAssertEqual(demon.power, demon2.power)
+            XCTAssertEqual(demon.magic, demon2.magic)
+            
         case "Human":
-            let human2 = union!.value as! Human
+            //let human2 = union!.value as! Human
+            break
+
         default:
             fatalError()
         }
